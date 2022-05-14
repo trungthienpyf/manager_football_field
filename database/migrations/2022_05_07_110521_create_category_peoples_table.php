@@ -16,7 +16,6 @@ class CreateCategoryPeoplesTable extends Migration
         Schema::create('category_peoples', function (Blueprint $table) {
             $table->id();
             $table->string('name_category');
-
             $table->timestamps();
         });
     }

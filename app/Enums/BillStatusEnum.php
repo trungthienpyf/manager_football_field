@@ -9,7 +9,7 @@ use BenSampo\Enum\Enum;
  * @method static static OptionTwo()
  * @method static static OptionThree()
  */
-final class FootBallFiedlStatusEnum extends Enum
+final class BillStatusEnum extends Enum
 {
     const OptionOne =   0;
     const OptionTwo =   1;
