@@ -19,24 +19,33 @@
     Ảnh
     <input type="file" name="img">
     <br>
-    Chọn khu vực
-    @foreach($area as $each)
-    <select name="area_id" >
-        <option value="{{$each->id}}">
-        {{$each->name}}
-        </option>
+    Khu vực
+    <select name="area_id">
+        @foreach($area as $each)
+            <option value="{{$each->id}}">
+                {{$each->name}}
+            </option>
+        @endforeach
     </select>
+    <br>
+    Trạng thái
+    @foreach($status as $key => $value)
+        <input type="radio" name="status" value="{{ $value }}"
+
+        >
+        {{$key}}
     @endforeach
     <br>
-    Chọn thể loại người
-    @foreach($category_people as $each)
-        <select name="category_people" >
+    Loại người
+    <select name="category_id">
+        @foreach($category_people as $each)
             <option value="{{$each->id}}">
                 {{$each->name_category}}
             </option>
-        </select>
-    @endforeach
+        @endforeach
+    </select>
     <br>
+    @include('error')
     <button>Submit</button>
 </form>
 </body>

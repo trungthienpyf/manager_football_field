@@ -11,7 +11,17 @@ use BenSampo\Enum\Enum;
  */
 final class FootBallFieldStatusEnum extends Enum
 {
-    const OptionOne =   0;
-    const OptionTwo =   1;
-    const OptionThree = 2;
+    const TRONG = 0;
+    const DANG_THUE = 1;
+    const DANG_SUA_CHUA = 2;
+
+    public static function getArrayView()
+    {
+        return [
+            'Trống' => self::TRONG,
+            'Đang Cho Thuê' => self::DANG_THUE,
+            'Đang Sửa Chữa' => self::DANG_SUA_CHUA,
+        ];
+    }
+
 }

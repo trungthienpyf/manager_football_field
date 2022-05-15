@@ -14,9 +14,10 @@
         <th>Tên</th>
         <th>Hình</th>
         <th>Giá</th>
+        <th>Trạng thái</th>
         <th>Khu vực</th>
         <th>Loại người</th>
-        <th>Giá</th>
+
         <th>Sửa</th>
         <th>Xóa</th>
     </tr>
@@ -24,9 +25,14 @@
         <tr>
             <td>{{$each->id}}</td>
             <td>{{$each->name}}</td>
-            <td>{{$each->img}}</td>
+
+            <td><img src="{{ url('/storage') }}/{{$each->img}}" alt="" width="100px" ></td>
             <td>{{$each->price}}</td>
-            <td>{{$each->area_id->name}}</td>
+
+            <td>{{$each->getKeyByValue($each->status)}}</td>
+
+            <td>{{$each->area->name}}</td>
+            <td>{{$each->category->name_category}}</td>
 
             <td><a href=" {{route('football_field.edit',$each)}}">Sửa</a></td>
             <td>
