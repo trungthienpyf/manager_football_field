@@ -11,7 +11,16 @@
 <form action="{{route('category_people.store')}} " method="post">
     @csrf
     Tên thể loại
-    <input type="text" name="name">
+    <input type="text" name="name_category">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <br>
     <button>Submit</button>
 </form>

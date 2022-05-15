@@ -8,6 +8,7 @@
     <title>Document</title>
 </head>
 <body>
+
 <table border="1" width="100%">
     <tr>
         <th>#</th>
@@ -25,7 +26,17 @@
                     @csrf
                     @method('delete')
                     <button>Delete</button>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </form>
+
             </td>
         </tr>
     @endforeach

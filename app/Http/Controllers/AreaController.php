@@ -1,15 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
-
-
+use App\Http\Requests\Area\DestroyRequest;
+use App\Http\Requests\Area\StoreRequest;
+use App\Http\Requests\Area\UpdateRequest;
 use App\Models\Area;
-use Illuminate\Http\Request;
 
 class AreaController extends Controller
 {
-    private string $table='area';
+
    public function index(){
       $area= Area::all();
        return view('area.index',[
@@ -20,10 +19,10 @@ class AreaController extends Controller
 
         return view('area.create');
     }
-    public function store(Request $request){
+    public function store(StoreRequest $request){
         $area = new Area();
 
-        $area->name=$request->name;
+        $area->fill($request->validated());
 
         $area->save();
         return redirect()->route('area.index');
@@ -33,15 +32,16 @@ class AreaController extends Controller
             'area' => $area
         ]);
     }
-    public function update(Request $request,Area $area){
+    public function update(UpdateRequest $request, Area $area){
 
-        $area->name=$request->name;
+        $area->fill($request->validated());
 
         $area->update();
         return redirect()->route('area.index');
     }
-    public function destroy(Area $area){
-        $area->delete();
+    public function destroy(DestroyRequest $request, $area){
+//        $area->delete();
+        Area::destroy($area);
         return redirect()->route('area.index');
     }
 }

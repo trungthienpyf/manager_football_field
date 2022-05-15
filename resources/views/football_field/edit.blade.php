@@ -8,20 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-<form action="{{route('category_people.update',$category)}} " method="post">
+<form action="{{route('football_field.update',$football_field)}} " method="post">
     @csrf
     @method('put')
     Tên khu vực
-    <input type="text" name="name_category" value="{{$category->name_category}}" >
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <input type="text" name="name" value="{{$football_field->name_category}}">
     <br>
     <button>Submit</button>
 </form>

@@ -13,8 +13,17 @@
     @method('put')
     Tên khu vực
     <input type="text" name="name" value="{{$area->name}}">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <br>
-    <button>Submit</button>
+    <button>Sửa</button>
 </form>
 </body>
 </html>

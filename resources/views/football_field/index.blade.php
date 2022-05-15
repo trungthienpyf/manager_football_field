@@ -11,26 +11,34 @@
 <table border="1" width="100%">
     <tr>
         <th>#</th>
-        <th>Name</th>
+        <th>Tên</th>
+        <th>Hình</th>
+        <th>Giá</th>
+        <th>Khu vực</th>
+        <th>Loại người</th>
+        <th>Giá</th>
         <th>Sửa</th>
         <th>Xóa</th>
     </tr>
-    @foreach ($category as $each)
+    @foreach ($football_field as $each)
         <tr>
             <td>{{$each->id}}</td>
-            <td>{{$each->name_category}}</td>
-            <td><a href=" {{route('category_people.edit',$each)}}">Sửa</a></td>
+            <td>{{$each->name}}</td>
+            <td>{{$each->img}}</td>
+            <td>{{$each->price}}</td>
+            <td>{{$each->area_id->name}}</td>
+
+            <td><a href=" {{route('football_field.edit',$each)}}">Sửa</a></td>
             <td>
-                <form action="{{route('category_people.destroy',$each)}}" method="post" >
+                <form action="{{route('football_field.destroy',$each)}}" method="post" >
                     @csrf
                     @method('delete')
-                    <button>Delete</button>
-                   @include('error')
+                    <button>Xóa</button>
                 </form>
             </td>
         </tr>
     @endforeach
 </table>
-<a href="{{route('category_people.create')}}">Create</a>
+<a href="{{route('football_field.create')}}">Create</a>
 </body>
 </html>

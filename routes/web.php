@@ -2,20 +2,8 @@
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CategoryPeopleController;
-
+use App\Http\Controllers\FootBallFieldController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -36,3 +24,10 @@ Route::post('/category_people', [CategoryPeopleController::class, 'store'])->nam
 Route::get('/category_people/edit/{category}', [CategoryPeopleController::class, 'edit'])->name('category_people.edit');
 Route::put('/category_people/{category}', [CategoryPeopleController::class, 'update'])->name('category_people.update');
 Route::delete('/category_people/{category}', [CategoryPeopleController::class, 'destroy'])->name('category_people.destroy');
+
+Route::get('/football_field', [FootBallFieldController::class,'index'])->name('football_field.index');
+Route::get('/football_field/create', [FootBallFieldController::class,'create'])->name('football_field.create');
+Route::post('/football_field', [FootBallFieldController::class, 'store'])->name('football_field.store');
+Route::get('/football_field/edit/{category}', [FootBallFieldController::class, 'edit'])->name('football_field.edit');
+Route::put('/football_field/{category}', [FootBallFieldController::class, 'update'])->name('football_field.update');
+Route::delete('/football_field/{category}', [FootBallFieldController::class, 'destroy'])->name('football_field.destroy');

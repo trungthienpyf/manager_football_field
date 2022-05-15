@@ -11,9 +11,18 @@
 <form action="{{route('area.store')}} " method="post">
     @csrf
     Tên khu vực
-    <input type="text" name="name">
+    <input type="text" name="name" value="{{old('name')}}">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <br>
-    <button>Submit</button>
+    <button>Thêm</button>
 </form>
 </body>
 </html>

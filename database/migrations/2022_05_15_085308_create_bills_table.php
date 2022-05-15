@@ -16,11 +16,11 @@ class CreateBillsTable extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->timestamp('time_created')->useCurrent();
-            $table->tinyInteger('status')->comment('BillStatusEnum');
+            $table->tinyInteger('status')->comment('BillStatusEnum')->default('0');
             $table->timestamp('time_receive');
             $table->timestamp('time_end');
             $table->foreignId('customer_id')->constrained('customers');
-            $table->foreignId('football_field_id')->constrained('football_fields');
+            $table->foreignId('football_field_id')->constrained('foot_ball_fields');
             $table->foreignId('admin_id')->constrained('admins');
             $table->timestamps();
         });

@@ -13,14 +13,14 @@ class CreateFootBallFieldsTable extends Migration
      */
     public function up()
     {
-        Schema::create('football_fields', function (Blueprint $table) {
+        Schema::create('foot_ball_fields', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->integer('price');
             $table->text('img');
-            $table->tinyInteger('status')->comment('FootBallFieldStatusEnum');
+            $table->tinyInteger('status')->comment('FootBallFieldStatusEnum')->default('0');
             $table->foreignId('area_id')->constrained('areas');
-            $table->foreignId('category_id')->constrained('category_peoples');
+            $table->foreignId('category_id')->constrained('category_people');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateFootBallFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('football_fields');
+        Schema::dropIfExists('foot_ball_fields');
     }
 }
