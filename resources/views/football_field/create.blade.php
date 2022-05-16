@@ -31,7 +31,9 @@
     Trạng thái
     @foreach($status as $key => $value)
         <input type="radio" name="status" value="{{ $value }}"
-
+               @if ($loop->first)
+            checked
+            @endif
         >
         {{$key}}
     @endforeach

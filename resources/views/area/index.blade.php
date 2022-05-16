@@ -26,21 +26,14 @@
                     @csrf
                     @method('delete')
                     <button>Delete</button>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+
                 </form>
 
             </td>
         </tr>
     @endforeach
 </table>
+@include('error')
 <a href="{{route('area.create')}}">Create</a>
 </body>
 </html>

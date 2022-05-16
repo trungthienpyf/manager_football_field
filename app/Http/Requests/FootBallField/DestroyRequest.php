@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\FootBallField;
 
+use App\Models\CategoryPeople;
+use App\Models\FootBallField;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DestroyRequest extends FormRequest
 {
@@ -13,7 +16,7 @@ class DestroyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +27,22 @@ class DestroyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'football_field' =>[
+                'required',
+                Rule::exists(FootBallField::class,'id')
+            ]
+        ];
+    }
+    protected function prepareForValidation()
+    {
+        $this->merge(['football_field' => $this->route('football_field')]);
+    }
+
+    public function messages()
+    {
+        return [
+            'required'=>'Không được để trống ID',
+            'exists' =>'ID không tồn tại',
         ];
     }
 }

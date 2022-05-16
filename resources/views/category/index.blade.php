@@ -25,12 +25,13 @@
                     @csrf
                     @method('delete')
                     <button>Delete</button>
-                   @include('error')
+
                 </form>
             </td>
         </tr>
     @endforeach
 </table>
+@include('error')
 <a href="{{route('category_people.create')}}">Create</a>
 </body>
 </html>

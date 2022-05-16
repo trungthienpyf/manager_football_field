@@ -56,4 +56,23 @@ class StoreRequest extends FormRequest
             ]
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'required' =>':attribute không để trống',
+            'gt' =>':attribute không được để âm',
+            'exists' =>':attribute phải là tồn tại',
+        ];
+    }
+    public function attributes()
+    {
+        return [
+            'name' => 'Tên',
+            'price' => 'Giá',
+            'status' => 'Trạng thái',
+            'area_id' => 'Khu vực',
+            'category_id' => 'Loại người',
+        ];
+    }
 }

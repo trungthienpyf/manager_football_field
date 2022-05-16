@@ -28,6 +28,6 @@ Route::delete('/category_people/{category}', [CategoryPeopleController::class, '
 Route::get('/football_field', [FootBallFieldController::class,'index'])->name('football_field.index');
 Route::get('/football_field/create', [FootBallFieldController::class,'create'])->name('football_field.create');
 Route::post('/football_field', [FootBallFieldController::class, 'store'])->name('football_field.store');
-Route::get('/football_field/edit/{category}', [FootBallFieldController::class, 'edit'])->name('football_field.edit');
-Route::put('/football_field/{category}', [FootBallFieldController::class, 'update'])->name('football_field.update');
-Route::delete('/football_field/{category}', [FootBallFieldController::class, 'destroy'])->name('football_field.destroy');
+Route::get('/football_field/edit/{football_field}', [FootBallFieldController::class, 'edit'])->name('football_field.edit');
+Route::put('/football_field/{football_field}', [FootBallFieldController::class, 'update'])->name('football_field.update');
+Route::delete('/football_field/{football_field}', [FootBallFieldController::class, 'destroy'])->name('football_field.destroy');

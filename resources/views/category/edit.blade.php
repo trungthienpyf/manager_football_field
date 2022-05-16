@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-<form action="{{route('category_people.update',$category)}} " method="post">
+<form action="{{route('category_people.update',$category)}} " method="post" enctype="multipart/form-data">
     @csrf
     @method('put')
     Tên khu vực

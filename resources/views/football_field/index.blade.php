@@ -17,7 +17,6 @@
         <th>Trạng thái</th>
         <th>Khu vực</th>
         <th>Loại người</th>
-
         <th>Sửa</th>
         <th>Xóa</th>
     </tr>
@@ -40,11 +39,14 @@
                     @csrf
                     @method('delete')
                     <button>Xóa</button>
+
                 </form>
+
             </td>
         </tr>
     @endforeach
 </table>
+@include('error')
 <a href="{{route('football_field.create')}}">Create</a>
 </body>
 </html>
