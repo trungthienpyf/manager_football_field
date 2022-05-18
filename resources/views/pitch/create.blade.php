@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-<form action="{{route('football_field.store')}} " method="post" enctype="multipart/form-data">
+<form action="{{route('pitch.store')}} " method="post" enctype="multipart/form-data">
     @csrf
     Tên thể loại
     <input type="text" name="name">
@@ -39,10 +39,10 @@
     @endforeach
     <br>
     Loại người
-    <select name="category_id">
-        @foreach($category_people as $each)
+    <select name="size_id">
+        @foreach($size as $each)
             <option value="{{$each->id}}">
-                {{$each->name_category}}
+                {{$each->size}}
             </option>
         @endforeach
     </select>

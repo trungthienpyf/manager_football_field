@@ -15,23 +15,22 @@
         <th>Sửa</th>
         <th>Xóa</th>
     </tr>
-    @foreach ($category as $each)
+    @foreach ($size as $each)
         <tr>
             <td>{{$each->id}}</td>
-            <td>{{$each->name_category}}</td>
-            <td><a href=" {{route('category_people.edit',$each)}}">Sửa</a></td>
+            <td>{{$each->size}}</td>
+            <td><a href=" {{route('size.edit',$each)}}">Sửa</a></td>
             <td>
-                <form action="{{route('category_people.destroy',$each)}}" method="post" >
+                <form action="{{route('size.destroy',$each)}}" method="post" >
                     @csrf
                     @method('delete')
                     <button>Delete</button>
-
                 </form>
             </td>
         </tr>
     @endforeach
 </table>
 @include('error')
-<a href="{{route('category_people.create')}}">Create</a>
+<a href="{{route('size.create')}}">Create</a>
 </body>
 </html>

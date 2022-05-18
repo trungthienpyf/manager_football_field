@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Requests\CategoryPeople;
+namespace App\Http\Requests\Size;
 
+
+use App\Models\Size;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +27,15 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name_category'=>[
+            'size'=>[
                 'bail',
                 'required',
-                'unique:App\Models\CategoryPeople,name_category',
+                Rule::unique(Size::class)->ignore($this->size)
             ]
         ];
     }
+
+
 
     public function messages()
     {

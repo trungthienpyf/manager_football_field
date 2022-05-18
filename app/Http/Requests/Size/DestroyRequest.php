@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\CategoryPeople;
+namespace App\Http\Requests\Size;
 
-
-use App\Models\CategoryPeople;
+use App\Models\Area;
+use App\Models\Size;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class DestroyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,22 +26,24 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'name_category'=>[
-                'bail',
+            'size' =>[
                 'required',
-                Rule::unique(CategoryPeople::class)->ignore($this->category)
+                Rule::exists(Size::class,'id')
             ]
         ];
     }
-
-
+    protected function prepareForValidation()
+    {
+        $this->merge(['size' => $this->route('size')]);
+    }
 
     public function messages()
     {
-        return[
-            'required'=>'Không được để trống',
-            'unique'=>'Tên bị trùng',
+        return [
+            'required'=>'Không được để trống ID',
+            'exists' =>'ID không tồn tại',
         ];
     }
 }

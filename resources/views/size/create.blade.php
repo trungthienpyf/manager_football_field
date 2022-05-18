@@ -8,11 +8,10 @@
     <title>Document</title>
 </head>
 <body>
-<form action="{{route('category_people.update',$category)}} " method="post" enctype="multipart/form-data">
+<form action="{{route('size.store')}} " method="post">
     @csrf
-    @method('put')
-    Tên khu vực
-    <input type="text" name="name_category" value="{{$category->name_category}}" >
+    Tên thể loại
+    <input type="text" name="size">
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>

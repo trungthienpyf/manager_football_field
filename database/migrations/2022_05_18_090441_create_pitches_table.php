@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFootBallFieldsTable extends Migration
+class CreatePitchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateFootBallFieldsTable extends Migration
      */
     public function up()
     {
-        Schema::create('foot_ball_fields', function (Blueprint $table) {
+        Schema::create('pitches', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->integer('price');
             $table->text('img');
-            $table->tinyInteger('status')->comment('FootBallFieldStatusEnum')->default('0');
+            $table->tinyInteger('status')->comment('PitchStatusEnum');
             $table->foreignId('area_id')->constrained('areas');
-            $table->foreignId('category_id')->constrained('category_people');
+            $table->foreignId('size_id')->constrained('sizes');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateFootBallFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('foot_ball_fields');
+        Schema::dropIfExists('pitches');
     }
 }

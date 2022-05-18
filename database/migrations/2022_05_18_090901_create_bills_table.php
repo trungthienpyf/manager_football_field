@@ -20,7 +20,7 @@ class CreateBillsTable extends Migration
             $table->timestamp('time_receive');
             $table->timestamp('time_end');
             $table->foreignId('customer_id')->constrained('customers');
-            $table->foreignId('football_field_id')->constrained('foot_ball_fields');
+            $table->foreignId('pitch_id')->constrained('pitches');
             $table->foreignId('admin_id')->constrained('admins');
             $table->timestamps();
         });

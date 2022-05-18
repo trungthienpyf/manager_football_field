@@ -20,7 +20,7 @@
         <th>Sửa</th>
         <th>Xóa</th>
     </tr>
-    @foreach ($football_field as $each)
+    @foreach ($pitch as $each)
         <tr>
             <td>{{$each->id}}</td>
             <td>{{$each->name}}</td>
@@ -31,11 +31,11 @@
             <td>{{$each->getKeyByValue($each->status)}}</td>
 
             <td>{{$each->area->name}}</td>
-            <td>{{$each->category->name_category}}</td>
+            <td>{{$each->size->size}}</td>
 
-            <td><a href=" {{route('football_field.edit',$each)}}">Sửa</a></td>
+            <td><a href=" {{route('pitch.edit',$each)}}">Sửa</a></td>
             <td>
-                <form action="{{route('football_field.destroy',$each)}}" method="post" >
+                <form action="{{route('pitch.destroy',$each)}}" method="post" >
                     @csrf
                     @method('delete')
                     <button>Xóa</button>
@@ -47,6 +47,6 @@
     @endforeach
 </table>
 @include('error')
-<a href="{{route('football_field.create')}}">Create</a>
+<a href="{{route('pitch.create')}}">Create</a>
 </body>
 </html>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryPeopleTable extends Migration
+class AddPitchIdColumnToPitch extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCategoryPeopleTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_people', function (Blueprint $table) {
-            $table->id();
-            $table->string('name_category');
-            $table->timestamps();
-        });
+        if (!Schema::hasColumn('pitches', 'pitch_id')) {
+            Schema::table('pitches', function (Blueprint $table) {
+                $table->integer('pitch_id')->nullable();
+            });
+        }
     }
 
     /**
@@ -27,6 +27,6 @@ class CreateCategoryPeopleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_people');
+
     }
 }

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Requests\CategoryPeople;
+namespace App\Http\Requests\Pitch;
 
-use App\Models\Area;
-use App\Models\CategoryPeople;
+use App\Models\Pitch;
+use App\Models\Size;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,15 +28,15 @@ class DestroyRequest extends FormRequest
     public function rules()
     {
         return [
-            'category' =>[
+            'pitch' =>[
                 'required',
-                Rule::exists(CategoryPeople::class,'id')
+                Rule::exists(Pitch::class,'id')
             ]
         ];
     }
     protected function prepareForValidation()
     {
-        $this->merge(['category' => $this->route('category')]);
+        $this->merge(['pitch' => $this->route('pitch')]);
     }
 
     public function messages()

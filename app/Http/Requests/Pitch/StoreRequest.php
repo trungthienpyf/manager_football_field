@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\FootBallField;
+namespace App\Http\Requests\Pitch;
 
-use App\Enums\FootBallFieldStatusEnum;
+use App\Enums\PitchStatusEnum;
 use App\Models\Area;
-use App\Models\CategoryPeople;
+use App\Models\Size;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -44,15 +44,15 @@ class StoreRequest extends FormRequest
             ],
             'status' => [
                 'required',
-                Rule::in(FootBallFieldStatusEnum::asArray()),
+                Rule::in(PitchStatusEnum::asArray()),
             ],
             'area_id' => [
                 'required',
                 Rule::exists(Area::class, 'id'),
             ],
-            'category_id' => [
+            'size_id' => [
                 'required',
-                Rule::exists(CategoryPeople::class, 'id'),
+                Rule::exists(Size::class, 'id'),
             ]
         ];
     }

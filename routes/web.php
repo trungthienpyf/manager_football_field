@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AreaController;
-use App\Http\Controllers\CategoryPeopleController;
-use App\Http\Controllers\FootBallFieldController;
+
+use App\Http\Controllers\PitchController;
+use App\Http\Controllers\SizeController;
+
+
 use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
@@ -18,16 +21,16 @@ Route::delete('/area/{area}', [AreaController::class, 'destroy'])->name('area.de
 
 
 
-Route::get('/category_people', [CategoryPeopleController::class,'index'])->name('category_people.index');
-Route::get('/category_people/create', [CategoryPeopleController::class,'create'])->name('category_people.create');
-Route::post('/category_people', [CategoryPeopleController::class, 'store'])->name('category_people.store');
-Route::get('/category_people/edit/{category}', [CategoryPeopleController::class, 'edit'])->name('category_people.edit');
-Route::put('/category_people/{category}', [CategoryPeopleController::class, 'update'])->name('category_people.update');
-Route::delete('/category_people/{category}', [CategoryPeopleController::class, 'destroy'])->name('category_people.destroy');
+Route::get('/size',[SizeController::class,'index'])->name('size.index');
+Route::get('/size/create', [SizeController::class,'create'])->name('size.create');
+Route::post('/size', [SizeController::class, 'store'])->name('size.store');
+Route::get('/size/edit/{size}', [SizeController::class, 'edit'])->name('size.edit');
+Route::put('/size/{size}', [SizeController::class, 'update'])->name('size.update');
+Route::delete('/size/{size}', [SizeController::class, 'destroy'])->name('size.destroy');
 
-Route::get('/football_field', [FootBallFieldController::class,'index'])->name('football_field.index');
-Route::get('/football_field/create', [FootBallFieldController::class,'create'])->name('football_field.create');
-Route::post('/football_field', [FootBallFieldController::class, 'store'])->name('football_field.store');
-Route::get('/football_field/edit/{football_field}', [FootBallFieldController::class, 'edit'])->name('football_field.edit');
-Route::put('/football_field/{football_field}', [FootBallFieldController::class, 'update'])->name('football_field.update');
-Route::delete('/football_field/{football_field}', [FootBallFieldController::class, 'destroy'])->name('football_field.destroy');
+Route::get('/pitch', [PitchController::class,'index'])->name('pitch.index');
+Route::get('/pitch/create', [PitchController ::class,'create'])->name('pitch.create');
+Route::post('/pitch', [PitchController ::class, 'store'])->name('pitch.store');
+Route::get('/pitch/edit/{pitch}', [PitchController ::class, 'edit'])->name('pitch.edit');
+Route::put('/pitch/{pitch}', [PitchController ::class, 'update'])->name('pitch.update');
+Route::delete('/pitch/{pitch}', [PitchController ::class, 'destroy'])->name('pitch.destroy');
