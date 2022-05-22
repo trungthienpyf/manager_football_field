@@ -8,34 +8,34 @@
     <title>Document</title>
 </head>
 <body>
-<form action="{{route('football_field.update',$football_field)}} " method="post" enctype="multipart/form-data">
+<form action="{{route('pitch.update',$pitch)}} " method="post" enctype="multipart/form-data">
     @csrf
     @method('put')
     Tên thể loại
-    <input type="text" name="name" value="{{$football_field->name}}">
+    <input type="text" name="name" value="{{$pitch->name}}">
     <br>
     Giá
-    <input type="number" name="price" value="{{$football_field->price}}">
+    <input type="number" name="price" value="{{$pitch->price}}">
     <br>
     Ảnh
-    <input type="file" name="img"  value="abvc">
-    <br>
-    @if($football_field->img ==='')
-        @else
-    Ảnh củ
-    <img src="{{ url('/storage') }}/{{$football_field->img}}" alt="" width="100px" >
-        <input  type="file" name="img_old" value="{{$football_field->img}}">
+    <input type="file" name="img" value="{{$pitch->img}}">
+
+    @if(!empty($pitch->img))
         <br>
+    Ảnh cũ
+    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="" width="100px">
+        <input type="hidden" name="img_old" value="{{$pitch->img}}">
     @endif
 
+    <br>
     Khu vực
     <select name="area_id">
         @foreach($area as $each)
-            <option value="{{$each->id}}"
-                    @if ($football_field->area_id===$each->id)
-                    checked
-                     @endif>
-                {{$each->name}}
+            <option value="{{$each->id}}" @if($each->id === $pitch->area_id)
+                selected
+                @endif>
+                {{$pitch->area_id}}
+
             </option>
         @endforeach
     </select>
@@ -43,28 +43,38 @@
     Trạng thái
     @foreach($status as $key => $value)
         <input type="radio" name="status" value="{{ $value }}"
-               @if ($football_field->status===$value)
+               @if ($value === $pitch->status)
                checked
             @endif
         >
         {{$key}}
     @endforeach
     <br>
-    Loại người
-    <select name="category_id">
-        @foreach($category_people as $each)
-            <option value="{{$each->id}}"
-                    @if ($football_field->category_id===$each->id)
-                    checked
-                @endif
-            >
-                {{$each->name_category}}
+    Loại sân:
+    Sân nhỏ 7 người
+
+    <input type="radio" name="size" value="1" @if($pitch->size ==1) checked    @endif> Thuộc sân
+
+    <select name="pitch_id">
+        <option checked  value="" >Hãy chọn sân to</option>
+        @foreach($size_11 as $each)
+            <option value="{{$each->id}}" @if($each->id == $pitch->pitch_id) selected @endif>
+                {{$each->name}}
             </option>
         @endforeach
     </select>
     <br>
+    Sân to 11 người
+    <input type="radio" name="size" value="2" @if($pitch->size ==2) checked @endif>
+
+
+    <br>
     @include('error')
-    <button>Submit</button>
+    @if(session()->has('message'))
+        {{session()->get('message')}}
+        <br>
+    @endif
+    <button>Sửa</button>
 </form>
 </body>
 </html>

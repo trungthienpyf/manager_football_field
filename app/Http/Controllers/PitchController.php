@@ -80,31 +80,44 @@ class PitchController extends Controller
     {
         $area = Area::all();
         $status = PitchStatusEnum::getArrayView();
-
+        $get_size_11=Pitch::query()
+            ->where('size','=','2')
+            ->orderBy('created_at','DESC')
+            ->get();
         return view('pitch.edit', [
             'pitch' => $pitch,
             'area'=>$area,
             'status'=>$status,
-
+            'size_11'=>$get_size_11
         ]);
     }
 
     public function update(UpdateRequest $request, Pitch $pitch)
     {
         $files = $request->file('img');
-        $path = '';
+
         if(!empty($files)){
             $path = Storage::disk('public')->putFile('images', $files);
+            $arr=$request->validated();
+            $arr['img']=$path;
+            $pitch->fill($arr);
+            $query= Pitch::select('img')->where('id',$pitch->id)->get();
+            $img_explode =explode('/',$query)[1];
+
+            $img =explode('"',$img_explode)[0];
+            $link="images/".$img;
+
+            Storage::disk('public')->delete($link);
+            $pitch->update();
+        }else{
+            $path = $request->img_old;
+            $arr=$request->validated();
+            $arr['img']=$path;
+            $pitch->fill($arr);
+            $pitch->update();
         }
-        $arr=$request->validated();
-        $arr['img']=$path;
-        $pitch->fill($arr);
-        $query= Pitch::select('img')->where('id',$pitch->id)->get();
-        $img_explode =explode('/',$query)[1];
-        $img =explode('"',$img_explode)[0];
-        $link="images/".$img;
-        Storage::disk('public')->delete($link);
-        $pitch->update();
+
+
 
 
         return redirect()->route('pitch.index');
@@ -115,7 +128,7 @@ class PitchController extends Controller
     {
         $query= Pitch::select('img')->where('id',$pitch)->get();
 
-        if(count($query)>1){
+        if(count($query)==){
             $img_explode =explode('/',$query)[1];
             $img =explode('"',$img_explode)[0];
             $link="images/".$img;
