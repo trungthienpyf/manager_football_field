@@ -50,9 +50,9 @@ class UpdateRequest extends FormRequest
                 'required',
                 Rule::exists(Area::class, 'id'),
             ],
-            'size_id' => [
+            'size' => [
                 'required',
-                Rule::exists(Size::class, 'id'),
+
             ]
         ];
     }

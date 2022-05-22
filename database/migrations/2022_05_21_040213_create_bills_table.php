@@ -18,6 +18,7 @@ class CreateBillsTable extends Migration
             $table->timestamp('time_created')->useCurrent();
             $table->tinyInteger('status')->comment('BillStatusEnum')->default('0');
             $table->timestamp('time_receive');
+            $table->integer('price');
             $table->timestamp('time_end');
             $table->foreignId('customer_id')->constrained('customers');
             $table->foreignId('pitch_id')->constrained('pitches');

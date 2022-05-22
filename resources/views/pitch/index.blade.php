@@ -31,7 +31,7 @@
             <td>{{$each->getKeyByValue($each->status)}}</td>
 
             <td>{{$each->area->name}}</td>
-            <td>{{$each->size->size}}</td>
+            <td>{{$each->getViewSize()}}</td>
 
             <td><a href=" {{route('pitch.edit',$each)}}">Sửa</a></td>
             <td>

@@ -14,7 +14,7 @@ use App\Models\Pitch;
 use App\Models\Size;
 
 
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -36,17 +36,31 @@ class PitchController extends Controller
     {
         $status = PitchStatusEnum::getArrayView();
         $area = Area::all();
-        $size = Size::all();
+
+        $get_size_11=Pitch::query()
+            ->where('size','=','2')
+            ->orderBy('created_at','DESC')
+            ->get();
 
         return view('pitch.create', [
             'area' => $area,
-            'size' => $size,
+            'size_11'=>$get_size_11,
             'status' => $status
         ]);
     }
 
     public function store(StoreRequest $request)
-    {
+    {   $pitch_id=$request->pitch_id;
+
+        if(!empty($pitch_id)){
+            $a=Pitch::select('*')
+                ->where('pitch_id','=',$pitch_id)
+                ->get();
+            if(count($a)>4){
+                return redirect()->route('pitch.create')->with(['message'=>'Sân to này đã chứa đủ sân nhỏ hãy chọn sân khác']);
+            }
+        }
+
         $pitch = new Pitch();
         $files = $request->file('img');
         $path='';
@@ -54,6 +68,7 @@ class PitchController extends Controller
             $path = Storage::disk('public')->putFile('images', $request->file('img'));
         }
         $arr = $request->validated();
+
         $arr['img'] = $path;
         $pitch->fill($arr);
 
@@ -65,12 +80,12 @@ class PitchController extends Controller
     {
         $area = Area::all();
         $status = PitchStatusEnum::getArrayView();
-        $size = Size::all();
+
         return view('pitch.edit', [
             'pitch' => $pitch,
             'area'=>$area,
             'status'=>$status,
-            'size'=>$size,
+
         ]);
     }
 

@@ -38,16 +38,32 @@
         {{$key}}
     @endforeach
     <br>
-    Loại người
-    <select name="size_id">
-        @foreach($size as $each)
+    Loại sân:
+
+    Sân nhỏ 7 người
+    <input type="radio" name="size" value="1"> Thuộc sân
+
+    <select name="pitch_id">
+        <option checked  value="" >Hãy chọn sân to</option>
+        @foreach($size_11 as $each)
+
             <option value="{{$each->id}}">
-                {{$each->size}}
+                {{$each->name}}
             </option>
         @endforeach
     </select>
     <br>
+    Sân to 11 người
+    <input type="radio" name="size" value="2">
+
+
+
+    <br>
     @include('error')
+    @if(session()->has('message'))
+        {{session()->get('message')}}
+        <br>
+    @endif
     <button>Submit</button>
 </form>
 </body>

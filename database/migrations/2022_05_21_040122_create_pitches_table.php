@@ -19,8 +19,9 @@ class CreatePitchesTable extends Migration
             $table->integer('price');
             $table->text('img');
             $table->tinyInteger('status')->comment('PitchStatusEnum');
+            $table->string('size');
+            $table->integer('pitch_id')->nullable();
             $table->foreignId('area_id')->constrained('areas');
-            $table->foreignId('size_id')->constrained('sizes');
             $table->timestamps();
         });
     }

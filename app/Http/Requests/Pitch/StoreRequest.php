@@ -50,10 +50,14 @@ class StoreRequest extends FormRequest
                 'required',
                 Rule::exists(Area::class, 'id'),
             ],
-            'size_id' => [
+            'size' => [
                 'required',
-                Rule::exists(Size::class, 'id'),
-            ]
+            ],
+            'pitch_id' => [
+                'bail',
+
+                'required_if:size,1'
+            ],
         ];
     }
 
@@ -63,6 +67,7 @@ class StoreRequest extends FormRequest
             'required' =>':attribute không để trống',
             'gt' =>':attribute không được để âm',
             'exists' =>':attribute phải là tồn tại',
+            'required_if'=>':attribute 7 phải chọn thuộc loại sân lớn'
         ];
     }
     public function attributes()
@@ -73,6 +78,7 @@ class StoreRequest extends FormRequest
             'status' => 'Trạng thái',
             'area_id' => 'Khu vực',
             'category_id' => 'Loại người',
+            'pitch_id'=> 'Sân'
         ];
     }
 }
