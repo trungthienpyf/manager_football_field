@@ -1,28 +1,26 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<form action="{{route('area.store')}} " method="post">
-    @csrf
-    Tên khu vực
-    <input type="text" name="name" value="{{old('name')}}">
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+@extends('layout.master')
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <a  href="{{route('admin.area.index')}}" >
+                        <i class="dripicons-backspace"></i> Quay lại
+                    </a>
+                </div>
+                <h4 class="page-title">Thêm Khu vực</h4>
+            </div>
         </div>
-    @endif
-    <br>
-    <button>Thêm</button>
+    </div>
+<form action="{{route('admin.area.store')}} " method="post">
+    @csrf
+    <div class="form-group">
+    <label for="name" >Tên khu vực</label>
+    <input type="text" class="form-control" id="name" placeholder="Tên" name="name" value="{{old('name')}}">
+    </div>
+
+    @include('error')
+    <button class="btn btn-primary">Thêm</button>
 </form>
-</body>
-</html>
+
+@endsection

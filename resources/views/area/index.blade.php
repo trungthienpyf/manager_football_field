@@ -1,39 +1,55 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+@extends('layout.master')
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
 
-<table border="1" width="100%">
-    <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Sửa</th>
-        <th>Xóa</th>
-    </tr>
-    @foreach ($area as $each)
+                    <a class="btn btn-primary" href="{{route('admin.area.create')}}">
+                        Thêm
+                    </a>
+                </div>
+                <h4 class="page-title">Khu vực</h4>
+            </div>
+
+        </div>
+    </div>
+    <table class="table mb-0">
+        <thead>
         <tr>
-            <td>{{$each->id}}</td>
-            <td>{{$each->name}}</td>
-            <td><a href=" {{route('area.edit',$each)}}">Sửa</a></td>
-            <td>
-                <form action="{{route('area.destroy',$each)}}" method="post" >
-                    @csrf
-                    @method('delete')
-                    <button>Delete</button>
-
-                </form>
-
-            </td>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Sửa</th>
+            <th scope="col">Xóa</th>
         </tr>
-    @endforeach
-</table>
-@include('error')
-<a href="{{route('area.create')}}">Create</a>
-</body>
-</html>
+        </thead>
+
+        @foreach ($area as $each)
+            <tbody>
+            <tr scope="row">
+                <td>{{$each->id}}</td>
+                <td>{{$each->name}}</td>
+                <td>
+                    <a href="{{route('admin.area.edit',$each)}}">
+                        <a href="{{route('admin.area.edit',$each)}}" class="action-icon">
+                            <i class="mdi mdi-pencil"></i>
+                        </a>
+                    </a>
+                </td>
+                <td>
+                    <form action="{{route('admin.area.destroy',$each)}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-secondary">Xóa</button>
+
+                    </form>
+
+                </td>
+            </tr>
+            </tbody>
+        @endforeach
+
+
+    </table>
+
+@endsection

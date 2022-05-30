@@ -23,7 +23,7 @@ class PitchController extends Controller
 
     public function index()
     {
-        $pitch = Pitch::all();
+        $pitch = Pitch::query()->paginate('5');
         $status = PitchStatusEnum::getArrayView();
 
         return view('pitch.index', [
@@ -57,7 +57,7 @@ class PitchController extends Controller
                 ->where('pitch_id','=',$pitch_id)
                 ->get();
             if(count($a)>4){
-                return redirect()->route('pitch.create')->with(['message'=>'Sân to này đã chứa đủ sân nhỏ hãy chọn sân khác']);
+                return redirect()->route('admin.pitch.create')->with(['message'=>'Sân to này đã chứa đủ sân nhỏ hãy chọn sân khác']);
             }
         }
 
@@ -73,11 +73,12 @@ class PitchController extends Controller
         $pitch->fill($arr);
 
         $pitch->save();
-        return redirect()->route('pitch.index');
+        return redirect()->route('admin.pitch.index');
     }
 
     public function edit(Pitch $pitch)
     {
+
         $area = Area::all();
         $status = PitchStatusEnum::getArrayView();
         $get_size_11=Pitch::query()
@@ -120,15 +121,14 @@ class PitchController extends Controller
 
 
 
-        return redirect()->route('pitch.index');
+        return redirect()->route('admin.pitch.index');
 
     }
 
     public function destroy(DestroyRequest $request, $pitch)
     {
-        $query= Pitch::select('img')->where('id',$pitch)->get();
-
-        if(count($query)==){
+        $query= Pitch::select('img')->where('id',$pitch)->value('img');
+        if(!empty($query)){
             $img_explode =explode('/',$query)[1];
             $img =explode('"',$img_explode)[0];
             $link="images/".$img;
@@ -137,6 +137,6 @@ class PitchController extends Controller
 
 
         Pitch::destroy($pitch);
-        return redirect()->route('pitch.index');
+        return redirect()->route('admin.pitch.index');
     }
 }

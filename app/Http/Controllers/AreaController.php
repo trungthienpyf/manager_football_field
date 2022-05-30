@@ -25,23 +25,26 @@ class AreaController extends Controller
         $area->fill($request->validated());
 
         $area->save();
-        return redirect()->route('area.index');
+        return redirect()->route('admin.area.index');
     }
     public function edit(Area $area){
-        return view('area.edit',[
+
+
+        return view('area.edit', [
             'area' => $area
         ]);
     }
-    public function update(UpdateRequest $request, Area $area){
+    public function update(UpdateRequest $request,Area $area){
 
         $area->fill($request->validated());
 
         $area->update();
-        return redirect()->route('area.index');
+        return redirect()->route('admin.area.index');
     }
     public function destroy(DestroyRequest $request, $area){
 //        $area->delete();
+
         Area::destroy($area);
-        return redirect()->route('area.index');
+        return redirect()->route('admin.area.index');
     }
 }

@@ -1,14 +1,21 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<table border="1" width="100%">
+@extends('layout.master')
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+
+                    <a class="btn btn-primary" href="{{route('admin.pitch.create')}}">
+                        Thêm
+                    </a>
+                </div>
+                <h4 class="page-title">Khu vực</h4>
+            </div>
+
+        </div>
+
+<table  class="table  table-centered mb-0">
+    <thead>
     <tr>
         <th>#</th>
         <th>Tên</th>
@@ -20,6 +27,8 @@
         <th>Sửa</th>
         <th>Xóa</th>
     </tr>
+    </thead>
+    <tbody>
     @foreach ($pitch as $each)
         <tr>
             <td>{{$each->id}}</td>
@@ -33,20 +42,26 @@
             <td>{{$each->area->name}}</td>
             <td>{{$each->getViewSize()}}</td>
 
-            <td><a href=" {{route('pitch.edit',$each)}}">Sửa</a></td>
             <td>
-                <form action="{{route('pitch.destroy',$each)}}" method="post" >
+                    <a href="{{route('admin.area.edit',$each)}}" class="action-icon">
+                        <i class="mdi mdi-pencil"></i>
+                    </a>
+              </td>
+            <td>
+                <form action="{{route('admin.pitch.destroy',$each)}}" method="post" >
                     @csrf
                     @method('delete')
-                    <button>Xóa</button>
+                    <button class="btn btn-secondary">Xóa</button>
 
                 </form>
 
             </td>
         </tr>
     @endforeach
+    </tbody>
+
 </table>
-@include('error')
-<a href="{{route('pitch.create')}}">Create</a>
-</body>
-</html>
+
+    @include('error')
+    {{ $pitch->links()  }}
+@endsection

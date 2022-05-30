@@ -1,14 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<form action="{{route('pitch.update',$pitch)}} " method="post" enctype="multipart/form-data">
+@extends('layout.master')
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <h4 class="page-title">Khu vực</h4>
+            </div>
+        </div>
+    </div>
+<form action="{{route('admin.pitch.update',$pitch)}} " method="post" enctype="multipart/form-data">
     @csrf
     @method('put')
     Tên thể loại
@@ -76,5 +75,4 @@
     @endif
     <button>Sửa</button>
 </form>
-</body>
-</html>
+@endsection

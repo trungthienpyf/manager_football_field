@@ -1,29 +1,27 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<form action="{{route('area.update',$area)}} " method="post">
+@extends('layout.master')
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <a  href="{{route('admin.area.index')}}" >
+                        <i class="dripicons-backspace"></i> Quay lại
+                    </a>
+                </div>
+                <h4 class="page-title">Sửa</h4>
+            </div>
+        </div>
+    </div>
+<form action="{{route('admin.area.update',$area)}}" method="post">
     @csrf
     @method('put')
-    Tên khu vực
-    <input type="text" name="name" value="{{$area->name}}">
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <br>
-    <button>Sửa</button>
+
+
+    <div class="form-group">
+        <label for="name" >Tên khu vực</label>
+        <input type="text" class="form-control" id="name" placeholder="Tên" name="name" value="{{$area->name}}">
+    </div>
+    @include('error')
+    <button class="btn btn-primary">Thêm</button>
 </form>
-</body>
-</html>
+@endsection
