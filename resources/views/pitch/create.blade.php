@@ -36,7 +36,6 @@
         </select>
         <label>Trạng thái</label>
         <div class="mt-2">
-
             @foreach($status as $key => $value)
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" name="status" id="{{$value}}" value="{{ $value }}" class="custom-control-input"
@@ -78,16 +77,15 @@
 
         @include('error')
         @if(session()->has('message'))
-            {{session()->get('message')}}
-            <br>
+            <p class="text-danger">
+                {{session()->get('message')}}
+            </p>
         @endif
         <button class="btn btn-primary">Thêm</button>
     </form>
 @endsection
 @push('scripts')
     <script >
-
-
             $('#radio1').change(function(){
                 $('#div_click').removeClass('active')
 

@@ -34,7 +34,12 @@
             <td>{{$each->id}}</td>
             <td>{{$each->name}}</td>
 
-            <td><img src="{{ url('/storage') }}/{{$each->img}}" alt="" width="100px" ></td>
+            <td>
+                @if(!empty($each->img))
+                <img src="{{ url('/storage') }}/{{$each->img}}" alt="" width="100px" >
+                @endif
+            </td>
+
             <td>{{$each->price}}</td>
 
             <td>{{$each->getKeyByValue($each->status)}}</td>
@@ -43,7 +48,7 @@
             <td>{{$each->getViewSize()}}</td>
 
             <td>
-                    <a href="{{route('admin.area.edit',$each)}}" class="action-icon">
+                    <a href="{{route('admin.pitch.edit',$each)}}" class="action-icon">
                         <i class="mdi mdi-pencil"></i>
                     </a>
               </td>
