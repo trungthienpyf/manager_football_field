@@ -23,7 +23,7 @@ class PitchController extends Controller
 
     public function index()
     {
-        $pitch = Pitch::query()->paginate('5');
+        $pitch = Pitch::query()->orderBy('created_at','desc')->paginate('5');
         $status = PitchStatusEnum::getArrayView();
 
         return view('pitch.index', [
@@ -118,25 +118,21 @@ class PitchController extends Controller
             $pitch->update();
         }
 
-
-
-
         return redirect()->route('admin.pitch.index');
 
     }
 
     public function destroy(DestroyRequest $request, $pitch)
     {
-        $query= Pitch::select('img')->where('id',$pitch)->value('img');
-        if(!empty($query)){
-            $img_explode =explode('/',$query)[1];
-            $img =explode('"',$img_explode)[0];
-            $link="images/".$img;
-            Storage::disk('public')->delete($link);
-        }
+            $query= Pitch::select('img')->where('id',$pitch)->value('img');
+            if(!empty($query)){
+                $img_explode =explode('/',$query)[1];
+                $img =explode('"',$img_explode)[0];
+                $link="images/".$img;
+                Storage::disk('public')->delete($link);
 
-
-        Pitch::destroy($pitch);
-        return redirect()->route('admin.pitch.index');
+            }
+            Pitch::destroy($pitch);
+            return response()->json(['success'=>'thanh cong',]);
     }
 }

@@ -45,6 +45,6 @@ class AreaController extends Controller
 //        $area->delete();
 
         Area::destroy($area);
-        return redirect()->route('admin.area.index');
+        return response()->json(['success'=>'thanh cong',]);
     }
 }

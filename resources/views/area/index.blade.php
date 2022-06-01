@@ -40,10 +40,26 @@
                     <form action="{{route('admin.area.destroy',$each)}}" method="post">
                         @csrf
                         @method('delete')
-                        <button class="btn btn-secondary">Xóa</button>
+                        <button id="delete-button-field" class="btn btn-secondary" type="button" data-toggle="modal" data-target="#danger-header-modal" onClick="deleteArea({{ $each->id  }})">Xóa</button>
 
                     </form>
+                    <div id="danger-header-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="danger-header-modalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header modal-colored-header bg-danger">
+                                    <h4 class="modal-title" id="danger-header-modalLabel">Thông báo</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body" id="text-body-alert">
 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+                                    <button type="button" class="btn btn-danger" id="submit-delete" >Xóa</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
             </tbody>
@@ -53,3 +69,23 @@
     </table>
 
 @endsection
+@push('scripts')
+    <script>
+        function deleteArea(id){
+            $('#text-body-alert').text("Bạn có chắc chắn muốn xóa khu vực có id là " +id +" ?")
+
+            $('#submit-delete').click(function(){
+                $.ajax({
+                    url:  '/admin/area/'+id,
+                    type: 'delete',
+                    data: {_token:'{{session()->token()}}'},
+                    success: function (response) {
+                        console.log(response)
+                    }
+                })
+                $('#delete-button-field').parent().parent().parent().remove()
+                $('.modal-backdrop.fade.show').hide()
+            })
+        }
+    </script>
+@endpush
