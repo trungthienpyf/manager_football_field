@@ -5,13 +5,13 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\PitchController;
 
 
-use App\Http\Controllers\PitchIndexController;
+
 use Illuminate\Support\Facades\Route;
-//Route::get('/', [PitchIndexController::class,'index']);
+
 Route::get('/', function (){
-    return view('layout.master');
+    return view('admin.layout.master');
 });
-//Route::get('/checkout/{id}', [PitchIndexController::class,'addToCard'])->name('checkout');
+
 
 
 Route::get('/area', [AreaController::class,'index'])->name('area.index');

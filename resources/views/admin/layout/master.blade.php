@@ -22,7 +22,7 @@
 <!-- Begin page -->
 <div class="wrapper mm-active">
     <!-- ========== Left Sidebar Start ========== -->
-@include('layout.sidebar')
+@include('admin.layout.sidebar')
 <!-- Left Sidebar End -->
 
     <!-- ============================================================== -->
@@ -32,7 +32,7 @@
     <div class="content-page">
         <div class="content">
             <!-- Topbar Start -->
-        @include('layout.topbar')
+        @include('admin.layout.topbar')
         <!-- end Topbar -->
 
             <!-- Start Content-->
@@ -58,7 +58,7 @@
         <!-- content -->
 
         <!-- Footer Start -->
-    @include('layout.footer')
+    @include('admin.layout.footer')
     <!-- end Footer -->
 
     </div>

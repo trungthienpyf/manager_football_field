@@ -11,13 +11,13 @@ class AreaController extends Controller
 
    public function index(){
       $area= Area::all();
-       return view('area.index',[
+       return view('admin.area.index',[
            'area' => $area
        ]);
    }
     public function create(){
 
-        return view('area.create');
+        return view('admin.area.create');
     }
     public function store(StoreRequest $request){
         $area = new Area();
@@ -30,7 +30,7 @@ class AreaController extends Controller
     public function edit(Area $area){
 
 
-        return view('area.edit', [
+        return view('admin.area.edit', [
             'area' => $area
         ]);
     }

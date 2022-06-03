@@ -26,7 +26,7 @@ class PitchController extends Controller
         $pitch = Pitch::query()->orderBy('created_at','desc')->paginate('5');
         $status = PitchStatusEnum::getArrayView();
 
-        return view('pitch.index', [
+        return view('admin.pitch.index', [
             'pitch' => $pitch,
             'status'=>$status
         ]);
@@ -42,7 +42,7 @@ class PitchController extends Controller
             ->orderBy('created_at','DESC')
             ->get();
 
-        return view('pitch.create', [
+        return view('admin.pitch.create', [
             'area' => $area,
             'size_11'=>$get_size_11,
             'status' => $status
@@ -85,7 +85,7 @@ class PitchController extends Controller
             ->where('size','=','2')
             ->orderBy('created_at','DESC')
             ->get();
-        return view('pitch.edit', [
+        return view('admin.pitch.edit', [
             'pitch' => $pitch,
             'area'=>$area,
             'status'=>$status,
@@ -111,15 +111,16 @@ class PitchController extends Controller
             Storage::disk('public')->delete($link);
             $pitch->update();
         }else{
-            $path = $request->img_old;
+            $path='';
+            if(!empty( $request->img_old)){
+                $path = $request->img_old;
+            }
             $arr=$request->validated();
             $arr['img']=$path;
             $pitch->fill($arr);
             $pitch->update();
         }
-
         return redirect()->route('admin.pitch.index');
-
     }
 
     public function destroy(DestroyRequest $request, $pitch)

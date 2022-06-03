@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('admin.layout.master')
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -8,19 +8,20 @@
                         <i class="dripicons-backspace"></i> Quay lại
                     </a>
                 </div>
-                <h4 class="page-title">Thêm Khu vực</h4>
+                <h4 class="page-title">Sửa</h4>
             </div>
         </div>
     </div>
-<form action="{{route('admin.area.store')}} " method="post">
+<form action="{{route('admin.area.update',$area)}}" method="post">
     @csrf
-    <div class="form-group">
-    <label for="name" >Tên khu vực</label>
-    <input type="text" class="form-control" id="name" placeholder="Tên" name="name" value="{{old('name')}}">
-    </div>
+    @method('put')
 
+
+    <div class="form-group">
+        <label for="name" >Tên khu vực</label>
+        <input type="text" class="form-control" id="name" placeholder="Tên" name="name" value="{{$area->name}}">
+    </div>
     @include('error')
     <button class="btn btn-primary">Thêm</button>
 </form>
-
 @endsection
