@@ -14,11 +14,24 @@
     {{--    <link href="{{asset('css/app-creative-dark.min.css')}}" rel="stylesheet" type="text/css" id="dark-style">--}}
     {{--    <link href="assets/css/app-creative.min.css" rel="stylesheet" type="text/css" id="light-style">--}}
     {{--    <link href="assets/css/app-creative-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" disabled="disabled">--}}
+    <style>
+        *{
+            padding:0;
+            margin:0;
+            border-box:none
+        }
+        body{
+            min-height:1000px;
+        }
+        .pagination{
+            margin:0 auto
+        }
+    </style>
 </head>
 
-<body class=""
+<body
       data-layout-config="{&quot;leftSideBarTheme&quot;:&quot;dark&quot;,&quot;layoutBoxed&quot;:false, &quot;leftSidebarCondensed&quot;:false, &quot;leftSidebarScrollable&quot;:false,&quot;darkMode&quot;:false, &quot;showRightSidebarOnStart&quot;: true}"
-      data-leftbar-theme="dark">
+      data-leftbar-theme="dark" >
 <!-- Begin page -->
 <div class="wrapper mm-active">
     <!-- ========== Left Sidebar Start ========== -->
@@ -29,14 +42,14 @@
     <!-- Start Page Content here -->
     <!-- ============================================================== -->
 
-    <div class="content-page">
+    <div class="content-page ">
         <div class="content">
             <!-- Topbar Start -->
         @include('admin.layout.topbar')
         <!-- end Topbar -->
 
             <!-- Start Content-->
-            <div class="container-fluid">
+            <div class="container-fluid ">
 
                 <!-- start page title -->
                 @yield('content')
@@ -76,7 +89,7 @@
 <!-- /Right-bar -->
 
 <!-- bundle -->
-<script src="assets/js/vendor.min.js"></script>
+{{--<script src="assets/js/vendor.min.js"></script>--}}
 <script src="{{asset('js/vendor.min.js')}}"></script>
 <script src="{{asset('js/app.min.js')}}"></script>
 

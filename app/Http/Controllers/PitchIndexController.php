@@ -13,7 +13,7 @@ class PitchIndexController extends Controller
         $pitch = Pitch::all();
         $status = PitchStatusEnum::getArrayView();
 
-        return view('welcome', [
+        return view('user.welcome', [
             'pitch' => $pitch,
             'status'=>$status
         ]);
