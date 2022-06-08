@@ -9,7 +9,7 @@
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
-                    <div class="text-center mt-2 mb-4">
+                    <div class="text-center mt-2 ">
                         <h3>Thông tin đặt sân</h3>
 
                     </div>
@@ -24,6 +24,17 @@
                         <div class="form-group">
                             <label for="phone">Số điện thoại (*)</label>
                             <input class="form-control" type="number" id="phone" required="" placeholder="Số điện thoại (bắt buộc)">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="datetime">Thời gian bắt đầu</label>
+                                <input class="form-control" type="datetime-local" id="datetime" value="{{date ('Y-m-d\TH:i')}}" placeholder="">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="datetime">Thời gian kết thúc</label>
+                                <input class="form-control" type="datetime-local" id="datetime"  value="{{date ('Y-m-d\TH:i',strtotime('+1 hours'))}}"
+                                       placeholder="">
+                            </div>
                         </div>
 
                         <div class="form-group">

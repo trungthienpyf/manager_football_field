@@ -12,6 +12,8 @@ class PitchIndexController extends Controller
     {
         $pitch = Pitch::all();
         $status = PitchStatusEnum::getArrayView();
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 
         return view('user.welcome', [
             'pitch' => $pitch,
