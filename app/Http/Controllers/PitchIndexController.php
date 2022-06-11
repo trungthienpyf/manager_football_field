@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PitchStatusEnum;
+use App\Models\Customer;
 use App\Models\Pitch;
 use Illuminate\Http\Request;
 
@@ -21,9 +22,12 @@ class PitchIndexController extends Controller
         ]);
     }
 
-    public function addToCard(request $request,Pitch $id)
+    public function addToCard(request $request,$id)
     {
-
+            Customer::create([
+                'name'=>$request->name,
+                'phone'=> $request->phone,
+            ]);
     }
 
     public function getSize11()

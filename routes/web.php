@@ -6,4 +6,4 @@ use App\Http\Controllers\PitchIndexController;
 use Illuminate\Support\Facades\Route;
 Route::get('/', [PitchIndexController::class,'index']);
 
-Route::get('/checkout/{id}', [PitchIndexController::class,'addToCard'])->name('checkout');
+Route::post('/checkout/{id}', [PitchIndexController::class,'addToCard'])->name('checkout');
