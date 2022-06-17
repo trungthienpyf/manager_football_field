@@ -15,7 +15,7 @@ class AlterColumnTableCustomer extends Migration
     {
         Schema::table('customers', function (Blueprint $table) {
             $table->integer('phone')->unique()->change();
-          
+
             $table->string('address')->nullable()->change();
         });
     }
