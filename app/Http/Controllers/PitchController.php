@@ -42,9 +42,10 @@ class PitchController extends Controller
             ->orderBy('created_at','DESC')
             ->get();
 
+
         return view('admin.pitch.create', [
             'area' => $area,
-            'size_11'=>$get_size_11,
+
             'status' => $status
         ]);
     }

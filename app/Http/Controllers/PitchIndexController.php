@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PitchStatusEnum;
+use App\Models\Area;
 use App\Models\Customer;
 use App\Models\Pitch;
 use Illuminate\Http\Request;
@@ -18,27 +19,42 @@ class PitchIndexController extends Controller
 
         return view('user.welcome', [
             'pitch' => $pitch,
-            'status'=>$status
+            'status' => $status
         ]);
     }
 
-    public function addToCard(request $request,$id)
+    public function addToCard(request $request, $id)
     {
-            Customer::create([
-                'name'=>$request->name,
-                'phone'=> $request->phone,
-            ]);
+        Customer::create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+        ]);
     }
 
     public function getSize11()
     {
-        $get_size_11=Pitch::query()
-            ->where('size','=','2')
-            ->orderBy('created_at','DESC')
+        $get_size_11 = Pitch::query()
+            ->where('size', '=', '2')
+            ->orderBy('created_at', 'DESC')
             ->get();
         return response()->json([
-            'success'=>true,
-            'data'=>$get_size_11,
+            'success' => true,
+            'data' => $get_size_11,
+        ]);
+    }
+
+    public function returnValueArea(Request $request)
+    {
+        $area_id = $request->val;
+        $get_size_11 = Pitch::whereHas('area', function ($q) use ($area_id) {
+            $q->where('area_id', '=', $area_id)
+                ->where('size', '=', 2);
+        })->has('pitch','<',4) ->orderBy('created_at','DESC')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $get_size_11,
         ]);
     }
 }

@@ -61,7 +61,6 @@
                             <button class="btn btn-primary" id="checkout_submit">Đặt sân</button>
                         </div>
                     </form>
-
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

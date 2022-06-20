@@ -1,18 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Enums\PitchStatusEnum;
 use App\Http\Requests\Area\DestroyRequest;
 use App\Http\Requests\Area\StoreRequest;
 use App\Http\Requests\Area\UpdateRequest;
 use App\Models\Area;
+use App\Models\Pitch;
 
 class AreaController extends Controller
 {
 
    public function index(){
       $area= Area::all();
+       $status = PitchStatusEnum::getArrayView();
+       $get_size_11=Pitch::query()
+           ->where('size','=','2')
+           ->orderBy('created_at','DESC')
+           ->get();
+
        return view('admin.area.index',[
-           'area' => $area
+           'area' => $area,
+           'status'=>$status,
+           'size_11'=>$get_size_11,
        ]);
    }
     public function create(){
