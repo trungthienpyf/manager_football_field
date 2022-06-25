@@ -24,8 +24,11 @@
         </div>
         <div class="form-group">
             <label for="img">Ảnh</label>
-            <input type="file" id="img" name="img" class="form-control-file">
+            <input type="file" id="img" name="img" oninput="pic.src=window.URL.createObjectURL(this.files[0])">
+            <img  id="pic"  height="100px"/>
         </div>
+
+
         Khu vực
         <select name="area_id" class="custom-select mb-3" id="area_value">
             <option value="">
@@ -83,6 +86,9 @@
 @endsection
 @push('scripts')
     <script>
+
+
+
         $('#radio1').change(function () {
             $('#div_click').removeClass('active')
 

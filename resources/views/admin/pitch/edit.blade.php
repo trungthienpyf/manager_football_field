@@ -26,7 +26,8 @@
     </div>
     <div class="form-group">
         <label for="img">Ảnh</label>
-        <input type="file" id="img" name="img" class="form-control-file" value="{{$pitch->img}}">
+        <input type="file" id="img" name="img" value="{{$pitch->img}}" oninput="pic.src=window.URL.createObjectURL(this.files[0])">
+        <img  id="pic"  height="100px"/>
     </div>
     @if(!empty($pitch->img))
     Ảnh cũ
@@ -35,21 +36,8 @@
         <input type="hidden" name="img_old" value="{{$pitch->img}}">
     </div>
     @endif
-
-
-    Khu vực
-    <select name="area_id" class="custom-select mb-3">
-        @foreach($area as $each)
-            <option value="{{$each->id}}" @if($each->id === $pitch->area_id)
-                selected
-                @endif>
-                {{$pitch->area_id}}
-
-            </option>
-        @endforeach
-    </select>
     <label>Trạng thái</label>
-    <div class="mt-2">
+    <div class="mt-2 mb-2">
         @foreach($status as $key => $value)
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" name="status" id="{{$value}}" value="{{ $value }}" class="custom-control-input"
@@ -77,32 +65,32 @@
 {{--    Sân to 11 người--}}
 {{--    <input type="radio" name="size" value="2" @if($pitch->size ==2) checked @endif>--}}
 {{--    <br>--}}
-    <div class="mt-3">
-        Loại sân:
-        <div class="custom-control custom-radio">
-            <div class="row ml-0">
-                <div class="mt-2 ">
-                    <input type="radio" id="radio1" name="size" class="custom-control-input" value="1" @if($pitch->size ==1) checked @endif>
-                    <label class="custom-control-label" for="radio1">  Sân nhỏ 7 người</label>
-                </div>
-                <div class="mt-2 offset-2 "  id="div_click">
-                    Thuộc sân
-                    <select name="pitch_id" >
-                        <option checked value="">Hãy chọn sân to</option>
-                        @foreach($size_11 as $each)
-                            <option value="{{$each->id}}"  @if($each->id == $pitch->pitch_id) selected @endif>
-                                {{$each->name}}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="custom-control custom-radio">
-            <input type="radio" id="radio2" name="size" class="custom-control-input" value="2" @if($pitch->size ==2) checked @endif>
-            <label class="custom-control-label" for="radio2" > Sân to 11 người</label>
-        </div>
-    </div>
+{{--    <div class="mt-3">--}}
+{{--        Loại sân:--}}
+{{--        <div class="custom-control custom-radio">--}}
+{{--            <div class="row ml-0">--}}
+{{--                <div class="mt-2 ">--}}
+{{--                    <input type="radio" id="radio1" name="size" class="custom-control-input" value="1" @if($pitch->size ==1) checked @endif>--}}
+{{--                    <label class="custom-control-label" for="radio1">  Sân nhỏ 7 người</label>--}}
+{{--                </div>--}}
+{{--                <div class="mt-2 offset-2 "  id="div_click">--}}
+{{--                    Thuộc sân--}}
+{{--                    <select name="pitch_id" >--}}
+{{--                        <option checked value="">Hãy chọn sân to</option>--}}
+{{--                        @foreach($size_11 as $each)--}}
+{{--                            <option value="{{$each->id}}"  @if($each->id == $pitch->pitch_id) selected @endif>--}}
+{{--                                {{$each->name}}--}}
+{{--                            </option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="custom-control custom-radio">--}}
+{{--            <input type="radio" id="radio2" name="size" class="custom-control-input" value="2" @if($pitch->size ==2) checked @endif>--}}
+{{--            <label class="custom-control-label" for="radio2" > Sân to 11 người</label>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
     @include('error')
     @if(session()->has('message'))

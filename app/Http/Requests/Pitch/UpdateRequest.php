@@ -46,18 +46,9 @@ class UpdateRequest extends FormRequest
                 'required',
                 Rule::in(PitchStatusEnum::asArray()),
             ],
-            'area_id' => [
-                'required',
-                Rule::exists(Area::class, 'id'),
-            ],
-            'size' => [
-                'required',
-            ],
-            'pitch_id' => [
-                'bail',
 
-                'required_if:size,1'
-            ],
+
+
             'img_old'=>[
 
             ]
@@ -79,8 +70,8 @@ class UpdateRequest extends FormRequest
             'name' => 'Tên',
             'price' => 'Giá',
             'status' => 'Trạng thái',
-            'area_id' => 'Khu vực',
-            'category_id' => 'Loại người',
+
+
             'pitch_id'=> 'Sân'
         ];
     }
