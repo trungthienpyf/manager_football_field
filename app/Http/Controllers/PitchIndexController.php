@@ -12,15 +12,23 @@ class PitchIndexController extends Controller
 {
     public function index()
     {
-        $pitch = Pitch::all();
+        $pitches = Pitch::query()->paginate(20);
+
+
         $status = PitchStatusEnum::getArrayView();
         date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 
         return view('user.welcome', [
-            'pitch' => $pitch,
+            'pitches' => $pitches,
             'status' => $status
         ]);
+    }
+
+    public function detail_pitch(request $request,Pitch $pitch)
+    {
+
+        return view('user.detail_pitch',['pitch'=>$pitch]);
     }
 
     public function addToCard(request $request, $id)

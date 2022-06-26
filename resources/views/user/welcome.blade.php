@@ -1,93 +1,108 @@
 @extends('user.layout.master')
 
+@section('search')
+    <div class="container">
+        <div class="row" style="border: 1px solid #f9f9f9;box-shadow: #969ea633 0px 0px 24px;">
+            <div class="col-sm-3">
+                <div class="form-group" style="margin-top:15px">
+                    <select name="" id="" class="form-control">
+                        <option value="">Chọn khu vực</option>
+                        <option value="">Chọn khu vực</option>
+                        <option value="">Chọn khu vực</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3" style="margin-top:15px" >
+                <input class="form-control"  id="datetimepicker">
+            </div>
+            <div class='input-group date' id='datetimepicker1'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group" style="margin-top:15px">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </div>
+
+        </div>
+    </div>
+@endsection
+
 @section('content')
 
+    <div class="container">
+        <h2 class="section-title" style="color:black">Sân bóng đá</h2>
+        <div class="row">
+            @foreach ($pitches as $each)
+                <div class="col-md-3">
+                    <div class="card card-plain">
+                        <div class="image"
+                             style="background-image: url({{ url('/storage') }}/{{$each->img}}); background-position: center center; background-size: cover;">
 
-
-    <span>
-    @foreach ($pitch as $each)
-            <h1>{{$each->name}}</h1>
-            <img src="{{ url('/storage') }}/{{$each->img}}" alt="">
-            <p> Giá {{$each->price}}VNĐ</p>
-            {{--                <a href="{{route('checkout',$each)}}">Đặt sân</a>--}}
-            <button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#signup-modal" onclick="selectId({{$each->id}})">Đặt sân</button>
-        @endforeach
-</span>
-    <div id="signup-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <div class="text-center mt-2 ">
-                        <h3>Thông tin đặt sân</h3>
-                    </div>
-                    <form class="pl-3 pr-3" action="#" id="form">
-                        @csrf
-                        <div class="form-group">
-                            <label for="name">Họ và tên (*)</label>
-                            <input class="form-control" type="text" id="name"  name="name"
-                                   placeholder="Họ và tên (bắt buộc)">
-                        </div>
-{{--                        <input type="hidden" id="get_id">--}}
-                        <div class="form-group">
-                            <label for="phone">Số điện thoại (*)</label>
-                            <input class="form-control" type="number" id="phone"  name="phone"
-                                   placeholder="Số điện thoại (bắt buộc)" >
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="datetime">Thời gian bắt đầu</label>
-                                <input class="form-control" type="datetime-local"
-                                       name="time_receive"
-                                       value="{{date ('Y-m-d\TH:i')}}" placeholder=""
-                                >
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="datetimepicker">Thời gian kết thúc</label>
-                                <input class="form-control" type="datetime-local"
-                                       value="{{date ('Y-m-d\TH:i',strtotime('+1 hours'))}}"
-                                       name="time_end"
-                                       />
+                            <div class="filter filter-white">
+                                <a href="{{route('detail',$each)}}" type="button"
+                                   class="btn btn-info btn-round btn-fill">
+                                    <i class="fa fa-heart"></i> Đặt sân
+                                </a>
                             </div>
                         </div>
+                        <div class="content">
+                            <p class="category">News</p>
+                            <a class="card-link" href="#">
+                                <h4 class="title">Get Shit Done Kit PRO, the most wanted bootstrap kit is here
+                                    and... </h4>
+                            </a>
+                            <div class="footer">
+                                <div class="author">
+                                    <a class="card-link" href="#">
 
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input class="form-control" type="email" id="email" name="email"
-                                   placeholder="Điền email để nhận hóa đơn">
+                                            <span
+                                                style="font-size:14px;color:#a97373;text-transform: none;">  Số người: {{$each->size}} </span>
+                                    </a>
+                                </div>
+                                <div class="stats pull-right">
+                                    Giá <span style="color:#FF3B30">{{$each->price}}₫</span>/Trận
+                                </div>
+                            </div>
+                            <div class="footer">
+                                <div class="author">
+                                    <a class="card-link" href="#">
+
+                                        <span style="font-size:14px"> Wifi<i class="fa fa-check">  </i> </span>
+                                    </a>
+                                </div>
+                                <div class="stats pull-right">
+                                    Giữ xe<i class="fa fa-check"> </i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group text-center">
-                            <button class="btn btn-primary" id="checkout_submit">Đặt sân</button>
-                        </div>
-                    </form>
+                    </div> <!-- end card -->
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            @endforeach
+        </div>
+    </div>
+    <div style="display:flex; justify-content:center">
+        {{ $pitches->links() }}
+    </div>
 
 @endsection
+
+
+
+
+
+
+
+
+
 @push('scripts')
     <script>
 
-
-
-        function selectId(id){
-           // $('#get_id').attr('value', id)
-
-            $('#form').submit(function (e) {
-                e.preventDefault();
-
-                $.ajax({
-                    url: '/checkout/' + id,
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    success: function (response) {
-
-                    }
-                })
-            })
-        }
+    $('#datetimepicker').datetimepicker()
+    $('#datetimepicker1').datetimepicker()
 
     </script>
     {{--    <script>$.NotificationApp.send("Title","Your awesome message text","Position","Background color","Icon")</script>--}}
