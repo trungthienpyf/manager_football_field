@@ -31,11 +31,10 @@ class PitchIndexController extends Controller
         return view('user.detail_pitch',['pitch'=>$pitch]);
     }
 
-    public function addToCard(request $request, $id)
+    public function addToCard(request $request,Pitch $pitch)
     {
-        Customer::create([
-            'name' => $request->name,
-            'phone' => $request->phone,
+        return view('user.checkout',[
+            'pitch'=>$pitch
         ]);
     }
 

@@ -2,32 +2,52 @@
 
 @section('search')
     <div class="container">
-        <div class="row" style="border: 1px solid #f9f9f9;box-shadow: #969ea633 0px 0px 24px;">
-            <div class="col-sm-3">
-                <div class="form-group" style="margin-top:15px">
-                    <select name="" id="" class="form-control">
-                        <option value="">Chọn khu vực</option>
-                        <option value="">Chọn khu vực</option>
-                        <option value="">Chọn khu vực</option>
-                    </select>
+        <h2 class="section-title" style="color:black;margin-top:0">Sân bóng đá</h2>
+        <form action="">
+            <div class="row" style="border: 1px solid #f9f9f9;box-shadow: #969ea633 0px 0px 24px;">
+                <div class="col-md-2">
+                    <div class="form-group" style="margin-top:15px">
+                        <select name="" id="" class="form-control">
+                            <option value="">Chọn khu vực</option>
+                            <option value="">Chọn khu vực</option>
+                            <option value="">Chọn khu vực</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2" style="margin-top:15px;padding:0 8px">
+                    <input class="form-control"  type="date" value="{{date("Y-m-d")}}" min="{{date("Y-m-d")}}">
+                </div>
+                <div class="col-md-2" style="margin-top:15px;padding:0 8px">
+                    <div class="input-group" >
+                        <input class="form-control" id="time" value="07:00">
+                        <a class="input-group-addon" >
+                            <i class="fa fa-clock-o"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-2" style="margin-top:15px;padding:0 8px">
+                    <div class="input-group" >
+                        <input class="form-control" id="time" value="23:00">
+                        <a class="input-group-addon" >
+                            <i class="fa fa-clock-o"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3"  style="margin-top:15px;padding:0 8px">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Nhập tên sân">
+                        <a class="input-group-addon" >
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-1"  style="margin-top:13px;padding:0 ">
+                    <button class="btn btn-social btn-fill btn-google" style="font-size:16px">
+                       Tìm kiếm
+                    </button>
                 </div>
             </div>
-            <div class="col-md-3" style="margin-top:15px" >
-                <input class="form-control"  id="datetimepicker">
-            </div>
-            <div class='input-group date' id='datetimepicker1'>
-                <input type='text' class="form-control" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-            <div class="col-sm-3">
-                <div class="form-group" style="margin-top:15px">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-            </div>
-
-        </div>
+        </form>
     </div>
 @endsection
 
@@ -43,7 +63,7 @@
                              style="background-image: url({{ url('/storage') }}/{{$each->img}}); background-position: center center; background-size: cover;">
 
                             <div class="filter filter-white">
-                                <a href="{{route('detail',$each)}}" type="button"
+                                <a href="" type="button"
                                    class="btn btn-info btn-round btn-fill">
                                     <i class="fa fa-heart"></i> Đặt sân
                                 </a>
@@ -51,9 +71,8 @@
                         </div>
                         <div class="content">
                             <p class="category">News</p>
-                            <a class="card-link" href="#">
-                                <h4 class="title">Get Shit Done Kit PRO, the most wanted bootstrap kit is here
-                                    and... </h4>
+                            <a class="card-link" href="{{route('detail',$each)}}">
+                                <h4 class="title">{{$each->name}}</h4>
                             </a>
                             <div class="footer">
                                 <div class="author">
@@ -91,18 +110,11 @@
 @endsection
 
 
-
-
-
-
-
-
-
 @push('scripts')
     <script>
 
-    $('#datetimepicker').datetimepicker()
-    $('#datetimepicker1').datetimepicker()
+        $('#datetimepicker').datetimepicker()
+        $('#datetimepicker1').datetimepicker()
 
     </script>
     {{--    <script>$.NotificationApp.send("Title","Your awesome message text","Position","Background color","Icon")</script>--}}

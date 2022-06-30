@@ -184,22 +184,18 @@
                     </div>
                 </div> <!-- Acordeon  -->
             </div>
+
             <div class="col-md-5">
                 <div class="product-details">
-                    <a href="">
-                        <h2 style="color:black">Đặt sân qua các kênh sau</h2>
+                    <a href="#">
+                        <h2  style="color:black">Đặt sân qua các kênh sau</h2>
                     </a>
                     <p class="description">
                         Brown single-breasted brushed-wool checked blazer
                     </p>
 
+                    <span class="price">€ 1,930</span>
                 </div>
-                <div class="social-line">
-                    <a href="{{ route('checkout',$pitch) }}" class="btn btn-fill btn-social" style="font-size:20px;background-color:#dd4b39;border:0">
-                       Đặt sân ngay
-                    </a>
-                </div>
-
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
