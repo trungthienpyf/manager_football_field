@@ -17,14 +17,19 @@ class Pitch extends Model
     {
         return array_search($value, PitchStatusEnum::getArrayView(), true);
     }
+
+
     public function pitch()
     {
         return $this->hasMany(Pitch::class, 'pitch_id');
     }
+    public function bills()
+    {
+        return $this->hasMany(Bill::class);
+    }
 
 
-
-    public function getViewSize()
+    public function getNameSizeAttribute()
     {
         return $this->size == '1' ? '7' :'11';
     }

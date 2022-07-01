@@ -32,9 +32,12 @@
                 <td>{{$each->id}}</td>
                 <td>{{$each->name}}</td>
                 <td>
+
                     <a href="">
+
                         <i class="dripicons-preview"></i>
                     </a>
+                    <span class="pl-1">  {{$each->countPitch}} Sân </span>
                 </td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signup-modal"
@@ -47,7 +50,7 @@
                 <td>
                     <a href="{{route('admin.area.edit',$each)}}">
                         <a href="{{route('admin.area.edit',$each)}}" class="action-icon">
-                            <i class="mdi mdi-pencil"></i>
+                          <i class="mdi mdi-pencil"></i>
                         </a>
                     </a>
                 </td>
@@ -99,6 +102,7 @@
                             <input type="text" class="form-control" id="name" placeholder="Tên" name="name" >
                         </div>
 
+
                         <div class="form-group">
                             <label for="price">Giá</label>
                             <input class="form-control" type="number" id="price" name="phone"
@@ -121,7 +125,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="mt-3">
+                        <div class="mt-3 mb-2">
                             Loại sân:
                             <div class="custom-control custom-radio">
                                 <div class="row ml-0">
@@ -148,10 +152,21 @@
                                 <label class="custom-control-label" for="radio2"> Sân to 11 người</label>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+
+                                <span style="color:black">Từ </span> <input type="number" class="form-control" id="name" value="1" placeholder="Tên" name="name" >
+                            </div>
+                            <div class="form-group col-md-6">
+
+                                <span style="color:black">Đến </span> <input type="number" class="form-control" id="name" value="5" placeholder="Tên" name="name" >
+                            </div>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
                             <button type="button" class="btn btn-primary">Đặt sân</button>
                         </div>
+
                     </form>
                 </div>
             </div><!-- /.modal-content -->

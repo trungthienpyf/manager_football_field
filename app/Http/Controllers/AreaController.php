@@ -12,7 +12,13 @@ class AreaController extends Controller
 {
 
    public function index(){
-      $area= Area::all();
+      $area= Pitch::query()
+          ->selectRaw('areas.name as name,areas.id,count(pitches.id) as countPitch')
+          ->join('areas','areas.id','=','pitches.area_id')
+          ->groupBy('areas.id')
+          ->orderBy('areas.created_at','DESC')
+          ->get();
+
        $status = PitchStatusEnum::getArrayView();
        $get_size_11=Pitch::query()
            ->where('size','=','2')

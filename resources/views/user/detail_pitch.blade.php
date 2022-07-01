@@ -1,6 +1,7 @@
 @extends('user.layout.master')
 @section('content')
     <div class="container">
+
         <div class="row">
             <div class="col-md-7">
                 <div class="tab-content">
@@ -195,7 +196,7 @@
 
                 </div>
                 <div class="social-line">
-                    <a href="{{ route('checkout',$pitch) }}" class="btn btn-fill btn-social" style="font-size:20px;background-color:#dd4b39;border:0">
+                    <a href="{{ route('booking',$pitch) }}" class="btn btn-fill btn-social" style="font-size:20px;background-color:#dd4b39;border:0">
                        Đặt sân ngay
                     </a>
                 </div>
@@ -282,69 +283,7 @@
                 </div> <!-- Acordeon  -->
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-6">
-                <div class="actions">
-                    <div class="pull-left">
-                        <div class="form-group">
-                            <div class="btn-group bootstrap-select">
-                                <button type="button" class="dropdown-toggle btn" data-toggle="dropdown"
-                                        title="Select SIze"><span class="filter-option pull-left">Select SIze</span>&nbsp;<span
-                                        class="bs-caret"><span class="caret"></span></span></button>
-                                <div class="dropdown-menu open">
-                                    <ul class="dropdown-menu inner" role="menu">
-                                        <li data-original-index="0" class="selected"><a tabindex="0" class="" style=""
-                                                                                        data-tokens="null"><span
-                                                    class="text">Select SIze</span><span
-                                                    class="fa fa-check check-mark"></span></a></li>
-                                        <li data-original-index="1"><a tabindex="0" class="" style=""
-                                                                       data-tokens="null"><span
-                                                    class="text">XS</span><span
-                                                    class="fa fa-check check-mark"></span></a></li>
-                                        <li data-original-index="2"><a tabindex="0" class="" style=""
-                                                                       data-tokens="null"><span
-                                                    class="text">S</span><span
-                                                    class="fa fa-check check-mark"></span></a></li>
-                                        <li data-original-index="3"><a tabindex="0" class="" style=""
-                                                                       data-tokens="null"><span
-                                                    class="text">M</span><span
-                                                    class="fa fa-check check-mark"></span></a></li>
-                                        <li data-original-index="4"><a tabindex="0" class="" style=""
-                                                                       data-tokens="null"><span
-                                                    class="text">L</span><span
-                                                    class="fa fa-check check-mark"></span></a></li>
-                                        <li data-original-index="5"><a tabindex="0" class="" style=""
-                                                                       data-tokens="null"><span
-                                                    class="text">XL</span><span
-                                                    class="fa fa-check check-mark"></span></a></li>
-                                        <li data-original-index="6"><a tabindex="0" class="" style=""
-                                                                       data-tokens="null"><span
-                                                    class="text">XXL</span><span class="fa fa-check check-mark"></span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <select name="huge" class="selectpicker" data-style="btn"
-                                        data-menu-style="dropdown-blue" tabindex="-98">
-                                    <option value="en" selected="">Select SIze</option>
-                                    <option value="id">XS</option>
-                                    <option value="ms">S</option>
-                                    <option value="ca">M</option>
-                                    <option value="ca">L</option>
-                                    <option value="ca">XL</option>
-                                    <option value="ca">XXL</option>
-                                </select></div>
-                        </div>
-                    </div>
-                    <div class="pull-right">
-                        <button class="btn btn-danger btn-simple btn-hover" rel="tooltip" title="" data-placement="left"
-                                data-original-title="Add to wishlist">
-                            <i class="fa fa-heart-o"></i>
-                        </button>
-                        <button type="button" class="btn btn-fill">Add to Card</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
 @endsection
 @push('scripts')

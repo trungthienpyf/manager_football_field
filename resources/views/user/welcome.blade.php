@@ -63,9 +63,9 @@
                              style="background-image: url({{ url('/storage') }}/{{$each->img}}); background-position: center center; background-size: cover;">
 
                             <div class="filter filter-white">
-                                <a href="" type="button"
+                                <a href="{{route('booking',$each)}}" type="button"
                                    class="btn btn-info btn-round btn-fill">
-                                    <i class="fa fa-heart"></i> Đặt sân
+                                    <i class="fa fa-calendar-check-o"></i> Đặt lịch ngay
                                 </a>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                     <a class="card-link" href="#">
 
                                             <span
-                                                style="font-size:14px;color:#a97373;text-transform: none;">  Số người: {{$each->size}} </span>
+                                                style="font-size:14px;color:#a97373;text-transform: none;">  Số người: {{$each->namesize}} </span>
                                     </a>
                                 </div>
                                 <div class="stats pull-right">

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterColumnTableCustomer extends Migration
+class AddColumnNamePhoneEmailReceiveTableBill extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AlterColumnTableCustomer extends Migration
      */
     public function up()
     {
-        Schema::table('customers', function (Blueprint $table) {
-            $table->integer('phone')->unique()->change();
-
-            $table->string('address')->nullable()->change();
+        Schema::table('bills', function (Blueprint $table) {
+            $table->integer('phone_receive')->after('id');
+            $table->string('name_receive')->after('id');
+            $table->string('email_receive')->after('id');
         });
     }
 
