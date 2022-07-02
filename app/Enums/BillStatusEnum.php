@@ -11,7 +11,15 @@ use BenSampo\Enum\Enum;
  */
 final class BillStatusEnum extends Enum
 {
-    const OptionOne =   0;
-    const OptionTwo =   1;
-    const OptionThree = 2;
+    const DANG_DAT =   0;
+    const DA_DUYET =   1;
+    const DA_HUY = 2;
+    public static function getArrayView()
+    {
+        return [
+            'Đang xử lý' => self::DANG_DAT,
+            'Đã duyệt' => self::DA_DUYET,
+            'Đã hủy' => self::DA_HUY,
+        ];
+    }
 }

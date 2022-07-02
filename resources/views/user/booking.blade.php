@@ -84,8 +84,7 @@
                             </div>
                         </div>
                     </div>
-
-                </div> <!-- Acordeon  -->
+                </div>
             </div>
             <div class="col-md-8">
                 <h2 style="color:black;margin-top: 0">Đặt lịch hẹn</h2>
@@ -99,14 +98,7 @@
                                     <input type="text" name="name_receive" class="form-control">
                                 </div>
                             </div>
-
                             <div class="col-md-6" style="">
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" name="email" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-12" style="">
                                 <div class="form-group">
                                     <label for="phone">Số điện thoại (*)</label>
                                     <input type="text" name="phone" class="form-control">
@@ -114,31 +106,77 @@
                             </div>
                             <div class="col-md-6" style="">
                                 <div class="form-group">
-                                    <label for="date-start">Chọn thời gian nhận sân</label>
-                                    <input type="datetime-local" name="time_start" class="form-control"  value="{{date('Y-m-d\TH:i:sP')}}" min="{{date('y-m-d')}}T00:00" max="">
+                                    <label for="date-start">Ngày đá</label>
+                                    <input type="date" name="date" class="form-control"  value="">
                                 </div>
                             </div>
                             <div class="col-md-6" style="">
                                 <div class="form-group">
-                                    <label for="date-end">Chọn chọn thời gian trả</label>
-                                    <input type="datetime-local"  name="time_end" class="form-control">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" class="form-control">
                                 </div>
                             </div>
+                            <p style="margin-left: 15px;font-size:20px">Chọn giờ đá</p>
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" href="#collapseFour" class="" aria-expanded="true">
-                                                Default Collapsible Item 1
+                                                <i class="fa fa-sun-o"></i> Buổi sáng
                                             </a>
                                         </h4>
                                     </div>
+
                                     <div id="collapseFour" class="panel-collapse collapse in" aria-expanded="true" style="">
                                         <div class="panel-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                <div class="selector">
+                                                    @foreach ($time as $hours)
+                                                    <div class="selecotr-item">
+                                                        <input type="radio" id="radio{{$hours->id}}" name="selector" class="selector-item_radio"   value="{{$hours->id}}">
+                                                        <label for="radio{{$hours->id}}" class="selector-item_label">{{$hours->time_start}} - {{$hours->time_end}}</label>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
                                         </div>
                                     </div>
+
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapseFive" class="" aria-expanded="true">
+                                                <i class="fa fa-moon-o"></i> Buổi tối
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFive" class="panel-collapse collapse " aria-expanded="true" style="">
+                                        <div class="panel-body">
+                                            <div class="selector">
+                                                <div class="selecotr-item">
+                                                    <input type="radio" id="radio5" name="selector" class="selector-item_radio"  value="16:00:00 - 17:00:00">
+                                                    <label for="radio5" class="selector-item_label">16:00 - 17:00</label>
+                                                </div>
+                                                <div class="selecotr-item">
+                                                    <input type="radio" id="radio6" name="selector" class="selector-item_radio">
+                                                    <label for="radio6" class="selector-item_label">17:00 - 18:00</label>
+                                                </div>
+                                                <div class="selecotr-item">
+                                                    <input type="radio" id="radio7" name="selector" class="selector-item_radio">
+                                                    <label for="radio7" class="selector-item_label">18:00 - 19:00</label>
+                                                </div>
+                                                <div class="selecotr-item">
+                                                    <input type="radio" id="radio8" name="selector" class="selector-item_radio">
+                                                    <label for="radio8" class="selector-item_label">20:00 - 21:00</label>
+                                                </div>
+                                                <div class="selecotr-item">
+                                                    <input type="radio" id="radio9" name="selector" class="selector-item_radio" value="20:00:00 - 21:00:00">
+                                                    <label for="radio9" class="selector-item_label">21:00 - 22:00</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div> <!-- Acordeon  -->
                             <div class="col-md-6">

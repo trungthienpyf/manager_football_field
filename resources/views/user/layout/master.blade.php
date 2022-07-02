@@ -15,6 +15,7 @@
 
 
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/index_app.css')}}" rel="stylesheet">
     <link href="{{asset('css/gsdk.css')}}" rel="stylesheet">
     <link href="{{asset('css/examples.css')}}" rel="stylesheet">
 

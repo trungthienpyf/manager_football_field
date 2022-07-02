@@ -1,18 +1,13 @@
 @extends('admin.layout.master')
-
-
 @section('content')
-
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
                 <div class="page-title-right">
 
-                    <a class="btn btn-primary" href="{{route('admin.pitch.create')}}">
-                        Thêm
-                    </a>
+
                 </div>
-                <h4 class="page-title">Khu vực</h4>
+                <h4 class="page-title">Lịch đặt sân</h4>
             </div>
 
         </div>
@@ -24,38 +19,47 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Tên</th>
-                    <th>Hình</th>
-                    <th>Giá</th>
+                    <th>Tên người đặt</th>
+                    <th>Số điện thoại người đặt</th>
+                    <th>Giá tiền</th>
+                    <th>Thời gian nhận sân</th>
+                    <th>Thời gian trả sân</th>
+                    <th>Chi tiết</th>
                     <th>Trạng thái</th>
-                    <th>Khu vực</th>
-                    <th>Loại người</th>
-                    <th>Sửa</th>
-                    <th>Xóa</th>
+                    <th>Hành động</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($pitch as $each)
+                @foreach ($bills as $each)
                     <tr>
                         <td>{{$each->id}}</td>
-                        <td>{{$each->name}}</td>
-
-                        <td>
-                            @if(!empty($each->img))
-                                <img src="{{ url('/storage') }}/{{$each->img}}" alt="" width="100px">
-                            @endif
-                        </td>
-
+                        <td>{{$each->name_receive}}</td>
+                        <td>{{$each->phone_receive}}</td>
                         <td>{{$each->price}}</td>
-
+                        <td>{{$each->time_start}}</td>
+                        <td>{{$each->time_end}}</td>
+                        <td>Chi tiết để sau</td>
                         <td>{{$each->getKeyByValue($each->status)}}</td>
 
-                        <td>{{$each->area->name}}</td>
-                        <td>{{$each->getNameSizeAttribute()}}</td>
                         <td>
-                            <a href="{{route('admin.pitch.edit',$each)}}" class="action-icon">
-                                <i class="mdi mdi-pencil"></i>
-                            </a>
+                            <div class="row">
+                                <form action="{{route('admin.booking.accept',$each)}}" method="post">
+                                    @csrf
+                                    <button  class="action-icon" style="border:0; background-color: transparent;">
+
+                                        <i class="mdi mdi-check" style="color:green"></i>
+                                    </button>
+                                </form>
+
+                                <form action="{{route('admin.booking.cancel',$each)}}" method="post">
+                                    @csrf
+                                    <button class="action-icon" style="border:0; background-color: transparent;">
+                                        <i class="mdi mdi-close" style="color:red"></i>
+                                    </button>
+                                </form>
+                            </div>
+
+
                         </td>
                         <td>
                             <form action="{{route('admin.pitch.destroy',$each)}}" method="post">
@@ -173,7 +177,7 @@
                 }
             </style>
             <div class="d-flex justify-content-center">
-                {{ $pitch->links()  }}
+                {{ $bills->links()  }}
             </div>
 
         </div>
@@ -185,22 +189,5 @@
 
 @endsection
 @push('scripts')
-    <script>
-        function deletePitch(id) {
-            $('#text-body-alert').text("Bạn có chắc chắn muốn xóa sân có id là " + id + " ?")
 
-            $('#submit-delete').click(function () {
-                $.ajax({
-                    url: '/admin/pitch/' + id,
-                    type: 'delete',
-                    data: {_token: '{{session()->token()}}'},
-                    success: function (response) {
-                        console.log(response)
-                    }
-                })
-                $('#delete-button-field').parent().parent().parent().remove()
-                $('.modal-backdrop.fade.show').hide()
-            })
-        }
-    </script>
 @endpush

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AreaController;
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PitchController;
 
 
@@ -31,3 +32,7 @@ Route::post('/pitch', [PitchController ::class, 'store'])->name('pitch.store');
 Route::get('/pitch/edit/{pitch}', [PitchController ::class, 'edit'])->name('pitch.edit');
 Route::put('/pitch/{pitch}', [PitchController ::class, 'update'])->name('pitch.update');
 Route::delete('/pitch/{pitch}', [PitchController ::class, 'destroy'])->name('pitch.destroy');
+
+Route::get('/booking', [BookingController::class,'index'])->name('booking.index');
+Route::post('/booking/accept/{id_accept}', [BookingController ::class, 'accept_booking'])->name('booking.accept');
+Route::post('/booking/cancel/{id_cancel}', [BookingController ::class, 'cancel_booking'])->name('booking.cancel');

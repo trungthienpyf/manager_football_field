@@ -19,6 +19,7 @@ class Pitch extends Model
     }
 
 
+
     public function pitch()
     {
         return $this->hasMany(Pitch::class, 'pitch_id');

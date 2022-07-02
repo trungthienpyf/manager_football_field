@@ -7,6 +7,7 @@ use App\Models\Area;
 use App\Models\Bill;
 use App\Models\Customer;
 use App\Models\Pitch;
+use App\Models\Time;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -35,26 +36,28 @@ class PitchIndexController extends Controller
 
     public function booking(request $request, Pitch $pitch)
     {
+        $time=Time::all();
+
         return view('user.booking', [
-            'pitch' => $pitch
+            'pitch' => $pitch,
+            'time'=>$time
         ]);
     }
 
     public function pending(request $request, Pitch $pitch)
     {
 
+
         $pitch_real = Pitch::find($pitch->id);
         $pitch_id = $pitch_real->id;
         $price = $pitch_real->price;
-        $time_start = Carbon::parse($request->time_start)->toDateTimeString();
-        $time_end= Carbon::parse($request->time_end)->toDateTimeString();
 
         Bill::create([
             'email_receive'=>$request->email,
             'name_receive'=>$request->name_receive,
             'phone_receive'=>$request->phone,
-            'time_start'=>$time_start,
-            'time_end'=>$time_end,
+            'time_id'=>$request->selector,
+
             'price'=>$price,
             'pitch_id' =>$pitch_id
         ]);
