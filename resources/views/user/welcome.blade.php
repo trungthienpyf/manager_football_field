@@ -72,7 +72,12 @@
                         <div class="content">
                             <p class="category">News</p>
                             <a class="card-link" href="{{route('detail',$each)}}">
-                                <h4 class="title">{{$each->name}}</h4>
+                                <h4 class="title">{{$each->name}} @if ($each->size==1)
+                                       <span style="font-size:14px">
+                                             ({{ $each->pitch->name }})
+                                        </span>
+                                                                      @endif
+                                </h4>
                             </a>
                             <div class="footer">
                                 <div class="author">

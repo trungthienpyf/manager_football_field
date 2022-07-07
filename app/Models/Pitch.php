@@ -20,9 +20,13 @@ class Pitch extends Model
 
 
 
-    public function pitch()
+    public function pitches()
     {
         return $this->hasMany(Pitch::class, 'pitch_id');
+    }
+    public function pitch()
+    {
+        return $this->belongsTo(Pitch::class, 'pitch_id','id');
     }
     public function bills()
     {
@@ -34,6 +38,14 @@ class Pitch extends Model
     {
         return $this->size == '1' ? '7' :'11';
     }
+//    public function getNameOfSizeAttribute($param)
+//    {
+//        $nameOfParents =Pitch::query()
+//            ->select('name')
+//            ->where('id','=',$param)
+//            ->first();
+//        return $nameOfParents ;
+//    }
     public function area()
     {
         return $this->belongsTo(Area::class);

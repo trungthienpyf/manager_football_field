@@ -116,14 +116,14 @@
                                     <input type="email" name="email" class="form-control">
                                 </div>
                             </div>
-                            <p style="margin-left: 15px;font-size:20px">Chọn giờ đá</p>
+
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" href="#collapseFour" class="" aria-expanded="true">
-                                                <i class="fa fa-sun-o"></i> Buổi sáng
+                                                <i class="fa fa-clock-o"></i> Giờ đá
                                             </a>
                                         </h4>
                                     </div>
@@ -133,9 +133,22 @@
                                                 <div class="selector">
                                                     @foreach ($time as $hours)
                                                     <div class="selecotr-item">
-                                                        <input type="radio" id="radio{{$hours->id}}" name="selector" class="selector-item_radio"   value="{{$hours->id}}">
-                                                        <label for="radio{{$hours->id}}" class="selector-item_label">{{$hours->time_start}} - {{$hours->time_end}}</label>
+                                                        <input type="radio" id="radio{{$hours->id}}" name="selector" class="selector-item_radio"   value="{{$hours->id}}"
+                                                               @if( in_array($hours->time_start . $hours->time_end ,$arrCheck))
+
+                                                              disabled
+                                                            @endif
+                                                        >
+                                                        <label
+                                                            for="radio{{$hours->id}}" class="selector-item_label"
+                                                            @if( in_array($hours->time_start . $hours->time_end ,$arrCheck))
+                                                            style="opacity:0.36;pointer-events:none"
+                                                            @endif
+
+                                                        >{{$hours->time_start}} - {{$hours->time_end}}</label>
+
                                                     </div>
+
                                                     @endforeach
                                                 </div>
                                         </div>
@@ -183,7 +196,17 @@
                                 <button  class="btn btn-block btn-lg btn-fill btn-info">Đặt sân</button>
                             </div>
                         </form>
+
                     </div>
+                    @if (session()->has('msg'))
+                        <div class="alert alert-danger">
+                            <ul>
+
+                                <li>{{ session('msg') }}</li>
+
+                            </ul>
+                        </div>
+                    @endif
                 </div>
 
             </div>

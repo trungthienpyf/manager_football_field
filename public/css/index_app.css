@@ -46,6 +46,7 @@ html,body{
     display:none;
 }
 .selector-item_label{
+    cursor:pointer;
     color:#666666;
     border:1px solid #3472f7;
     position:relative;
@@ -59,7 +60,12 @@ html,body{
     transition-property:transform, color, box-shadow;
     transform:none;
 }
+.disabled {
+    pointer-events: none;
+
+}
 .selector-item_radio:checked + .selector-item_label{
+
     color:black;
     box-shadow:0 0 4px rgba(0,0,0,.5),0 2px 4px rgba(0,0,0,.5);
     transform:translateY(-2px);
