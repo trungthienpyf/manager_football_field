@@ -13,9 +13,8 @@ class Bill extends Model
         'name_receive',
         'email_receive',
         'phone_receive',
+        'date_receive',
         'time_id',
-
-
         'price',
         'pitch_id'
     ];

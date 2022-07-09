@@ -20,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 //});
 Route::get('/size_11',[PitchIndexController::class,'getSize11'])->name('size_11');
 Route::post('/pass_area',[PitchIndexController::class,'returnValueArea'])->name('pass_area');
+Route::post('/check_time',[PitchIndexController::class,'checkTimeApi'])->name('check_time');

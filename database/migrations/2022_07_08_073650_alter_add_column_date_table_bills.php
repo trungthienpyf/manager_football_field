@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnTimeIdTableBill extends Migration
+class AlterAddColumnDateTableBills extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddColumnTimeIdTableBill extends Migration
     public function up()
     {
         Schema::table('bills', function (Blueprint $table) {
-
-            $table->foreignId('time_id')->constrained('times')->after('price');
+            $table->date('date_receive')->after('price');
         });
     }
 
