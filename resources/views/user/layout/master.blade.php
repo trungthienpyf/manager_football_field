@@ -18,6 +18,7 @@
     <link href="{{asset('css/index_app.css')}}" rel="stylesheet">
     <link href="{{asset('css/gsdk.css')}}" rel="stylesheet">
     <link href="{{asset('css/examples.css')}}" rel="stylesheet">
+    <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
 
 
     <!--     Fonts and icons     -->
@@ -57,9 +58,8 @@
 
 
 
+
 <script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
-
-
 <script src="{{asset('js/jquery-ui.custom.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/bootstrap.min.js')}}" type="text/javascript"></script>
 
@@ -67,6 +67,8 @@
 {{--<script src="{{asset('js/bootstrap-datepicker.js')}}" type="text/javascript"></script>--}}
 <script src="{{asset('js/jquery.tagsinput.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/bootstrap-select.js')}}" type="text/javascript"></script>
+
+<script src="{{asset('js/toastr.min.js')}}" type="text/javascript"></script>
 
 
 

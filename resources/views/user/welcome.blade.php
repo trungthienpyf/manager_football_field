@@ -116,11 +116,6 @@
 
 
 @push('scripts')
-    <script>
 
-        $('#datetimepicker').datetimepicker()
-        $('#datetimepicker1').datetimepicker()
-
-    </script>
-    {{--    <script>$.NotificationApp.send("Title","Your awesome message text","Position","Background color","Icon")</script>--}}
+        <script>$.NotificationApp.send("Title","Your awesome message text","Position","Background color","Icon")</script>
 @endpush

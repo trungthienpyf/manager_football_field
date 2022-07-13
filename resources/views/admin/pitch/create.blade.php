@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <form action="{{route('admin.pitch.store')}} " method="post" enctype="multipart/form-data">
+    <form action="{{route('admin.pitch.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="name">Tên sân</label>
@@ -25,7 +25,7 @@
         <div class="form-group">
             <label for="img">Ảnh</label>
             <input type="file" id="img" name="img" oninput="pic.src=window.URL.createObjectURL(this.files[0])">
-            <img  id="pic"  height="100px"/>
+            <img id="pic" height="100px"/>
         </div>
 
 
@@ -57,22 +57,29 @@
             Loại sân:
             <div class="custom-control custom-radio">
                 <div class="row ml-0">
-                    <div class="mt-2 ">
+                    <input type="radio" id="radio2" name="size" class="custom-control-input" value="2">
+                    <label class="custom-control-label" for="radio2"> Sân to 11 người</label>
+                    <div class="mt-2 offset-2 active" id="click_option">
+                        <input type="checkbox" name="create_child">
+                        Tạo nhanh 4 sân nhỏ cho sân này
+                    </div>
+                </div>
+            </div>
+            <div class="custom-control custom-radio">
+                <div class="row ml-0">
+                    <div>
                         <input type="radio" id="radio1" name="size" class="custom-control-input" value="1">
                         <label class="custom-control-label" for="radio1"> Sân nhỏ 7 người</label>
                     </div>
                     <div class="mt-2 offset-2 active" id="div_click">
                         Thuộc sân
-                        <select name="pitch_id" id="select_let_append" >
-                            <option checked value="" id="option_let_append" >Hãy chọn sân to</option>
+                        <select name="pitch_id" id="select_let_append">
+                            <option checked value="" id="option_let_append">Hãy chọn sân to</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="custom-control custom-radio">
-                <input type="radio" id="radio2" name="size" class="custom-control-input" value="2">
-                <label class="custom-control-label" for="radio2"> Sân to 11 người</label>
-            </div>
+
         </div>
 
         @include('error')
@@ -86,20 +93,20 @@
 @endsection
 @push('scripts')
     <script>
-
-
-
         $('#radio1').change(function () {
             $('#div_click').removeClass('active')
+            $('#click_option').addClass('active')
 
         })
         $('#radio2').change(function () {
             $('#div_click').addClass('active')
+            $('#click_option').removeClass('active')
 
+            console.log(1)
         })
         $('#select_let_append').click(function () {
-            let area=$('#area_value').val()
-            if(area==''){
+            let area = $('#area_value').val()
+            if (area == '') {
                 $.toast({
                     heading: 'Warning',
                     text: 'Vui lòng chọn khu vực của sân to',
@@ -109,7 +116,7 @@
             }
         })
         $('#area_value').change(function () {
-          $('.remove_case').remove()
+            $('.remove_case').remove()
             $.ajax({
                 url: '{{route('api.pass_area')}}',
                 type: 'POST',

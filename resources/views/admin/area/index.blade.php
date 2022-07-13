@@ -20,7 +20,7 @@
             <th scope="col">#</th>
             <th scope="col">Tên khu vực</th>
             <th scope="col">Xem các sân của khu vực</th>
-            <th scope="col">Thêm nhanh</th>
+            <th scope="col">Thêm sân</th>
             <th scope="col">Sửa</th>
             <th scope="col">Xóa</th>
         </tr>
@@ -41,7 +41,7 @@
                 </td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signup-modal"
-                            onclick="selectId(2)">
+                            onclick="selectId({{$each->id}})">
                         <i class="dripicons-plus ">
                         </i>
                     </button>
@@ -50,7 +50,7 @@
                 <td>
                     <a href="{{route('admin.area.edit',$each)}}">
                         <a href="{{route('admin.area.edit',$each)}}" class="action-icon">
-                          <i class="mdi mdi-pencil"></i>
+                            <i class="mdi mdi-pencil"></i>
                         </a>
                     </a>
                 </td>
@@ -95,17 +95,17 @@
                     <div class="text-center mt-2 ">
                         <h3>Thêm sân</h3>
                     </div>
-                    <form class="pl-3 pr-3" action="#" id="form">
+                    <form class="pl-3 pr-3" action="{{route('admin.area.create_multiple')}}" id="form" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="name">Tên sân</label>
-                            <input type="text" class="form-control" id="name" placeholder="Tên" name="name" >
+                            <input type="text" class="form-control" id="name" placeholder="Tên" name="name">
                         </div>
 
 
                         <div class="form-group">
                             <label for="price">Giá</label>
-                            <input class="form-control" type="number" id="price" name="phone"
+                            <input class="form-control" type="number" id="price" name="price"
                                    placeholder="Giá thuê">
                         </div>
                         <div class="form-group">
@@ -116,7 +116,8 @@
                         <div class="mt-2">
                             @foreach($status as $key => $value)
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" name="status" id="{{$value}}" value="{{ $value }}" class="custom-control-input"
+                                    <input type="radio" name="status" id="{{$value}}" value="{{ $value }}"
+                                           class="custom-control-input"
                                            @if ($loop->first)
                                            checked
                                         @endif
@@ -125,56 +126,133 @@
                                 </div>
                             @endforeach
                         </div>
+
                         <div class="mt-3 mb-2">
                             Loại sân:
+
                             <div class="custom-control custom-radio">
                                 <div class="row ml-0">
-                                    <div class="mt-2 ">
-                                        <input type="radio" id="radio1" name="size" class="custom-control-input" value="1">
-                                        <label class="custom-control-label" for="radio1">  Sân nhỏ 7 người</label>
-                                    </div>
-                                    <div class="mt-2 offset-2 active"  id="div_click">
-                                        Thuộc sân
-                                        <select name="pitch_id" >
-                                            <option checked value="">Hãy chọn sân to</option>
-                                            @foreach($size_11 as $each)
-
-                                                <option value="{{$each->id}}">
-                                                    {{$each->name}}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                    <input type="radio" id="radio2" name="size" class="custom-control-input" value="2">
+                                    <label class="custom-control-label" for="radio2"> Sân to 11 người</label>
+                                    <div class="mt-2 offset-2 active" id="click_option">
+                                        <input type="checkbox" name="create_child" id="child_val">
+                                        Tạo nhanh 4 sân nhỏ cho sân này
                                     </div>
                                 </div>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="radio2" name="size" class="custom-control-input" value="2">
-                                <label class="custom-control-label" for="radio2"> Sân to 11 người</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
+                                <div class="row ml-0">
+                                    <div>
+                                        <input type="radio" id="radio1" name="size" class="custom-control-input"
+                                               value="1">
+                                        <label class="custom-control-label" for="radio1"> Sân nhỏ 7 người</label>
+                                    </div>
+                                    <div class="mt-2 offset-2 active" id="div_click">
+                                        Thuộc sân
+                                        <select name="pitch_id" id="select_let_append">
+                                            <option checked value="">Hãy chọn sân to</option>
 
-                                <span style="color:black">Từ </span> <input type="number" class="form-control" id="name" value="1" placeholder="Tên" name="name" >
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
 
-                                <span style="color:black">Đến </span> <input type="number" class="form-control" id="name" value="5" placeholder="Tên" name="name" >
-                            </div>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
-                            <button type="button" class="btn btn-primary">Đặt sân</button>
+                            <button  id="submitForm" type="button" class="btn btn-primary">Thêm sân</button>
                         </div>
-
                     </form>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div>
+
 @endsection
 @push('scripts')
     <script>
+        $('#submitForm').click(function(){
+
+            $.ajax({
+                url: $('#form').attr('action'),
+                type: 'POST',
+                data: $('#form').serialize(),
+                success: function (response) {
+                    console.log(response.data)
+                    location.reload()
+
+
+                },
+                error: function (message){
+
+
+                    $.each(message.responseJSON.errors,function (key,each) {
+                        $.toast({
+                            heading: 'Error',
+                            text: each.toString(),
+                            icon: 'error',
+                            position: 'top-right',
+                            loader: true,        // Change it to false to disable loader
+                            loaderBg: '#9EC600'  // To change the background
+                        })
+                    })
+                }
+            })
+        })
+
+        function selectId(id) {
+            $('#radio1').prop('checked', false)
+            $('#div_click').addClass('active')
+            $('#child_val').prop('checked', false)
+            $('#click_option').addClass('active')
+            $('#radio2').prop('checked', false);
+            if ($('#getId').length) {
+                $('#getId').remove();
+                $('#form').append(`<input type="hidden" name="area_id" id="getId" value="${id}"/>`)
+            } else {
+                $('#form').append(`<input type="hidden" name="area_id" id="getId" value="${id}"/>`)
+            }
+        }
+
+        $('#radio1').change(function () {
+            $('#div_click').removeClass('active')
+            $('#click_option').addClass('active')
+            $('.remove_case').remove()
+            let id = $('#getId').val()
+            console.log(id)
+            $.ajax({
+                url: '{{route('api.pass_area')}}',
+                type: 'POST',
+                data: {val: id},
+                success: function (response) {
+                    console.log(response.data)
+                    response.data.forEach(function (pitch) {
+                        $('#select_let_append').append(`<option value="${pitch.id}" class="remove_case"> ${pitch.name} </option>`)
+                    })
+
+                }
+            })
+
+        })
+        $('#radio2').change(function () {
+            $('#div_click').addClass('active')
+            $('#click_option').removeClass('active')
+
+            console.log(1)
+        })
+        $('#select_let_append').click(function () {
+            let area = $('#area_value').val()
+            if (area == '') {
+                $.toast({
+                    heading: 'Warning',
+                    text: 'Vui lòng chọn khu vực của sân to',
+                    icon: 'error',
+                    position: 'top-right',
+                })
+            }
+        })
+
         function deleteArea(id) {
             $('#text-body-alert').text("Bạn có chắc chắn muốn xóa khu vực có id là " + id + " ?")
 
@@ -191,5 +269,6 @@
                 $('.modal-backdrop.fade.show').hide()
             })
         }
+
     </script>
 @endpush

@@ -17,12 +17,15 @@ class CreateBillsTable extends Migration
             $table->id();
             $table->timestamp('time_created')->useCurrent();
             $table->tinyInteger('status')->comment('BillStatusEnum')->default('0');
-            $table->timestamp('time_receive');
             $table->integer('price');
+            $table->date('date_receive');
+            $table->integer('phone_receive');
+            $table->string('name_receive');
+            $table->string('email_receive')->nullable();
             $table->foreignId('time_id')->constrained('times');
-            $table->foreignId('customer_id')->constrained('customers');
             $table->foreignId('pitch_id')->constrained('pitches');
-            $table->foreignId('admin_id')->constrained('admins');
+            $table->foreignId('customer_id')->constrained('customers')->nullable();
+            $table->foreignId('admin_id')->constrained('admins')->nullable();
             $table->timestamps();
         });
     }

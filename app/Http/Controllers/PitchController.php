@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Enums\PitchSizeEnum;
 use App\Enums\PitchStatusEnum;
 
 
@@ -51,8 +52,8 @@ class PitchController extends Controller
     }
 
     public function store(StoreRequest $request)
-    {   $pitch_id=$request->pitch_id;
-
+    {
+        $pitch_id=$request->pitch_id;
         if(!empty($pitch_id)){
             $a=Pitch::select('*')
                 ->where('pitch_id','=',$pitch_id)
@@ -61,7 +62,6 @@ class PitchController extends Controller
                 return redirect()->route('admin.pitch.create')->with(['message'=>'Sân to này đã chứa đủ sân nhỏ hãy chọn sân khác']);
             }
         }
-
         $pitch = new Pitch();
         $files = $request->file('img');
         $path='';
@@ -69,11 +69,21 @@ class PitchController extends Controller
             $path = Storage::disk('public')->putFile('images', $request->file('img'));
         }
         $arr = $request->validated();
-
         $arr['img'] = $path;
         $pitch->fill($arr);
-
         $pitch->save();
+
+        $id=$pitch->id;
+        if($request->create_child){
+            $data = [
+                ['name'=>$arr['name'].' 01','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].' 02','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].' 03','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].' 04','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+            ];
+
+            Pitch::insert($data);
+        }
         return redirect()->route('admin.pitch.index');
     }
 
@@ -136,5 +146,41 @@ class PitchController extends Controller
             }
             Pitch::destroy($pitch);
             return response()->json(['success'=>'thanh cong',]);
+    }
+    public function CreatePitchMultiple(StoreRequest $request)
+    {
+
+        $pitch_id=$request->pitch_id;
+        if(!empty($pitch_id)){
+            $a=Pitch::select('*')
+                ->where('pitch_id','=',$pitch_id)
+                ->get();
+            if(count($a)>=4){
+                return redirect()->route('admin.pitch.create')->with(['message'=>'Sân to này đã chứa đủ sân nhỏ hãy chọn sân khác']);
+            }
+        }
+        $pitch = new Pitch();
+        $files = $request->file('img');
+        $path='';
+        if (!empty($files)){
+            $path = Storage::disk('public')->putFile('images', $request->file('img'));
+        }
+        $arr = $request->validated();
+
+        $arr['img'] = $path;
+        $pitch->fill($arr);
+        $pitch->save();
+        $id=$pitch->id;
+        if($request->create_child){
+            $data = [
+                ['name'=>$arr['name'].' 01','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].' 02','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].' 03','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].' 04','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+            ];
+
+            Pitch::insert($data);
+        }
+        return redirect()->route('admin.area.index');
     }
 }

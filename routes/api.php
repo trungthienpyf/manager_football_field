@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\PitchIndexController;
+use App\Http\Controllers\ApiController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,6 @@ use Illuminate\Support\Facades\Route;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-Route::get('/size_11',[PitchIndexController::class,'getSize11'])->name('size_11');
-Route::post('/pass_area',[PitchIndexController::class,'returnValueArea'])->name('pass_area');
-Route::post('/check_time',[PitchIndexController::class,'checkTimeApi'])->name('check_time');
+Route::get('/size_11',[ApiController::class,'getSize11'])->name('size_11');
+Route::post('/pass_area',[ApiController::class,'returnValueArea'])->name('pass_area');
+Route::post('/check_time',[ApiController::class,'checkTimeApi'])->name('check_time');

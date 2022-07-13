@@ -17,7 +17,7 @@ class CreatePitchesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price');
-            $table->text('img');
+            $table->text('img')->nullable();
             $table->tinyInteger('status')->comment('PitchStatusEnum');
             $table->string('size');
             $table->integer('pitch_id')->nullable();

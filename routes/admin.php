@@ -21,6 +21,7 @@ Route::post('/area', [AreaController::class, 'store'])->name('area.store');
 Route::get('/area/edit/{area}', [AreaController::class, 'edit'])->name('area.edit');
 Route::put('/area/{area}', [AreaController::class, 'update'])->name('area.update');
 Route::delete('/area/{area}', [AreaController::class, 'destroy'])->name('area.destroy');
+Route::post('/area/create_multiple', [PitchController::class, 'CreatePitchMultiple'])->name('area.create_multiple');
 
 
 

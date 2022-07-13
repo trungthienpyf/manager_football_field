@@ -1,20 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Enums\PitchSizeEnum;
 use App\Enums\PitchStatusEnum;
 use App\Http\Requests\Area\DestroyRequest;
 use App\Http\Requests\Area\StoreRequest;
+
 use App\Http\Requests\Area\UpdateRequest;
 use App\Models\Area;
 use App\Models\Pitch;
+use Illuminate\Support\Facades\Storage;
 
 class AreaController extends Controller
 {
-
    public function index(){
       $area= Pitch::query()
           ->selectRaw('areas.name as name,areas.id,count(pitches.id) as countPitch')
-          ->join('areas','areas.id','=','pitches.area_id')
+          ->rightJoin('areas','areas.id','=','pitches.area_id')
+          ->whereNull('deleted_at')
           ->groupBy('areas.id')
           ->orderBy('areas.created_at','DESC')
           ->get();
@@ -61,6 +64,10 @@ class AreaController extends Controller
 //        $area->delete();
 
         Area::destroy($area);
+//        Area::where('id','=',$area)->delete();
+
         return response()->json(['success'=>'thanh cong',]);
     }
+
+
 }

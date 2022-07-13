@@ -95,26 +95,36 @@
                             <div class="col-md-6" style="">
                                 <div class="form-group">
                                     <label for="name_receive">Họ và tên (*)</label>
-                                    <input type="text" name="name_receive" class="form-control">
+
+                                    <input type="text" name="name_receive" class="form-control" value="{{old('name_receive')}}">
+
                                 </div>
+
                             </div>
                             <div class="col-md-6" style="">
                                 <div class="form-group">
                                     <label for="phone">Số điện thoại (*)</label>
-                                    <input type="text" name="phone" class="form-control">
+                                    <input type="text" name="phone" class="form-control" value="{{old('phone')}}">
                                 </div>
                             </div>
                             <div class="col-md-6" style="">
                                 <div class="form-group">
                                     <label for="date-start">Ngày đá</label>
                                     <input id="check-date" type="date" name="date" class="form-control"
-                                           value="{{date("Y-m-d")}}">
+                                           @if(empty(old('date')))
+                                           value="{{date("Y-m-d")}}"
+                                           @endif
+                                           @if(!empty('date'))
+                                           value="{{old('date')}}"
+                                           @endif
+                                        min="{{date('Y-m-d')}}"
+                                    >
                                 </div>
                             </div>
                             <div class="col-md-6" style="">
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" name="email" class="form-control">
+                                    <input type="email" name="email" class="form-control" value="{{old('email')}}">
                                 </div>
                             </div>
 
@@ -202,9 +212,10 @@
                         </form>
 
                     </div>
+
                     @if (session()->has('msg'))
                         <div class="alert alert-danger">
-                            <ul>
+                            <ul style="list-style-type: none!important">
 
                                 <li>{{ session('msg') }}</li>
 
@@ -220,6 +231,29 @@
 @endsection
 @push('scripts')
     <script>
+        let errorName=''
+        let errorDate=''
+        let errorPhone=''
+        let errorSelectTime=''
+        @if ($errors->has('name_receive'))
+             errorName= '{{$errors->first('name_receive')}}' ;
+        toastr.error(errorName)
+            @endif
+            @if ($errors->has('phone'))
+         errorPhone= '{{$errors->first('phone')}}' ;
+        toastr.error(errorPhone)
+        @endif
+            @if ($errors->has('date'))
+         errorDate= '{{$errors->first('date')}}' ;
+        toastr.error(errorDate)
+        @endif
+            @if ($errors->has('selector'))
+            errorSelectTime= '{{$errors->first('selector')}}' ;
+        toastr.error(errorSelectTime)
+        @endif
+                console.log(errorName,errorPhone,errorDate,errorSelectTime)
+        toastr.options.timeOut = 10000
+        toastr.options.closeButton = true
         $('#check-date').change(function () {
 
             $.ajax({
@@ -228,6 +262,7 @@
                 data: {val: $(this).val(),id:{{$pitch->id}}},
                 success: function (response) {
                     console.log(response)
+
                     $(".selecotr-item").replaceWith('')
                     response.data.forEach(function (each) {
                         let check=response.arrCheck.includes(""+each.time_start+each.time_end)

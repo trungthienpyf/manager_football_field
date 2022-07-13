@@ -2,9 +2,9 @@
 
 
 
-use App\Http\Controllers\PitchIndexController;
+use App\Http\Controllers\ClientProcessController;
 use Illuminate\Support\Facades\Route;
-Route::get('/', [PitchIndexController::class,'index'])->name('index');
-Route::get('/{pitch}', [PitchIndexController::class,'detail_pitch'])->name('detail');
-Route::get('/booking/{pitch}', [PitchIndexController::class,'booking'])->name('booking');
-Route::post('/pending/{pitch}', [PitchIndexController::class,'pending'])->name('pending');
+Route::get('/', [ClientProcessController::class,'index'])->name('index');
+Route::get('/{pitch}', [ClientProcessController::class,'detail_pitch'])->name('detail');
+Route::get('/booking/{pitch}', [ClientProcessController::class,'booking'])->name('booking');
+Route::post('/pending/{pitch}', [ClientProcessController::class,'pending'])->name('pending');

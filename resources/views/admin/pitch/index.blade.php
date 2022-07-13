@@ -50,7 +50,7 @@
 
                         <td>{{$each->getKeyByValue($each->status)}}</td>
 
-                        <td>{{$each->area->name}}</td>
+{{--                        <td>{{optional($each->area->name)}}</td>--}}
                         <td>{{$each->getNameSizeAttribute()}}</td>
                         <td>
                             <a href="{{route('admin.pitch.edit',$each)}}" class="action-icon">
