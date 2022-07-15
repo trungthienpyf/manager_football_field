@@ -24,8 +24,8 @@ class CreateBillsTable extends Migration
             $table->string('email_receive')->nullable();
             $table->foreignId('time_id')->constrained('times');
             $table->foreignId('pitch_id')->constrained('pitches');
-            $table->foreignId('customer_id')->constrained('customers')->nullable();
-            $table->foreignId('admin_id')->constrained('admins')->nullable();
+            $table->foreignId('customer_id')->nullable()->constrained('customers');
+            $table->foreignId('admin_id')->nullable()->constrained('admins');
             $table->timestamps();
         });
     }

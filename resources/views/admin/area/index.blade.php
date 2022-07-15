@@ -172,31 +172,34 @@
 @endsection
 @push('scripts')
     <script>
-        $('#submitForm').click(function(){
 
-            $.ajax({
+        $('#submitForm').click(function(){
+            var files = $('#form');
+            const formData = new FormData(files[0]);
+                $.ajax({
                 url: $('#form').attr('action'),
                 type: 'POST',
-                data: $('#form').serialize(),
+                data: formData,
+                processData: false,
+                contentType: false,
+                enctype:'multipart/form-data',
                 success: function (response) {
                     console.log(response.data)
                     location.reload()
-
-
                 },
                 error: function (message){
-
-
-                    $.each(message.responseJSON.errors,function (key,each) {
-                        $.toast({
-                            heading: 'Error',
-                            text: each.toString(),
-                            icon: 'error',
-                            position: 'top-right',
-                            loader: true,        // Change it to false to disable loader
-                            loaderBg: '#9EC600'  // To change the background
-                        })
-                    })
+                  if(typeof message.responseJSON !='undefined'){
+                      $.each(message.responseJSON.errors,function (key,each) {
+                          $.toast({
+                              heading: 'Error',
+                              text: each.toString(),
+                              icon: 'error',
+                              position: 'top-right',
+                              loader: true,
+                              loaderBg: '#9EC600'
+                          })
+                      })
+                  }
                 }
             })
         })
@@ -220,7 +223,6 @@
             $('#click_option').addClass('active')
             $('.remove_case').remove()
             let id = $('#getId').val()
-            console.log(id)
             $.ajax({
                 url: '{{route('api.pass_area')}}',
                 type: 'POST',
@@ -239,7 +241,7 @@
             $('#div_click').addClass('active')
             $('#click_option').removeClass('active')
 
-            console.log(1)
+
         })
         $('#select_let_append').click(function () {
             let area = $('#area_value').val()

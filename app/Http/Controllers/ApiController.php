@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-
-
     public function returnValueArea(Request $request)
     {
         $area_id = $request->val;
@@ -35,7 +33,9 @@ class ApiController extends Controller
     {
         $id_pitch=$request->id;
         $date_receive=$request->val;
+
         $time = Time::all();
+
         $arrCheck = [];
         $check_time = Time::query()
             ->select('time_start', 'time_end')
@@ -51,10 +51,18 @@ class ApiController extends Controller
         foreach ($check_time as $each) {
             $arrCheck[] = $each['time_start'] . "" . $each['time_end'] ;
         }
+        $arrGetTime=[];
+        foreach ($time as $each) {
+            if (time() > strtotime( $date_receive.' '. $each->time_start)) {
+                $arrGetTime[] = $each['time_start'] . "" . $each['time_end'] ;
+            }
+        }
+
         return response()->json([
             'success' => true,
             'data' => $time,
             'arrCheck' => $arrCheck,
+            'arrGetTime' => $arrGetTime,
         ]);
     }
 }

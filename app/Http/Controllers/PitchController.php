@@ -162,15 +162,19 @@ class PitchController extends Controller
         $pitch = new Pitch();
         $files = $request->file('img');
         $path='';
+
         if (!empty($files)){
             $path = Storage::disk('public')->putFile('images', $request->file('img'));
+
         }
         $arr = $request->validated();
 
         $arr['img'] = $path;
         $pitch->fill($arr);
+
         $pitch->save();
         $id=$pitch->id;
+
         if($request->create_child){
             $data = [
                 ['name'=>$arr['name'].' 01','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],

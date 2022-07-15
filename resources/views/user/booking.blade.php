@@ -149,7 +149,9 @@
                                                         <input type="radio" id="radio{{$hours->id}}" name="selector"
                                                                class="selector-item_radio" value="{{$hours->id}}"
                                                                @if( in_array($hours->time_start . $hours->time_end ,$arrCheck))
-
+                                                               disabled
+                                                            @endif
+                                                               @if( in_array($hours->time_start . $hours->time_end ,$arrGetTime))
                                                                disabled
                                                             @endif
                                                         >
@@ -158,7 +160,9 @@
                                                             @if( in_array($hours->time_start . $hours->time_end ,$arrCheck))
                                                             style="opacity:0.36;pointer-events:none"
                                                             @endif
-
+                                                            @if( in_array($hours->time_start . $hours->time_end ,$arrGetTime))
+                                                            style="opacity:0.36;pointer-events:none"
+                                                            @endif
                                                         >{{$hours->time_start}} - {{$hours->time_end}}</label>
 
                                                     </div>
@@ -265,14 +269,15 @@
 
                     $(".selecotr-item").replaceWith('')
                     response.data.forEach(function (each) {
-                        let check=response.arrCheck.includes(""+each.time_start+each.time_end)
-                        console.log(check)
+                        let checkTimeBooking=response.arrCheck.includes(""+each.time_start+each.time_end)
+                        let checkTimeOver=response.arrGetTime.includes(""+each.time_start+each.time_end)
+
                             $(".selector").append(
                     `<div class="selecotr-item">
                     <input type="radio" id="radio${each.id}"name="selector" class="selector-item_radio"  value="${each.id}"
-                       ${check ? 'disabled' : ''}
+                       ${checkTimeBooking ? 'disabled' : ''} ${checkTimeOver ? 'disabled' : ''}
                     >
-                        <label for="radio${each.id}" class="selector-item_label"   ${check ? "style='opacity:0.36;pointer-events:none'" : ''}>${each.time_start} - ${each.time_end}</label>
+                        <label for="radio${each.id}" class="selector-item_label" ${checkTimeOver ? "style='opacity:0.36;pointer-events:none'" : ''} ${checkTimeBooking ? "style='opacity:0.36;pointer-events:none'" : ''}>${each.time_start} - ${each.time_end}</label>
                     </div>`)
                         }
                     )

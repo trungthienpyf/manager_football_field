@@ -58,11 +58,21 @@ class ClientProcessController extends Controller
         }
 
         $time = Time::all();
+        $arrGetTime=[];
+
+        foreach ($time as $each) {
+            if (time() > strtotime(date('Y-m-d').' '. $each->time_start)) {
+                $arrGetTime[] = $each['time_start'] . "" . $each['time_end'] ;
+            }
+        }
+
+
 
         return view('user.booking', [
             'pitch' => $pitch,
             'time' => $time,
-            'arrCheck' => $arrCheck
+            'arrCheck' => $arrCheck,
+            'arrGetTime' => $arrGetTime,
         ]);
     }
 

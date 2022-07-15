@@ -189,11 +189,11 @@
 
 @endsection
 @push('scripts')
-    <script>$.toast({
-            heading: 'Information',
-            text: 'Loaders are enabled by default. Use `loader`, `loaderBg` to change the default behavior',
-            icon: 'info',
-            loader: true,        // Change it to false to disable loader
-            loaderBg: '#9EC600'  // To change the background
-        })</script>
+{{--    <script>$.toast({--}}
+{{--            heading: 'Information',--}}
+{{--            text: 'Loaders are enabled by default. Use `loader`, `loaderBg` to change the default behavior',--}}
+{{--            icon: 'info',--}}
+{{--            loader: true,        // Change it to false to disable loader--}}
+{{--            loaderBg: '#9EC600'  // To change the background--}}
+{{--        })</script>--}}
 @endpush
