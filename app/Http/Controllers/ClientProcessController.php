@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Enums\BillStatusEnum;
 use App\Enums\PitchStatusEnum;
 use App\Http\Requests\Client\BookingRequest;
+use App\Models\Area;
 use App\Models\Bill;
 use App\Models\Pitch;
 use App\Models\Time;
@@ -13,10 +15,44 @@ use Illuminate\Http\Request;
 
 class ClientProcessController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pitches = Pitch::query()->paginate(20);
 
+        $area = Area::get();
+
+        $q = Pitch::query()->orderByDesc('created_at');
+        $area_id = $request->area_id;
+        if (!empty($area_id)) {
+
+            $q->where('area_id', $area_id);
+
+        }
+
+        $date_search = $request->date_search;
+        $time_start = $request->time_start;
+        $time_end = $request->time_end;
+        if (!empty($date_search)) {
+                if(empty($time_start)){
+                    $q->whereNotIn('id', function ($q) use ($date_search) {
+                        $q->select('id')
+                            ->from('bills')
+                            ->where('status', '=', BillStatusEnum::DA_DUYET)
+                            ->where('date_receive',$date_search);
+                    });
+                }else{
+                    $q->whereNotIn('id', function ($q) use ($date_search,$time_start,$time_end) {
+                        $q->select('pitch_id')
+                            ->from('bills')
+                            ->where('status', '=', BillStatusEnum::DA_DUYET)
+                            ->whereBetween('expected_time', [$date_search . ' ' . $time_start, $date_search . ' ' . $time_end]);
+                    });
+                }
+        }
+        $search = $request->search;
+        if (!empty($search)) {
+            $q->where('id','like' ,'%'.$search.'%');
+        }
+        $pitches=$q->paginate();
 
         $status = PitchStatusEnum::getArrayView();
         date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -24,7 +60,8 @@ class ClientProcessController extends Controller
 
         return view('user.welcome', [
             'pitches' => $pitches,
-            'status' => $status
+            'status' => $status,
+            'area' => $area,
         ]);
     }
 
@@ -37,12 +74,12 @@ class ClientProcessController extends Controller
     public function booking(Request $request, Pitch $pitch)
     {
 
-        $date=date('Y-m-d');
+        $date = date('Y-m-d');
 
         $arrCheck = [];
         $check_time = Time::query()
             ->select('time_start', 'time_end')
-            ->whereIn('id', function ($q) use ($pitch,$date) {
+            ->whereIn('id', function ($q) use ($pitch, $date) {
                 $q->select('time_id')
                     ->from('bills')
                     ->where('status', '=', BillStatusEnum::DA_DUYET)
@@ -54,18 +91,17 @@ class ClientProcessController extends Controller
 
         foreach ($check_time as $each) {
 
-            $arrCheck[] = $each['time_start'] . "" . $each['time_end'] ;
+            $arrCheck[] = $each['time_start'] . "" . $each['time_end'];
         }
 
         $time = Time::all();
-        $arrGetTime=[];
+        $arrGetTime = [];
 
         foreach ($time as $each) {
-            if (time() > strtotime(date('Y-m-d').' '. $each->time_start)) {
-                $arrGetTime[] = $each['time_start'] . "" . $each['time_end'] ;
+            if (time() > strtotime(date('Y-m-d') . ' ' . $each->time_start)) {
+                $arrGetTime[] = $each['time_start'] . "" . $each['time_end'];
             }
         }
-
 
 
         return view('user.booking', [
@@ -82,36 +118,37 @@ class ClientProcessController extends Controller
         $pitch_real = Pitch::find($pitch->id);
         $pitch_id = $pitch_real->id;
         $price = $pitch_real->price;
+
         $checkPitchBig = Pitch::where('pitch_id', '=', $pitch->id)->first();
         if ($checkPitchBig == null) {
             $getParents = Pitch::where('id', '=', $pitch->id)->first()->pitch_id;
             $checkExist = Bill::query()
                 ->where('pitch_id', '=', $getParents)
                 ->where('status', '=', BillStatusEnum::DA_DUYET)
-                ->where('date_receive', '=',$request->date)
+                ->where('date_receive', '=', $request->date)
                 ->where('time_id', '=', $request->selector)
                 ->first();
             if ($checkExist) {
                 $msg = "Sân lớn của sân này đã được người khác đặt giờ này!!";
                 return redirect()->back()->with('msg', $msg);
             }
-        }else if ($checkPitchBig!=null){
+        } else if ($checkPitchBig != null) {
             $array = [];
             $getChildren = Pitch::query()
                 ->where('pitch_id', '=', $pitch->id)
                 ->get()->toArray();
 
-            foreach ($getChildren as $key=> $each) {
+            foreach ($getChildren as $key => $each) {
                 $array[] = $each;
 
             }
             $checkExist = Bill::query()->where(function ($q) use ($array) {
-                foreach ($array as $key=> $child_id) {
+                foreach ($array as $key => $child_id) {
 
                     $q->orWhere('pitch_id', '=', $child_id['id']);
                 }
             })->where('status', '=', BillStatusEnum::DA_DUYET)
-                ->where('date_receive', '=',$request->date)
+                ->where('date_receive', '=', $request->date)
                 ->where('time_id', '=', $request->selector)
                 ->get()->count();
             if ($checkExist) {
@@ -119,6 +156,10 @@ class ClientProcessController extends Controller
                 return redirect()->back()->with('msg', $msg);
             }
         }
+        $name_time=Time::query()->where('id',$request->selector)->value('time_start');
+        $expected_time=$request->date .' '.$name_time;
+
+
 
 
         Bill::create([
@@ -128,7 +169,9 @@ class ClientProcessController extends Controller
             'date_receive' => $request->date,
             'time_id' => $request->selector,
             'price' => $price,
-            'pitch_id' => $pitch_id
+            'pitch_id' => $pitch_id,
+            'expected_time' => $expected_time,
+
         ]);
         return redirect()->route('index');
 

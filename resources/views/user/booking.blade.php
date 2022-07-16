@@ -14,13 +14,13 @@
                 <div class="clearfix"></div>
                 <div class="product-details">
                     <a href="#">
-                        <h3 class="title">Kingsman</h3>
+                        <h3 class="title">Sân bóng: {{$pitch->name}}</h3>
                     </a>
                     <p class="description">
                         Brown single-breasted brushed-wool checked blazer
                     </p>
 
-                    <span class="price">{{$pitch->price}}₫/Giờ</span>
+                    <span class="price">Giá thuê: {{$pitch->price}}₫/Giờ</span>
                 </div>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
@@ -49,21 +49,14 @@
                             <h4 class="panel-title">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
                                    aria-expanded="false" aria-controls="collapseTwo">
-                                    Size &amp; Fit
+                                 Thể loại sân
                                 </a>
                             </h4>
                         </div>
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
                              aria-labelledby="headingTwo">
                             <div class="panel-body">
-                                <ul style="padding-left: 20px;">
-                                    <li style="list-style-position: outside;"> Fits small to size</li>
-                                    <li style="list-style-position: outside;"> Model wears a UK 40R</li>
-                                    <li style="list-style-position: outside;"> Model measures: chest 39"/ 99cm, height
-                                        6'1"/ 185cm
-                                    </li>
-
-                                </ul>
+                                Loại sân {{$pitch->name_size}}
                             </div>
                         </div>
                     </div>

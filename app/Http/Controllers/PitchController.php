@@ -76,10 +76,10 @@ class PitchController extends Controller
         $id=$pitch->id;
         if($request->create_child){
             $data = [
-                ['name'=>$arr['name'].' 01','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
-                ['name'=>$arr['name'].' 02','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
-                ['name'=>$arr['name'].' 03','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
-                ['name'=>$arr['name'].' 04','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].'.01','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].'.02','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].'.03','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].'.04','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
             ];
 
             Pitch::insert($data);
@@ -177,10 +177,10 @@ class PitchController extends Controller
 
         if($request->create_child){
             $data = [
-                ['name'=>$arr['name'].' 01','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
-                ['name'=>$arr['name'].' 02','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
-                ['name'=>$arr['name'].' 03','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
-                ['name'=>$arr['name'].' 04','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].'.01','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].'.02','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].'.03','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
+                ['name'=>$arr['name'].'.04','price'=>$arr['price'],'img'=>$arr['img'],'area_id'=>$arr['area_id'],'status'=>PitchStatusEnum::TRONG,'size'=>PitchSizeEnum::SAN_7,'pitch_id'=>$id],
             ];
 
             Pitch::insert($data);

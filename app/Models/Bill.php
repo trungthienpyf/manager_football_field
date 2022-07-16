@@ -16,7 +16,8 @@ class Bill extends Model
         'date_receive',
         'time_id',
         'price',
-        'pitch_id'
+        'pitch_id',
+        'expected_time'
     ];
     public static function getKeyByValue($value)
     {

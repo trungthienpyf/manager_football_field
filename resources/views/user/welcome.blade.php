@@ -2,24 +2,25 @@
 
 @section('search')
     <div class="container">
-        <h2 class="section-title" style="color:black;margin-top:0">Sân bóng đá</h2>
-        <form action="">
+        <h2 class="section-title" style="color:black;margin-top:0">Tìm kiếm</h2>
+        <form action="" method="get">
             <div class="row" style="border: 1px solid #f9f9f9;box-shadow: #969ea633 0px 0px 24px;">
                 <div class="col-md-2">
                     <div class="form-group" style="margin-top:15px">
-                        <select name="" id="" class="form-control">
-                            <option value="">Chọn khu vực</option>
-                            <option value="">Chọn khu vực</option>
-                            <option value="">Chọn khu vực</option>
+                        <select name="area_id" id="" class="form-control">
+                            <option value="" checked>Chọn khu vực</option>
+                            @foreach($area as $each)
+                            <option value="{{$each->id}}">{{$each->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="col-md-2" style="margin-top:15px;padding:0 8px">
-                    <input class="form-control"  type="date" value="{{date("Y-m-d")}}" min="{{date("Y-m-d")}}">
+                    <input class="form-control" name="date_search" type="date" value="" min="{{date("Y-m-d")}}">
                 </div>
                 <div class="col-md-2" style="margin-top:15px;padding:0 8px">
                     <div class="input-group" >
-                        <input class="form-control" id="time" value="07:00">
+                        <input class="form-control" id="time" name="time_start" placeholder="07:00">
                         <a class="input-group-addon" >
                             <i class="fa fa-clock-o"></i>
                         </a>
@@ -27,7 +28,7 @@
                 </div>
                 <div class="col-md-2" style="margin-top:15px;padding:0 8px">
                     <div class="input-group" >
-                        <input class="form-control" id="time" value="23:00">
+                        <input class="form-control" id="time" name="time_end" placeholder="23:00">
                         <a class="input-group-addon" >
                             <i class="fa fa-clock-o"></i>
                         </a>
@@ -35,7 +36,7 @@
                 </div>
                 <div class="col-md-3"  style="margin-top:15px;padding:0 8px">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Nhập tên sân">
+                        <input type="text" class="form-control" placeholder="Nhập tên sân..." name="search">
                         <a class="input-group-addon" >
                             <i class="fa fa-search"></i>
                         </a>
@@ -109,7 +110,7 @@
         </div>
     </div>
     <div style="display:flex; justify-content:center">
-        {{ $pitches->links() }}
+{{--        {{ $pitches->links() }}--}}
     </div>
 
 @endsection

@@ -96,7 +96,7 @@
                 <div class="clearfix"></div>
                 <div class="product-details">
                     <a href="#">
-                        <h3 class="title">Kingsman</h3>
+                        <h3 class="title">Sân bóng: {{$pitch->name}}</h3>
                     </a>
                     <p class="description">
                         Brown single-breasted brushed-wool checked blazer
