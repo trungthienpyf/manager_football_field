@@ -17,10 +17,10 @@ class ClientProcessController extends Controller
 {
     public function index(Request $request)
     {
-
         $area = Area::get();
 
-        $q = Pitch::query()->orderByDesc('created_at');
+        $q = Pitch::query()->with('bills')->orderByDesc('created_at');
+
         $area_id = $request->area_id;
         if (!empty($area_id)) {
 
@@ -46,8 +46,45 @@ class ClientProcessController extends Controller
                             ->where('status', '=', BillStatusEnum::DA_DUYET)
                             ->whereBetween('expected_time', [$date_search . ' ' . $time_start, $date_search . ' ' . $time_end]);
                     });
+                    $check_parents=Bill::query()
+                        ->select('pitch_id')
+                        ->from('bills')
+                        ->where('status', '=', BillStatusEnum::DA_DUYET)
+                        ->whereBetween('expected_time', [$date_search . ' ' . $time_start, $date_search . ' ' . $time_end])->get()->toArray();
+                    if($check_parents){
+                        $get_childrens=Pitch::query()
+                            ->select('id')
+                            ->orWhere(function($query) use ($check_parents){
+                                foreach ($check_parents as $check){
+
+                                    $query->orWhere('pitch_id',$check);
+                                }
+                            })->get()->toArray();
+
+                        $get_parents=Pitch::query()
+                            ->select('pitch_id')
+                            ->orWhere(function($query) use ($check_parents){
+                                foreach ($check_parents as $check){
+
+                                    $query->orWhere('id',$check);
+                                }
+                            })->distinct()->get()->toArray();
+
+                        $q->where(function($q) use ($get_parents){
+                            foreach ($get_parents as $check){
+                                $q->Where('id' ,'!=',$check);
+                            }
+                        });
+                        $q->where(function($q) use ($get_childrens){
+                            foreach ($get_childrens as $check){
+                                $q->Where('id' ,'!=',$check);
+                            }
+                        });
+                    }
+
                 }
         }
+
         $search = $request->search;
         if (!empty($search)) {
             $q->where('id','like' ,'%'.$search.'%');
