@@ -52,7 +52,7 @@ class ClientProcessController extends Controller
                         ->where('status', '=', BillStatusEnum::DA_DUYET)
                         ->whereBetween('expected_time', [$date_search . ' ' . $time_start, $date_search . ' ' . $time_end])->get()->toArray();
                     if($check_parents){
-                        $get_childrens=Pitch::query()
+                        $querySelectChildren=Pitch::query()
                             ->select('id')
                             ->orWhere(function($query) use ($check_parents){
                                 foreach ($check_parents as $check){
@@ -61,7 +61,7 @@ class ClientProcessController extends Controller
                                 }
                             })->get()->toArray();
 
-                        $get_parents=Pitch::query()
+                        $querySelectParent=Pitch::query()
                             ->select('pitch_id')
                             ->orWhere(function($query) use ($check_parents){
                                 foreach ($check_parents as $check){
@@ -69,21 +69,27 @@ class ClientProcessController extends Controller
                                     $query->orWhere('id',$check);
                                 }
                             })->distinct()->get()->toArray();
+                        $arrGetParent=[];
+                        foreach ($querySelectParent as $getHasValue){
 
-                        $q->where(function($q) use ($get_parents){
-                            foreach ($get_parents as $check){
-                                $q->Where('id' ,'!=',$check);
+                           $arrGetParent= array_filter($getHasValue);
+                        }
+
+                        $q->where(function($q) use ($arrGetParent){
+                            foreach ($arrGetParent as $check){
+                                $q->where('id' ,'!=',$check);
                             }
                         });
-                        $q->where(function($q) use ($get_childrens){
-                            foreach ($get_childrens as $check){
-                                $q->Where('id' ,'!=',$check);
+                        $q->where(function($q) use ($querySelectChildren){
+                            foreach ($querySelectChildren as $check){
+                                $q->where('id' ,'!=',$check);
                             }
                         });
                     }
 
                 }
         }
+
 
         $search = $request->search;
         if (!empty($search)) {
