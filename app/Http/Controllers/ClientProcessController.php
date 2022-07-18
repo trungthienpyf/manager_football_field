@@ -158,6 +158,8 @@ class ClientProcessController extends Controller
     public function pending(BookingRequest $request, Pitch $pitch)
     {
 
+
+
         $pitch_real = Pitch::find($pitch->id);
         $pitch_id = $pitch_real->id;
         $price = $pitch_real->price;
