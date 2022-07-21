@@ -5,9 +5,15 @@ use App\Enums\BillStatusEnum;
 use App\Models\Area;
 use App\Models\Bill;
 use App\Models\Pitch;
+use Illuminate\Support\Facades\View;
 
 class BookingController extends Controller
 {
+
+    public function __construct(){
+        $this->table=(new Bill())->getTable();
+        View::share('title',ucwords($this->table));
+    }
 
     public function index(){
      $bills = Bill::query()->latest()->paginate();

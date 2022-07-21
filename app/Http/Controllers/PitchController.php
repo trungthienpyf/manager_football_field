@@ -12,16 +12,20 @@ use App\Http\Requests\Pitch\StoreRequest;
 use App\Http\Requests\Pitch\UpdateRequest;
 use App\Models\Area;
 use App\Models\Pitch;
-use App\Models\Size;
+
 
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 
 
 class PitchController extends Controller
 {
-
+    public function __construct(){
+        $this->table=(new Pitch())->getTable();
+        View::share('title',ucwords($this->table));
+    }
     public function index()
     {
         $pitch = Pitch::query()->orderBy('created_at','desc')->paginate('5');

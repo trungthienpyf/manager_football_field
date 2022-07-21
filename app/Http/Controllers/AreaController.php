@@ -10,9 +10,16 @@ use App\Http\Requests\Area\UpdateRequest;
 use App\Models\Area;
 use App\Models\Pitch;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
+
 
 class AreaController extends Controller
 {
+    public function __construct(){
+        $this->table=(new Area())->getTable();
+        View::share('title',ucwords($this->table));
+    }
+
    public function index(){
       $area= Pitch::query()
           ->selectRaw('areas.name as name,areas.id,count(pitches.id) as countPitch')

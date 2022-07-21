@@ -14,7 +14,7 @@ Route::post('/signup', [AuthController::class,'adminSignUp'])->name('signup');
 Route::post('/signin', [AuthController::class,'adminSignIn'])->name('signin');
 Route::get('/logout', [AuthController::class,'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
-    Route::get('/index', function (){
+    Route::get('/dashboard', function (){
         return view('admin.layout.master');
     })->name('index');
 
