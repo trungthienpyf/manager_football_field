@@ -35,7 +35,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/pitch/{pitch}', [PitchController ::class, 'destroy'])->name('pitch.destroy');
 
     Route::get('/booking', [BookingController::class,'index'])->name('booking.index');
-    Route::post('/booking/accept/{id_accept}', [BookingController ::class, 'accept_booking'])->name('booking.accept');
+    Route::post('/booking/accept', [BookingController ::class, 'accept_booking'])->name('booking.accept');
+    Route::post('/booking/checkBill', [BookingController ::class, 'checkBill'])->name('booking.checkBill');
+
     Route::post('/booking/cancel/{id_cancel}', [BookingController ::class, 'cancel_booking'])->name('booking.cancel');
 
 });

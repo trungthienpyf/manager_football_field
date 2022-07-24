@@ -27,11 +27,13 @@
                     <th>Chi tiết</th>
                     <th>Trạng thái</th>
                     <th>Hành động</th>
+                    <th>Hành động</th>
                 </tr>
                 </thead>
-                <tbody>
+
                 @foreach ($bills as $each)
-                    <tr>
+                    <tbody>
+                    <tr id="{{$each->id}}">
                         <td>{{$each->id}}</td>
                         <td>{{$each->name_receive}}</td>
                         <td>{{$each->phone_receive}}</td>
@@ -43,14 +45,37 @@
 
                         <td>
                             <div class="row">
-                                <form action="{{route('admin.booking.accept',$each)}}" method="post">
-                                    @csrf
-                                    <button  class="action-icon" style="border:0; background-color: transparent;">
+                                <form action="{{route('admin.booking.accept',$each)}}" method="post" class="form_accept{{$each->id}}" >
+
+                                    <button type="button" class="action-icon buttonSubmit" style="border:0; background-color: transparent;"
+                                            data-toggle="modal"
+                                            data-target="#danger-header-modal"
+                                            onclick="submitForm({{$each->id}})"
+                                            id="buttonSubmitForm{{$each->id}}"
+                                    >
 
                                         <i class="mdi mdi-check" style="color:green"></i>
                                     </button>
                                 </form>
+                                <div id="danger-header-modal" class="modal fade" tabindex="-1" role="dialog"
+                                     aria-labelledby="danger-header-modalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header modal-colored-header bg-danger">
+                                                <h4 class="modal-title" id="danger-header-modalLabel">Thông báo</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" id="text-body-alert">
 
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-danger submitAccept"   data-dismiss="modal">Duyệt</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <form action="{{route('admin.booking.cancel',$each)}}" method="post">
                                     @csrf
                                     <button class="action-icon" style="border:0; background-color: transparent;">
@@ -71,39 +96,16 @@
                                         onClick="deletePitch({{ $each->id  }})">Xóa
                                 </button>
                             </form>
-                            <div id="danger-header-modal" class="modal fade" tabindex="-1" role="dialog"
-                                 aria-labelledby="danger-header-modalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header modal-colored-header bg-danger">
-                                            <h4 class="modal-title" id="danger-header-modalLabel">Thông báo</h4>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                    aria-hidden="true">
-                                                ×
-                                            </button>
-                                        </div>
-                                        <div class="modal-body" id="text-body-alert">
 
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light" data-dismiss="modal">Đóng
-                                            </button>
-                                            <button type="button" class="btn btn-danger" id="submit-delete">Xóa
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </td>
                     </tr>
+                    </tbody>
                 @endforeach
-                </tbody>
+
 
             </table>
             @include('error')
             <style >
-
-
                 .pagination > li {
                     display: inline
                 }
@@ -189,6 +191,78 @@
 
 @endsection
 @push('scripts')
+
+    <script>
+        function submitForm(id){
+            console.log(id)
+            $('#danger-header-modal').css({
+                'display':'block',
+                ' padding-right': '17px'
+            })
+
+            if ($('#getId').length) {
+                $('#getId').remove();
+                $('.form_accept'+id).append(`<input type='hidden' name='id' value='${id}' id="getId">`);
+            } else {
+                $('.form_accept'+id).append(`<input type='hidden' name='id'  value='${id}' id="getId">`);
+            }
+
+
+            $.ajax({
+                url: '{{route('admin.booking.checkBill')}}',
+                type: 'post',
+
+                data: {_token: '{{session()->token()}}',id:id},
+                success:  function (response) {
+
+                   if( response.warning){
+                       $('#text-body-alert').text(response.warning);
+
+
+                   }else if(response.warning == undefined){
+                       $('#text-body-alert').text("Bạn có chắc chắc muốn duyệt đơn này");
+                   }
+                }
+            })
+        }
+
+
+        $('.submitAccept').click(function () {
+        let id= $('#getId').val()
+            $.ajax({
+                url: '{{route('admin.booking.accept')}}',
+                type: 'post',
+
+                data: {_token: '{{session()->token()}}',id:id},
+                success:  function (response) {
+
+                console.log(response.id)
+
+                   if(response.id){
+                       response.id.forEach(function (ids) {
+                            console.log(ids.id)
+                           $('#buttonSubmitForm'+ids.id).parent().parent().parent().parent().remove()
+                       })
+                   }
+
+                }
+            })
+
+            $('#danger-header-modal').css({
+                'display':'',
+               ' padding-right': ''
+            })
+            $('#buttonSubmitForm'+id).parent().parent().parent().parent().parent().remove()
+            $('.modal-backdrop.fade.show').remove()
+
+        })
+
+
+
+
+
+    </script>
+
 {{--    <script>$.toast({--}}
 {{--            heading: 'Information',--}}
 {{--            text: 'Loaders are enabled by default. Use `loader`, `loaderBg` to change the default behavior',--}}

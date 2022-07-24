@@ -5,6 +5,7 @@ namespace App\Http\Requests\Client;
 use Illuminate\Foundation\Http\FormRequest;
 
 
+
 class BookingRequest extends FormRequest
 {
     /**
@@ -72,4 +73,5 @@ class BookingRequest extends FormRequest
             'selector' => 'Giờ đá',
         ];
     }
+
 }

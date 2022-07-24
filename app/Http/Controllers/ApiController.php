@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Enums\BillStatusEnum;
 use App\Enums\PitchStatusEnum;
+use App\Events\AceptBills;
 use App\Http\Requests\Client\BookingRequest;
 use App\Models\Bill;
 use App\Models\Pitch;
@@ -49,12 +50,12 @@ class ApiController extends Controller
             })
             ->get()->toArray();
         foreach ($check_time as $each) {
-            $arrCheck[] = $each['time_start'] . "" . $each['time_end'] ;
+            $arrCheck[] = $each['time_start']  . $each['time_end'] ;
         }
         $arrGetTime=[];
         foreach ($time as $each) {
             if (time() > strtotime( $date_receive.' '. $each->time_start)) {
-                $arrGetTime[] = $each['time_start'] . "" . $each['time_end'] ;
+                $arrGetTime[] = $each['time_start']  . $each['time_end'] ;
             }
         }
 
@@ -65,4 +66,5 @@ class ApiController extends Controller
             'arrGetTime' => $arrGetTime,
         ]);
     }
+
 }

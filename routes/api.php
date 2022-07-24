@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiController;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

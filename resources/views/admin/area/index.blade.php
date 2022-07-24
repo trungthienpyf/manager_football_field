@@ -58,7 +58,7 @@
                     <form action="{{route('admin.area.destroy',$each)}}" method="post">
                         @csrf
                         @method('delete')
-                        <button id="delete-button-field" class="btn btn-secondary" type="button" data-toggle="modal"
+                        <button id="delete-button-field" class="btn btn-secondary delete-button-field{{$each->id}}" type="button" data-toggle="modal"
                                 data-target="#danger-header-modal" onClick="deleteArea({{ $each->id  }})">Xóa
                         </button>
 
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
-                                    <button type="button" class="btn btn-danger" id="submit-delete">Xóa</button>
+                                    <button type="button" class="btn btn-danger"  data-dismiss="modal" id="submit-delete">Xóa</button>
                                 </div>
                             </div>
                         </div>
@@ -267,8 +267,12 @@
                         console.log(response)
                     }
                 })
-                $('#delete-button-field').parent().parent().parent().remove()
+                $('.delete-button-field'+id).parent().parent().parent().remove()
                 $('.modal-backdrop.fade.show').hide()
+                $('#danger-header-modal').css({
+                    'display':'',
+                    ' padding-right': ''
+                })
             })
         }
 
