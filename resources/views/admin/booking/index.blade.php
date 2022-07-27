@@ -45,46 +45,79 @@
 
                         <td>
                             <div class="row">
-                                <form action="{{route('admin.booking.accept',$each)}}" method="post" class="form_accept{{$each->id}}" >
+                                <form action="{{route('admin.booking.accept',$each)}}" method="post"
+                                      class="form_accept{{$each->id}}">
 
-                                    <button type="button" class="action-icon buttonSubmit" style="border:0; background-color: transparent;"
+                                    <button type="button" class="action-icon buttonSubmit"
+                                            style="border:0; background-color: transparent;"
                                             data-toggle="modal"
-                                            data-target="#danger-header-modal"
+                                            data-target="#warning-header-modal"
                                             onclick="submitForm({{$each->id}})"
                                             id="buttonSubmitForm{{$each->id}}"
                                     >
-
                                         <i class="mdi mdi-check" style="color:green"></i>
                                     </button>
                                 </form>
-                                <div id="danger-header-modal" class="modal fade" tabindex="-1" role="dialog"
-                                     aria-labelledby="danger-header-modalLabel" aria-hidden="true">
+                                <div id="warning-header-modal" class="modal fade" tabindex="-1" role="dialog"
+                                     aria-labelledby="warning-header-modalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header modal-colored-header bg-danger">
-                                                <h4 class="modal-title" id="danger-header-modalLabel">Thông báo</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                            <div class="modal-header modal-colored-header bg-warning"
+                                                 id="changeColorHeader">
+                                                <h4 class="modal-title" id="warning-header-modalLabel">Thông báo</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">×
                                                 </button>
                                             </div>
                                             <div class="modal-body" id="text-body-alert">
 
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
-                                                <button type="button" class="btn btn-danger submitAccept"   data-dismiss="modal">Duyệt</button>
+                                                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng
+                                                </button>
+                                                <button type="button" class="btn btn-warning submitAccept"
+                                                        data-dismiss="modal" id="changeColor">Duyệt
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <form action="{{route('admin.booking.cancel',$each)}}" method="post">
                                     @csrf
-                                    <button class="action-icon" style="border:0; background-color: transparent;">
+                                    <button type="button" class="action-icon"
+                                            style="border:0; background-color: transparent;"
+                                            data-toggle="modal"
+                                            data-target="#danger-header-modal"
+                                            onclick="rejectForm({{$each->id}})"
+                                    >
                                         <i class="mdi mdi-close" style="color:red"></i>
                                     </button>
                                 </form>
+                                <div id="danger-header-modal" class="modal fade" tabindex="-1" role="dialog"
+                                     aria-labelledby="danger-header-modalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header modal-colored-header bg-danger"
+                                                 id="changeColorHeader">
+                                                <h4 class="modal-title" id="danger-header-modalLabel">Thông báo</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">×
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" id="text-body-danger">
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng
+                                                </button>
+                                                <button type="button" class="btn btn-danger " id="deleteSubmit"
+                                                        data-dismiss="modal">Hủy đơn
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-
                         </td>
                         <td>
                             <form action="{{route('admin.pitch.destroy',$each)}}" method="post">
@@ -92,7 +125,7 @@
                                 @csrf
                                 @method('delete')
                                 <button id="delete-button-field" class="btn btn-secondary" type="button"
-                                        data-toggle="modal" data-target="#danger-header-modal"
+                                        data-toggle="modal" data-target="#warning-header-modal"
                                         onClick="deletePitch({{ $each->id  }})">Xóa
                                 </button>
                             </form>
@@ -105,7 +138,7 @@
 
             </table>
             @include('error')
-            <style >
+            <style>
                 .pagination > li {
                     display: inline
                 }
@@ -121,21 +154,25 @@
                     background-color: #fff;
                     border: 1px solid #ddd
                 }
+
                 .pagination > li:first-child > a, .pagination > li:first-child > span {
                     margin-left: 0;
                     border-top-left-radius: 4px;
                     border-bottom-left-radius: 4px
                 }
+
                 .pagination > li:last-child > a, .pagination > li:last-child > span {
                     border-top-right-radius: 4px;
                     border-bottom-right-radius: 4px
                 }
+
                 .pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
                     z-index: 3;
                     color: #23527c;
                     background-color: #eee;
                     border-color: #ddd
                 }
+
                 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
                     z-index: 2;
                     color: #fff;
@@ -143,21 +180,25 @@
                     background-color: #337ab7;
                     border-color: #337ab7
                 }
+
                 .pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
                     color: #777;
                     cursor: not-allowed;
                     background-color: #fff;
                     border-color: #ddd
                 }
+
                 .pagination-lg > li > a, .pagination-lg > li > span {
                     padding: 10px 16px;
                     font-size: 18px;
                     line-height: 1.3333333
                 }
+
                 .pagination-lg > li:first-child > a, .pagination-lg > li:first-child > span {
                     border-top-left-radius: 6px;
                     border-bottom-left-radius: 6px
                 }
+
                 .pagination-lg > li:last-child > a, .pagination-lg > li:last-child > span {
                     border-top-right-radius: 6px;
                     border-bottom-right-radius: 6px
@@ -168,6 +209,7 @@
                     font-size: 12px;
                     line-height: 1.5
                 }
+
                 .pagination-sm > li:first-child > a, .pagination-sm > li:first-child > span {
                     border-top-left-radius: 3px;
                     border-bottom-left-radius: 3px
@@ -193,81 +235,120 @@
 @push('scripts')
 
     <script>
-        function submitForm(id){
+
+
+        function submitForm(id) {
+
             console.log(id)
-            $('#danger-header-modal').css({
-                'display':'block',
-                ' padding-right': '17px'
-            })
 
             if ($('#getId').length) {
                 $('#getId').remove();
-                $('.form_accept'+id).append(`<input type='hidden' name='id' value='${id}' id="getId">`);
+                $('.form_accept' + id).append(`<input type='hidden' name='id' value='${id}' id="getId">`);
             } else {
-                $('.form_accept'+id).append(`<input type='hidden' name='id'  value='${id}' id="getId">`);
+                $('.form_accept' + id).append(`<input type='hidden' name='id'  value='${id}' id="getId">`);
             }
-
+            let textAlert = $('#text-body-alert')
 
             $.ajax({
                 url: '{{route('admin.booking.checkBill')}}',
                 type: 'post',
 
-                data: {_token: '{{session()->token()}}',id:id},
-                success:  function (response) {
+                data: {_token: '{{session()->token()}}', id: id},
+                success: function (response) {
+                    // console.log(response.warning.replace('đơn này',' ').replace('các đơn',) )
 
-                   if( response.warning){
-                       $('#text-body-alert').text(response.warning);
+                    let arrExcept = []
+                    if (response.warning && response.data) {
 
+                        response.data.forEach(function (each) {
+                            arrExcept.push(each.id)
+                        })
 
-                   }else if(response.warning == undefined){
-                       $('#text-body-alert').text("Bạn có chắc chắc muốn duyệt đơn này");
-                   }
+                        let textDesc=response.warning.replace('đơn này','đơn ' +`<span style="color:red">#${id}</span>` +' này').replace('các đơn','các đơn ' +`<span style="color:red">#${arrExcept.join(' #')}</span>`)
+
+                        textAlert.html(textDesc)
+                        $('#changeColor').attr('class', 'btn btn-danger submitAccept')
+                        $('#changeColorHeader').attr('class', 'modal-header modal-colored-header bg-danger')
+
+                    } else if (response.warning == undefined) {
+                        $('#changeColor').attr('class', 'btn btn-warning submitAccept')
+                        $('#changeColorHeader').attr('class', 'modal-header modal-colored-header bg-warning')
+                        textAlert.text("Bạn có chắc chắc muốn duyệt đơn #" + id + " này")
+
+                    }
                 }
             })
         }
 
+        function rejectForm(id) {
 
-        $('.submitAccept').click(function () {
-        let id= $('#getId').val()
+            // $('#warning-header-modal').css({
+            //     'display':'block',
+            //     ' padding-right': '17px'
+            // })
+            // if ($('#getId').length) {
+            //     $('#getId').remove();
+            //     $('.form_accept'+id).append(`<input type='hidden' name='id' value='${id}' id="getId">`);
+            // } else {
+            //     $('.form_accept'+id).append(`<input type='hidden' name='id'  value='${id}' id="getId">`);
+            // }
+            let textAlert = $('#text-body-danger')
+
+            textAlert.text("Bạn có chắc chắn muộn hủy đơn này ?")
+            $('#deleteSubmit').click(function () {
+                $.ajax({
+                    url: '{{route('admin.booking.cancel')}}',
+                    type: 'delete',
+                    data: {_token: '{{session()->token()}}',id:id},
+                    success: function (response) {
+
+                    }
+                })
+                $('tr[id='+id+']').remove()
+                // $('.delete-button-field'+id).parent().parent().parent().remove()
+                // $('.modal-backdrop.fade.show').hide()
+                // $('#danger-header-modal').css({
+                //     'display':'',
+                //     ' padding-right': ''
+                // })
+            })
+        }
+
+
+        $('.submitAccept').click(function (e) {
+
+            let id = $('#getId').val()
             $.ajax({
                 url: '{{route('admin.booking.accept')}}',
                 type: 'post',
 
-                data: {_token: '{{session()->token()}}',id:id},
-                success:  function (response) {
+                data: {_token: '{{session()->token()}}', id: id},
+                success: function (response) {
 
-                console.log(response.id)
-
-                   if(response.id){
-                       response.id.forEach(function (ids) {
-                            console.log(ids.id)
-                           $('#buttonSubmitForm'+ids.id).parent().parent().parent().parent().remove()
-                       })
-                   }
+                    if (response.id) {
+                        response.id.forEach(function (ids) {
+                            $('#buttonSubmitForm' + ids.id).parent().parent().parent().parent().parent().remove()
+                        })
+                    }
 
                 }
             })
 
-            $('#danger-header-modal').css({
-                'display':'',
-               ' padding-right': ''
-            })
-            $('#buttonSubmitForm'+id).parent().parent().parent().parent().parent().remove()
+
+            $('#buttonSubmitForm' + id).parent().parent().parent().parent().parent().remove()
             $('.modal-backdrop.fade.show').remove()
+
 
         })
 
 
-
-
-
     </script>
 
-{{--    <script>$.toast({--}}
-{{--            heading: 'Information',--}}
-{{--            text: 'Loaders are enabled by default. Use `loader`, `loaderBg` to change the default behavior',--}}
-{{--            icon: 'info',--}}
-{{--            loader: true,        // Change it to false to disable loader--}}
-{{--            loaderBg: '#9EC600'  // To change the background--}}
-{{--        })</script>--}}
+    {{--    <script>$.toast({--}}
+    {{--            heading: 'Information',--}}
+    {{--            text: 'Loaders are enabled by default. Use `loader`, `loaderBg` to change the default behavior',--}}
+    {{--            icon: 'info',--}}
+    {{--            loader: true,        // Change it to false to disable loader--}}
+    {{--            loaderBg: '#9EC600'  // To change the background--}}
+    {{--        })</script>--}}
 @endpush

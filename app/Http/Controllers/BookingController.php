@@ -27,6 +27,42 @@ class BookingController extends Controller
             'bills' => $bills
         ]);
     }
+    public function checkBill( Request $request )
+    {
+        $bill = Bill::where('id',$request->id);
+
+
+        $arrBill = $bill->first()->toArray();
+
+        $time_id = $arrBill['time_id'];
+        $pitch_id = $arrBill['pitch_id'];
+        $date_receive = $arrBill['date_receive'];
+
+
+        $bills = Bill::get()->where('time_id', $time_id)
+            ->where('pitch_id', $pitch_id)
+            ->where('date_receive', $date_receive)
+            ->where('status',BillStatusEnum::DANG_DAT)
+            ->where('id','!=',$request->id);
+
+        if ($bills->count()>= 1) {
+            $arrExcept=[];
+            foreach($bills as $bill) {
+                $arrExcept[] = $bill;
+
+            }
+
+            return response()->json([
+                'success' => true,
+                'warning' => 'Sân này và khung giờ này đang có nhiều người đặt, duyệt đơn này các đơn cùng giờ sẽ bị hủy!',
+                'data'=>$arrExcept
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+
+        ]);
+    }
 
     public function accept_booking( Request $request )
     {
@@ -56,42 +92,17 @@ class BookingController extends Controller
             'id'=>$arrId[0]
         ]);
     }
-    public function checkBill( Request $request )
+
+
+
+
+    public function cancel_booking(Request $request)
     {
-        $bill = Bill::where('id',$request->id);
 
-
-        $arrBill = $bill->first()->toArray();
-
-        $time_id = $arrBill['time_id'];
-        $pitch_id = $arrBill['pitch_id'];
-        $date_receive = $arrBill['date_receive'];
-
-
-        $bills = Bill::get()->where('time_id', $time_id)
-            ->where('pitch_id', $pitch_id)
-            ->where('date_receive', $date_receive)
-            ->where('status',BillStatusEnum::DANG_DAT);
-
-        if ($bills->count()>= 2) {
-
-            return response()->json([
-                'success' => true,
-                'warning' => 'Sân này và khung giờ này đang có nhiều người đặt, duyệt đơn này các đơn cùng giờ sẽ bị hủy!'
-            ]);
-        }
+        Bill::where('id', $request->id)->update(['status' => BillStatusEnum::DA_HUY]);
         return response()->json([
             'success' => true,
-
         ]);
-    }
-
-
-
-    public function cancel_booking($id)
-    {
-        Bill::where('id', $id)->update(['status' => BillStatusEnum::DA_HUY]);
-        return redirect()->route('admin.booking.index');
     }
 
 
