@@ -13,6 +13,11 @@ class TestController extends Controller
     public function test()
     {
 
-        Bill::query()->where('id',100)->except('id');
+        $bills = Bill::query()->where('time_id', 3)
+            ->where('pitch_id', 16)
+            ->where('date_receive', '2022-07-24')
+            ->where('status', 0)
+            ->where('id', '!=', 100)->get();
+
     }
 }

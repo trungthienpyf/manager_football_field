@@ -39,23 +39,23 @@ class BookingController extends Controller
         $date_receive = $arrBill['date_receive'];
 
 
-        $bills = Bill::get()->where('time_id', $time_id)
+        $bills = Bill::query()->where('time_id', $time_id)
             ->where('pitch_id', $pitch_id)
             ->where('date_receive', $date_receive)
             ->where('status',BillStatusEnum::DANG_DAT)
-            ->where('id','!=',$request->id);
+            ->where('id','!=',$request->id)->get();
 
         if ($bills->count()>= 1) {
-            $arrExcept=[];
-            foreach($bills as $bill) {
-                $arrExcept[] = $bill;
-
-            }
+//            $arrExcept=[];
+//            foreach($bills as $bill) {
+//                $arrExcept[] = $bill;
+//
+//            }
 
             return response()->json([
                 'success' => true,
                 'warning' => 'Sân này và khung giờ này đang có nhiều người đặt, duyệt đơn này các đơn cùng giờ sẽ bị hủy!',
-                'data'=>$arrExcept
+                'data'=>$bills
             ]);
         }
         return response()->json([
