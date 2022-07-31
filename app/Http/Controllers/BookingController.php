@@ -29,14 +29,12 @@ class BookingController extends Controller
     }
     public function checkBill( Request $request )
     {
-        $bill = Bill::where('id',$request->id);
+        $bill = Bill::where('id',$request->id)->first();
 
 
-        $arrBill = $bill->first()->toArray();
-
-        $time_id = $arrBill['time_id'];
-        $pitch_id = $arrBill['pitch_id'];
-        $date_receive = $arrBill['date_receive'];
+        $time_id = $bill['time_id'];
+        $pitch_id = $bill['pitch_id'];
+        $date_receive = $bill['date_receive'];
 
 
         $bills = Bill::query()->where('time_id', $time_id)
@@ -46,12 +44,6 @@ class BookingController extends Controller
             ->where('id','!=',$request->id)->get();
 
         if ($bills->count()>= 1) {
-//            $arrExcept=[];
-//            foreach($bills as $bill) {
-//                $arrExcept[] = $bill;
-//
-//            }
-
             return response()->json([
                 'success' => true,
                 'warning' => 'Sân này và khung giờ này đang có nhiều người đặt, duyệt đơn này các đơn cùng giờ sẽ bị hủy!',
