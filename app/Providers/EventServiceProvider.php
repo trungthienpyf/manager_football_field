@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Events\AceptBills;
+use App\Events\AcceptBills;
 use App\Listeners\AceptAllBillsDuplicate;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -20,7 +20,7 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        AceptBills::class=>[
+        AcceptBills::class=>[
             AceptAllBillsDuplicate::class
         ]
     ];

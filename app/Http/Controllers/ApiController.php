@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Enums\BillStatusEnum;
 use App\Enums\PitchStatusEnum;
-use App\Events\AceptBills;
 use App\Http\Requests\Client\BookingRequest;
 use App\Models\Bill;
 use App\Models\Pitch;

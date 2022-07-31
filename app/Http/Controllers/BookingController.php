@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\BillStatusEnum;
-use App\Events\AceptBills;
+use App\Events\AcceptBills;
 use App\Listeners\AceptAllBillsDuplicate;
 use App\Models\Area;
 use App\Models\Bill;
@@ -76,7 +76,7 @@ class BookingController extends Controller
         $bill->update(['status' => BillStatusEnum::DA_DUYET]);
 //     AceptBills::dispatch($time_id, $pitch_id, $date_receive);
 
-        $arrId = event(new AceptBills($time_id,$pitch_id,$date_receive));
+        $arrId = event(new AcceptBills($time_id,$pitch_id,$date_receive));
 
         return response()->json([
             'success' => true,
