@@ -90,11 +90,17 @@ class BookingController extends Controller
 
     public function cancel_booking(Request $request)
     {
+        try {
+            Bill::where('id', $request->id)->update(['status' => BillStatusEnum::DA_HUY]);
+            return response()->json([
+                'success' => true,
+            ]);
+        }catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+            ]);
+        }
 
-        Bill::where('id', $request->id)->update(['status' => BillStatusEnum::DA_HUY]);
-        return response()->json([
-            'success' => true,
-        ]);
     }
 
 

@@ -324,10 +324,11 @@
 
                 data: {_token: '{{session()->token()}}', id: id},
                 success: function (response) {
-
+                    console.log(response.id)
                     if (response.id) {
                         response.id.forEach(function (ids) {
-                            $('#buttonSubmitForm' + ids.id).parent().parent().parent().parent().parent().remove()
+                            console.log(ids)
+                            $('#buttonSubmitForm' + ids).parent().parent().parent().parent().parent().remove()
                         })
                     }
 
