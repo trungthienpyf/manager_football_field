@@ -8,19 +8,32 @@
                 <div class="col-md-2">
                     <div class="form-group" style="margin-top:15px">
                         <select name="area_id" id="" class="form-control">
-                            <option value="" checked>Chọn khu vực</option>
+                            <option value="" >Chọn khu vực</option>
                             @foreach($area as $each)
-                            <option value="{{$each->id}}">{{$each->name}}</option>
+                            <option value="{{$each->id}}"
+                                    @if($area_id==$each->id)
+                                        selected
+                                    @endif
+                            >{{$each->name}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="col-md-2" style="margin-top:15px;padding:0 8px">
-                    <input class="form-control" name="date_search" type="date" value="" min="{{date("Y-m-d")}}">
+                    <input class="form-control" name="date_search" type="date"
+                           @if(!empty($dateSearch))
+                           value="{{$dateSearch}}"
+                           @endif
+
+                           min="{{date("Y-m-d")}}">
                 </div>
                 <div class="col-md-2" style="margin-top:15px;padding:0 8px">
                     <div class="input-group" >
-                        <input class="form-control" id="time" name="time_start" placeholder="07:00">
+                        <input class="form-control" id="time" name="time_start"
+                               @if(!empty($timeStartSearch))
+                               value="{{$timeStartSearch}}"
+                               @endif
+                               placeholder="07:00" >
                         <a class="input-group-addon" >
                             <i class="fa fa-clock-o"></i>
                         </a>
@@ -28,7 +41,11 @@
                 </div>
                 <div class="col-md-2" style="margin-top:15px;padding:0 8px">
                     <div class="input-group" >
-                        <input class="form-control" id="time" name="time_end" placeholder="23:00">
+                        <input class="form-control" id="time" name="time_end" placeholder="23:00"
+                               @if(!empty($timeEndSearch))
+                               value="{{$timeEndSearch}}"
+                            @endif
+                        >
                         <a class="input-group-addon" >
                             <i class="fa fa-clock-o"></i>
                         </a>
@@ -64,7 +81,7 @@
                              style="background-image: url({{ url('/storage') }}/{{$each->img}}); background-position: center center; background-size: cover;">
 
                             <div class="filter filter-white">
-                                <a href="{{route('booking',$each)}}" type="button"
+                                <a href="{{route('booking',[$each,'dateSearch'=> $dateSearch, 'timeStartSearch'=>$timeStartSearch,'timeEndSearch'=>$timeEndSearch]) }}" type="button"
                                    class="btn btn-info btn-round btn-fill">
                                     <i class="fa fa-calendar-check-o"></i> Đặt lịch ngay
                                 </a>
@@ -110,7 +127,7 @@
         </div>
     </div>
     <div style="display:flex; justify-content:center">
-{{--        {{ $pitches->links() }}--}}
+        {{ $pitches->links() }}
     </div>
 
 @endsection

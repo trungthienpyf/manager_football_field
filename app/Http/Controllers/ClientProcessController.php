@@ -95,16 +95,26 @@ class ClientProcessController extends Controller
         if (!empty($search)) {
             $q->where('id','like' ,'%'.$search.'%');
         }
-        $pitches=$q->paginate();
+        $pitches=$q->latest()->paginate(20);
 
         $status = PitchStatusEnum::getArrayView();
         date_default_timezone_set('Asia/Ho_Chi_Minh');
 
+        $pitches->appends([
+            'area_id' => $area_id,
+            'date_search' => $date_search,
+            'time_start' => $time_start,
+            'time_end' => $time_end,
 
+        ]);
         return view('user.welcome', [
             'pitches' => $pitches,
             'status' => $status,
             'area' => $area,
+            'area_id' => $area_id,
+            'dateSearch' => $date_search,
+            'timeStartSearch' => $time_start,
+            'timeEndSearch' => $time_end,
         ]);
     }
 
@@ -116,6 +126,18 @@ class ClientProcessController extends Controller
 
     public function booking(Request $request, Pitch $pitch)
     {
+        $dateSearch='';
+        $timeStartSearch='';
+        $timeEndSearch='';
+
+        if($request->dateSearch){
+            $dateSearch=$request->dateSearch;
+        } if($request->timeStartSearch){
+            $timeStartSearch=$request->timeStartSearch;
+        }
+        if ($request->timeEndSearch) {
+            $timeEndSearch = $request->timeEndSearch;
+        }
 
         $date = date('Y-m-d');
 
@@ -152,11 +174,15 @@ class ClientProcessController extends Controller
             'time' => $time,
             'arrCheck' => $arrCheck,
             'arrGetTime' => $arrGetTime,
+            'dateSearch' =>$dateSearch,
+            'timeStartSearch' =>$timeStartSearch,
+            'timeEndSearch' =>$timeEndSearch,
         ]);
     }
 
     public function pending(BookingRequest $request, Pitch $pitch)
     {
+
         $pitch_real = Pitch::find($pitch->id);
         $pitch_id = $pitch_real->id;
         $price = $pitch_real->price;

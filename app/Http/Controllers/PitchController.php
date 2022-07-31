@@ -59,10 +59,10 @@ class PitchController extends Controller
     {
         $pitch_id=$request->pitch_id;
         if(!empty($pitch_id)){
-            $a=Pitch::select('*')
+            $checkSize=Pitch::query()
                 ->where('pitch_id','=',$pitch_id)
                 ->get();
-            if(count($a)>=4){
+            if(count($pitch_id)>=4){
                 return redirect()->route('admin.pitch.create')->with(['message'=>'Sân to này đã chứa đủ sân nhỏ hãy chọn sân khác']);
             }
         }

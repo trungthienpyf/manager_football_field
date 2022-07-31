@@ -49,7 +49,7 @@
                             <h4 class="panel-title">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
                                    aria-expanded="false" aria-controls="collapseTwo">
-                                 Thể loại sân
+                                    Thể loại sân
                                 </a>
                             </h4>
                         </div>
@@ -89,7 +89,8 @@
                                 <div class="form-group">
                                     <label for="name_receive">Họ và tên (*)</label>
 
-                                    <input type="text" name="name_receive" class="form-control" value="{{old('name_receive')}}">
+                                    <input type="text" name="name_receive" class="form-control"
+                                           value="{{old('name_receive')}}">
 
                                 </div>
 
@@ -104,13 +105,13 @@
                                 <div class="form-group">
                                     <label for="date-start">Ngày đá</label>
                                     <input id="check-date" type="date" name="date" class="form-control"
-                                           @if(empty(old('date')))
-                                           value="{{date("Y-m-d")}}"
+                                           @if(!empty($dateSearch))
+                                           value="{{$dateSearch}}"
                                            @endif
                                            @if(!empty('date'))
                                            value="{{old('date')}}"
                                            @endif
-                                        min="{{date('Y-m-d')}}"
+                                           min="{{date('Y-m-d')}}"
                                     >
                                 </div>
                             </div>
@@ -141,21 +142,14 @@
                                                     <div class="selecotr-item">
                                                         <input type="radio" id="radio{{$hours->id}}" name="selector"
                                                                class="selector-item_radio" value="{{$hours->id}}"
-                                                               @if( in_array($hours->time_start . $hours->time_end ,$arrCheck))
-                                                               disabled
-                                                            @endif
-                                                               @if( in_array($hours->time_start . $hours->time_end ,$arrGetTime))
-                                                               disabled
+
+                                                        @if(!empty($dateSearch) && !empty($timeStartSearch) && !empty($timeEndSearch) && $timeStartSearch == $hours->time_start && $timeEndSearch == $hours->time_end )
+                                                                checked
                                                             @endif
                                                         >
                                                         <label
                                                             for="radio{{$hours->id}}" class="selector-item_label"
-                                                            @if( in_array($hours->time_start . $hours->time_end ,$arrCheck))
-                                                            style="opacity:0.36;pointer-events:none"
-                                                            @endif
-                                                            @if( in_array($hours->time_start . $hours->time_end ,$arrGetTime))
-                                                            style="opacity:0.36;pointer-events:none"
-                                                            @endif
+
                                                         >{{$hours->time_start}} - {{$hours->time_end}}</label>
 
                                                     </div>
@@ -228,27 +222,27 @@
 @endsection
 @push('scripts')
     <script>
-        let errorName=''
-        let errorDate=''
-        let errorPhone=''
-        let errorSelectTime=''
+        let errorName = ''
+        let errorDate = ''
+        let errorPhone = ''
+        let errorSelectTime = ''
         @if ($errors->has('name_receive'))
-             errorName= '{{$errors->first('name_receive')}}' ;
+            errorName = '{{$errors->first('name_receive')}}';
         toastr.error(errorName)
-            @endif
+        @endif
             @if ($errors->has('phone'))
-         errorPhone= '{{$errors->first('phone')}}' ;
+            errorPhone = '{{$errors->first('phone')}}';
         toastr.error(errorPhone)
         @endif
             @if ($errors->has('date'))
-         errorDate= '{{$errors->first('date')}}' ;
+            errorDate = '{{$errors->first('date')}}';
         toastr.error(errorDate)
         @endif
             @if ($errors->has('selector'))
-            errorSelectTime= '{{$errors->first('selector')}}' ;
+            errorSelectTime = '{{$errors->first('selector')}}';
         toastr.error(errorSelectTime)
         @endif
-                console.log(errorName,errorPhone,errorDate,errorSelectTime)
+        console.log(errorName, errorPhone, errorDate, errorSelectTime)
         toastr.options.timeOut = 10000
         toastr.options.closeButton = true
         $('#check-date').change(function () {
@@ -256,17 +250,17 @@
             $.ajax({
                 url: '{{ route('api.check_time') }}',
                 type: 'post',
-                data: {val: $(this).val(),id:{{$pitch->id}}},
+                data: {val: $(this).val(), id: {{$pitch->id}}},
                 success: function (response) {
                     console.log(response)
 
                     $(".selecotr-item").replaceWith('')
                     response.data.forEach(function (each) {
-                        let checkTimeBooking=response.arrCheck.includes(""+each.time_start+each.time_end)
-                        let checkTimeOver=response.arrGetTime.includes(""+each.time_start+each.time_end)
+                            let checkTimeBooking = response.arrCheck.includes("" + each.time_start + each.time_end)
+                            let checkTimeOver = response.arrGetTime.includes("" + each.time_start + each.time_end)
 
                             $(".selector").append(
-                    `<div class="selecotr-item">
+                                `<div class="selecotr-item">
                     <input type="radio" id="radio${each.id}"name="selector" class="selector-item_radio"  value="${each.id}"
                        ${checkTimeBooking ? 'disabled' : ''} ${checkTimeOver ? 'disabled' : ''}
                     >
