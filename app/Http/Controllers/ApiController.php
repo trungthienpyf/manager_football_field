@@ -65,5 +65,21 @@ class ApiController extends Controller
             'arrGetTime' => $arrGetTime,
         ]);
     }
+    public function getPitchesByArea(Request $request){
+        try {
+            $pitches =Pitch::query()
+                ->where('area_id',$request->id)->get();
+            return response()->json([
+                'success' => true,
+                'pitches' => $pitches,
+            ]);
+        }catch (\Throwable $e){
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+    }
 
 }
