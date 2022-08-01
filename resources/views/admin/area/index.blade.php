@@ -34,9 +34,41 @@
                 <td>
 
                     <a href="">
-
-                        <i class="dripicons-preview"></i>
                     </a>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#bs-example-modal-lg"
+                            onClick="previewPitches( {{$each->id}} )">
+                        <i class="dripicons-preview"></i>
+                    </button>
+                    <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog"
+                         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content" style="max-height: 900px; min-width: 1000px;overflow-y: scroll;">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myLargeModalLabel">Các sân thuộc khu
+                                        vực {{$each->name}}</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table  table-centered mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Tên</th>
+                                            <th>Hình</th>
+                                            <th>Giá</th>
+                                            <th>Loại người</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="container-preview">
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
                     <span class="pl-1">  {{$each->countPitch}} Sân </span>
                 </td>
                 <td>
@@ -58,7 +90,8 @@
                     <form action="{{route('admin.area.destroy',$each)}}" method="post">
                         @csrf
                         @method('delete')
-                        <button id="delete-button-field" class="btn btn-secondary delete-button-field{{$each->id}}" type="button" data-toggle="modal"
+                        <button id="delete-button-field" class="btn btn-secondary delete-button-field{{$each->id}}"
+                                type="button" data-toggle="modal"
                                 data-target="#danger-header-modal" onClick="deleteArea({{ $each->id  }})">Xóa
                         </button>
 
@@ -77,7 +110,9 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
-                                    <button type="button" class="btn btn-danger"  data-dismiss="modal" id="submit-delete">Xóa</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                            id="submit-delete">Xóa
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +130,8 @@
                     <div class="text-center mt-2 ">
                         <h3>Thêm sân</h3>
                     </div>
-                    <form class="pl-3 pr-3" action="{{route('admin.area.create_multiple')}}" id="form" method="POST" enctype="multipart/form-data">
+                    <form class="pl-3 pr-3" action="{{route('admin.area.create_multiple')}}" id="form" method="POST"
+                          enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="name">Tên sân</label>
@@ -161,7 +197,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
-                            <button  id="submitForm" type="button" class="btn btn-primary">Thêm sân</button>
+                            <button id="submitForm" type="button" class="btn btn-primary">Thêm sân</button>
                         </div>
                     </form>
                 </div>
@@ -172,34 +208,58 @@
 @endsection
 @push('scripts')
     <script>
+        function previewPitches(id) {
+            console.log(id)
 
-        $('#submitForm').click(function(){
+            $.ajax({
+                url: '{{route('api.getPitches')}}',
+                type: 'POST',
+                data: {id: id},
+                success: function (response) {
+                    response.pitches.forEach(function (each) {
+
+                        each.price = each.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+                        $('#container-preview').append($('<tr>')
+                            .append($('<td>').append(each.id))
+                            .append($('<td>').append(each.name))
+                            .append($('<td>').append(each.img))
+                            .append($('<td>').append(each.price))
+                            .append($('<td>').append(each.size == 1 ? "Sân 7" : "Sân 11"))
+                        )
+                    })
+
+                },
+            })
+        }
+
+
+        $('#submitForm').click(function () {
             var files = $('#form');
             const formData = new FormData(files[0]);
-                $.ajax({
+            $.ajax({
                 url: $('#form').attr('action'),
                 type: 'POST',
                 data: formData,
                 processData: false,
                 contentType: false,
-                enctype:'multipart/form-data',
+                enctype: 'multipart/form-data',
                 success: function (response) {
                     console.log(response.data)
                     location.reload()
                 },
-                error: function (message){
-                  if(typeof message.responseJSON !='undefined'){
-                      $.each(message.responseJSON.errors,function (key,each) {
-                          $.toast({
-                              heading: 'Error',
-                              text: each.toString(),
-                              icon: 'error',
-                              position: 'top-right',
-                              loader: true,
-                              loaderBg: '#9EC600'
-                          })
-                      })
-                  }
+                error: function (message) {
+                    if (typeof message.responseJSON != 'undefined') {
+                        $.each(message.responseJSON.errors, function (key, each) {
+                            $.toast({
+                                heading: 'Error',
+                                text: each.toString(),
+                                icon: 'error',
+                                position: 'top-right',
+                                loader: true,
+                                loaderBg: '#9EC600'
+                            })
+                        })
+                    }
                 }
             })
         })
@@ -267,10 +327,10 @@
                         console.log(response)
                     }
                 })
-                $('.delete-button-field'+id).parent().parent().parent().remove()
+                $('.delete-button-field' + id).parent().parent().parent().remove()
                 $('.modal-backdrop.fade.show').hide()
                 $('#danger-header-modal').css({
-                    'display':'',
+                    'display': '',
                     ' padding-right': ''
                 })
             })

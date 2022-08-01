@@ -46,7 +46,7 @@
                             @endif
                         </td>
 
-                        <td>{{$each->price}}</td>
+                        <td>{{$each->getPriceVNDAttribute($each->price)}}  VND</td>
 
                         <td>{{$each->getKeyByValue($each->status)}}</td>
 

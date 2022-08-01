@@ -20,7 +20,7 @@
                         Brown single-breasted brushed-wool checked blazer
                     </p>
 
-                    <span class="price">Giá thuê: {{$pitch->price}}₫/Giờ</span>
+                    <span class="price">Giá thuê: {{$pitch->getPriceVNDAttribute($pitch->price)}}₫/Giờ</span>
                 </div>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
@@ -139,7 +139,7 @@
                                         <div class="panel-body">
                                             <div class="selector">
                                                 @foreach ($time as $hours)
-                                                    <div class="selecotr-item">
+                                                    <span class="selecotr-item">
                                                         <input type="radio" id="radio{{$hours->id}}" name="selector"
                                                                class="selector-item_radio" value="{{$hours->id}}"
 
@@ -152,7 +152,7 @@
 
                                                         >{{$hours->time_start}} - {{$hours->time_end}}</label>
 
-                                                    </div>
+                                                    </span>
 
                                                 @endforeach
                                             </div>
