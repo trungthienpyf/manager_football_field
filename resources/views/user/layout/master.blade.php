@@ -5,7 +5,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>Blog - Get Shit Done Kit Pro by Creative Tim</title>
+    <title>{{config('app.name')}}</title>
 
 
 

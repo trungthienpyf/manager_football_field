@@ -31,71 +31,78 @@ class ClientProcessController extends Controller
         $date_search = $request->date_search;
         $time_start = $request->time_start;
         $time_end = $request->time_end;
+
         if (!empty($date_search)) {
-                if(empty($time_start)){
-                    $q->whereNotIn('id', function ($q) use ($date_search) {
-                        $q->select('id')
-                            ->from('bills')
-                            ->where('status', '=', BillStatusEnum::DA_DUYET)
-                            ->where('date_receive',$date_search);
-                    });
-                }else{
-                    $q->whereNotIn('id', function ($q) use ($date_search,$time_start,$time_end) {
-                        $q->select('pitch_id')
-                            ->from('bills')
-                            ->where('status', '=', BillStatusEnum::DA_DUYET)
-                            ->whereBetween('expected_time', [$date_search . ' ' . $time_start, $date_search . ' ' . $time_end]);
-                    });
-                    $check_parents=Bill::query()
-                        ->select('pitch_id')
+            if (empty($time_start)) {
+                $q->whereNotIn('id', function ($q) use ($date_search) {
+                    $q->select('id')
                         ->from('bills')
                         ->where('status', '=', BillStatusEnum::DA_DUYET)
-                        ->whereBetween('expected_time', [$date_search . ' ' . $time_start, $date_search . ' ' . $time_end])->get()->toArray();
-                    if($check_parents){
-                        $querySelectChildren=Pitch::query()
+                        ->where('date_receive', $date_search);
+                });
+            } else {
+                $q->whereNotIn('id', function ($q) use ($date_search, $time_start, $time_end) {
+                    $q->select('pitch_id')
+                        ->from('bills')
+                        ->where('status', '=', BillStatusEnum::DA_DUYET)
+                        ->whereBetween('expected_time', [$date_search . ' ' . $time_start, $date_search . ' ' . $time_end]);
+                });
+
+                    $check_parents = Bill::query()
+                        ->select('pitch_id')
+                        ->where('status', '=', BillStatusEnum::DA_DUYET)
+                        ->whereBetween('expected_time', [$date_search . ' ' . $time_start, $date_search . ' ' . $time_end])
+                        ->get()
+                        ->toArray();
+
+                if ($check_parents) {
+                        $querySelectChildren = Pitch::query()
                             ->select('id')
-                            ->orWhere(function($query) use ($check_parents){
-                                foreach ($check_parents as $check){
+                            ->orWhere(function ($query) use ($check_parents) {
+                                foreach ($check_parents as $check) {
 
-                                    $query->orWhere('pitch_id',$check);
+                                    $query->orWhere('pitch_id', $check);
                                 }
-                            })->get()->toArray();
+                            })
+                            ->get()->toArray();
 
-                        $querySelectParent=Pitch::query()
+                        $querySelectParent = Pitch::query()
                             ->select('pitch_id')
-                            ->orWhere(function($query) use ($check_parents){
-                                foreach ($check_parents as $check){
+                            ->orWhere(function ($query) use ($check_parents) {
+                                foreach ($check_parents as $check) {
 
-                                    $query->orWhere('id',$check);
+                                    $query->orWhere('id', $check);
                                 }
                             })->distinct()->get()->toArray();
-                        $arrGetParent=[];
-                        foreach ($querySelectParent as $getHasValue){
 
-                           $arrGetParent= array_filter($getHasValue);
+                        $arrGetParent = [];
+
+                        foreach ($querySelectParent as $getHasValue) {
+
+                            $arrGetParent = array_filter($getHasValue);
                         }
 
-                        $q->where(function($q) use ($arrGetParent){
-                            foreach ($arrGetParent as $check){
-                                $q->where('id' ,'!=',$check);
-                            }
-                        });
-                        $q->where(function($q) use ($querySelectChildren){
-                            foreach ($querySelectChildren as $check){
-                                $q->where('id' ,'!=',$check);
-                            }
-                        });
-                    }
-
+                    $q->where(function ($q) use ($arrGetParent) {
+                        foreach ($arrGetParent as $check) {
+                            $q->where('id', '!=', $check);
+                        }
+                    });
+                    $q->where(function ($q) use ($querySelectChildren) {
+                        foreach ($querySelectChildren as $check) {
+                            $q->where('id', '!=', $check);
+                        }
+                    });
                 }
+
+            }
         }
 
 
         $search = $request->search;
         if (!empty($search)) {
-            $q->where('id','like' ,'%'.$search.'%');
+            $q->where('id', 'like', '%' . $search . '%');
         }
-        $pitches=$q->latest()->paginate(20);
+        $pitches = $q->latest()->paginate(20);
 
         $status = PitchStatusEnum::getArrayView();
         date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -107,6 +114,7 @@ class ClientProcessController extends Controller
             'time_end' => $time_end,
 
         ]);
+
         return view('user.welcome', [
             'pitches' => $pitches,
             'status' => $status,
@@ -126,14 +134,15 @@ class ClientProcessController extends Controller
 
     public function booking(Request $request, Pitch $pitch)
     {
-        $dateSearch='';
-        $timeStartSearch='';
-        $timeEndSearch='';
+        $dateSearch = '';
+        $timeStartSearch = '';
+        $timeEndSearch = '';
 
-        if($request->dateSearch){
-            $dateSearch=$request->dateSearch;
-        } if($request->timeStartSearch){
-            $timeStartSearch=$request->timeStartSearch;
+        if ($request->dateSearch) {
+            $dateSearch = $request->dateSearch;
+        }
+        if ($request->timeStartSearch) {
+            $timeStartSearch = $request->timeStartSearch;
         }
         if ($request->timeEndSearch) {
             $timeEndSearch = $request->timeEndSearch;
@@ -174,9 +183,9 @@ class ClientProcessController extends Controller
             'time' => $time,
             'arrCheck' => $arrCheck,
             'arrGetTime' => $arrGetTime,
-            'dateSearch' =>$dateSearch,
-            'timeStartSearch' =>$timeStartSearch,
-            'timeEndSearch' =>$timeEndSearch,
+            'dateSearch' => $dateSearch,
+            'timeStartSearch' => $timeStartSearch,
+            'timeEndSearch' => $timeEndSearch,
         ]);
     }
 
@@ -224,10 +233,8 @@ class ClientProcessController extends Controller
                 return redirect()->back()->with('msg', $msg);
             }
         }
-        $name_time=Time::query()->where('id',$request->selector)->value('time_start');
-        $expected_time=$request->date .' '.$name_time;
-
-
+        $name_time = Time::query()->where('id', $request->selector)->value('time_start');
+        $expected_time = $request->date . ' ' . $name_time;
 
 
         Bill::create([
