@@ -19,7 +19,7 @@ class ClientProcessController extends Controller
     {
         $area = Area::get();
 
-        $q = Pitch::query()->with('bills')->orderByDesc('created_at');
+        $q = Pitch::query()->orderByDesc('created_at');
 
         $area_id = $request->area_id;
         if (!empty($area_id)) {
@@ -107,13 +107,6 @@ class ClientProcessController extends Controller
         $status = PitchStatusEnum::getArrayView();
         date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-        $pitches->appends([
-            'area_id' => $area_id,
-            'date_search' => $date_search,
-            'time_start' => $time_start,
-            'time_end' => $time_end,
-
-        ]);
 
         return view('user.welcome', [
             'pitches' => $pitches,

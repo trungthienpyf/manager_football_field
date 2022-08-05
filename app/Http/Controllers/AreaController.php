@@ -9,6 +9,7 @@ use App\Http\Requests\Area\StoreRequest;
 use App\Http\Requests\Area\UpdateRequest;
 use App\Models\Area;
 use App\Models\Pitch;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 
@@ -20,15 +21,19 @@ class AreaController extends Controller
         View::share('title',ucwords($this->table));
     }
 
-   public function index(){
-      $area= Pitch::query()
+   public function index(Request $request){
+      $query= Pitch::query()
           ->selectRaw('areas.name as name,areas.id,count(pitches.id) as countPitch')
           ->rightJoin('areas','areas.id','=','pitches.area_id')
           ->whereNull('deleted_at')
-          ->groupBy('areas.id')
-          ->orderBy('areas.created_at','DESC')
-          ->get();
+          ->groupBy('areas.id');
+        $search=$request->q;
+      if(!empty($search)){
+            $query->orWhere('areas.name','like', '%'. $search .'%' );
+      }
 
+      $area=$query->latest('areas.created_at')
+          ->paginate(2);
        $status = PitchStatusEnum::getArrayView();
        $get_size_11=Pitch::query()
            ->where('size','=','2')

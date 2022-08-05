@@ -14,7 +14,7 @@ use App\Models\Area;
 use App\Models\Pitch;
 
 
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
@@ -26,13 +26,28 @@ class PitchController extends Controller
         $this->table=(new Pitch())->getTable();
         View::share('title',ucwords($this->table));
     }
-    public function index()
+    public function index(Request $request)
     {
-        $pitch = Pitch::query()->orderBy('created_at','desc')->paginate('5');
+        $q = Pitch::query();
+
+        $areas = Area::all();
         $status = PitchStatusEnum::getArrayView();
 
+        $search=$request->q;
+        $area_id=$request->area_id;
+
+        if(!empty($search)){
+            $q->orWhere('name','like','%' . $search.'%');
+        }
+
+        if(!empty($area_id)){
+            $q->orWhere('area_id','=',$area_id);
+        }
+
+        $pitch=$q->latest()->paginate(10);
         return view('admin.pitch.index', [
             'pitch' => $pitch,
+            'areas' => $areas,
             'status'=>$status
         ]);
     }

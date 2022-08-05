@@ -127,7 +127,7 @@
         </div>
     </div>
     <div style="display:flex; justify-content:center">
-        {{ $pitches->links() }}
+        {{ $pitches->appends(request()->all())->links() }}
     </div>
 
 @endsection

@@ -14,7 +14,37 @@
                 </div>
                 <h4 class="page-title">Khu vực</h4>
             </div>
+            <form action="{{route('admin.pitch.index')}}">
 
+                <div class="row">
+                    <div class="col-2">
+                        <div class="input-group">
+                            <select name="area_id" id="" class="custom-select">
+                                <option value="">Khu vực</option>
+                                @foreach ($areas as $area)
+                                    <option value="{{$area->id}}"
+                                            @if($area->id==request()->area_id)
+                                            selected
+                                        @endif
+                                    >{{$area->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control dropdown-toggle" placeholder="Tìm kiếm..." name="q"
+                                   @if(request()->q)
+                                   value="{{request()->q}}"
+                                @endif>
+
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit" id="submitSearch">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -27,7 +57,7 @@
                     <th>Tên</th>
                     <th>Hình</th>
                     <th>Giá</th>
-                    <th>Trạng thái</th>
+
                     <th>Khu vực</th>
                     <th>Loại người</th>
                     <th>Sửa</th>
@@ -46,11 +76,11 @@
                             @endif
                         </td>
 
-                        <td>{{$each->getPriceVNDAttribute($each->price)}}  VND</td>
+                        <td>{{$each->getPriceVNDAttribute($each->price)}} VND</td>
 
-                        <td>{{$each->getKeyByValue($each->status)}}</td>
+                        <td>{{$each->area->name}}</td>
 
-{{--                        <td>{{optional($each->area->name)}}</td>--}}
+
                         <td>{{$each->getNameSizeAttribute()}}</td>
                         <td>
                             <a href="{{route('admin.pitch.edit',$each)}}" class="action-icon">
@@ -97,83 +127,9 @@
 
             </table>
             @include('error')
-            <style >
 
-
-                .pagination > li {
-                    display: inline
-                }
-
-                .pagination > li > a, .pagination > li > span {
-                    position: relative;
-                    float: left;
-                    padding: 6px 12px;
-                    margin-left: -1px;
-                    line-height: 1.42857143;
-                    color: #337ab7;
-                    text-decoration: none;
-                    background-color: #fff;
-                    border: 1px solid #ddd
-                }
-                .pagination > li:first-child > a, .pagination > li:first-child > span {
-                    margin-left: 0;
-                    border-top-left-radius: 4px;
-                    border-bottom-left-radius: 4px
-                }
-                .pagination > li:last-child > a, .pagination > li:last-child > span {
-                    border-top-right-radius: 4px;
-                    border-bottom-right-radius: 4px
-                }
-                .pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
-                    z-index: 3;
-                    color: #23527c;
-                    background-color: #eee;
-                    border-color: #ddd
-                }
-                .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
-                    z-index: 2;
-                    color: #fff;
-                    cursor: default;
-                    background-color: #337ab7;
-                    border-color: #337ab7
-                }
-                .pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
-                    color: #777;
-                    cursor: not-allowed;
-                    background-color: #fff;
-                    border-color: #ddd
-                }
-                .pagination-lg > li > a, .pagination-lg > li > span {
-                    padding: 10px 16px;
-                    font-size: 18px;
-                    line-height: 1.3333333
-                }
-                .pagination-lg > li:first-child > a, .pagination-lg > li:first-child > span {
-                    border-top-left-radius: 6px;
-                    border-bottom-left-radius: 6px
-                }
-                .pagination-lg > li:last-child > a, .pagination-lg > li:last-child > span {
-                    border-top-right-radius: 6px;
-                    border-bottom-right-radius: 6px
-                }
-
-                .pagination-sm > li > a, .pagination-sm > li > span {
-                    padding: 5px 10px;
-                    font-size: 12px;
-                    line-height: 1.5
-                }
-                .pagination-sm > li:first-child > a, .pagination-sm > li:first-child > span {
-                    border-top-left-radius: 3px;
-                    border-bottom-left-radius: 3px
-                }
-
-                .pagination-sm > li:last-child > a, .pagination-sm > li:last-child > span {
-                    border-top-right-radius: 3px;
-                    border-bottom-right-radius: 3px
-                }
-            </style>
             <div class="d-flex justify-content-center">
-                {{ $pitch->links()  }}
+                {{ $pitch->appends(request()->all())->links()  }}
             </div>
 
         </div>
@@ -186,6 +142,10 @@
 @endsection
 @push('scripts')
     <script>
+        $('.custom-select').change(function () {
+            $('#submitSearch').click()
+        })
+
         function deletePitch(id) {
             $('#text-body-alert').text("Bạn có chắc chắn muốn xóa sân có id là " + id + " ?")
 

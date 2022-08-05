@@ -4,12 +4,26 @@
         <div class="col-12">
             <div class="page-title-box">
                 <div class="page-title-right">
-
                     <a class="btn btn-primary" href="{{route('admin.area.create')}}">
                         Thêm
                     </a>
                 </div>
                 <h4 class="page-title">Khu vực</h4>
+                <form action="{{route('admin.area.index')}}" >
+
+                    <div class="row">
+
+                        <div class="col-3">
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control dropdown-toggle" placeholder="Tìm kiếm..." name="q">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
             </div>
 
         </div>
@@ -122,6 +136,9 @@
             </tbody>
         @endforeach
     </table>
+    <div class="d-flex justify-content-center">
+        {{ $area->appends(request()->all())->links()  }}
+    </div>
     <div id="signup-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -202,7 +219,8 @@
                     </form>
                 </div>
             </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
+
+        </div>
     </div>
 
 @endsection
@@ -218,7 +236,7 @@
                 success: function (response) {
                     response.pitches.forEach(function (each) {
 
-                        each.price = each.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+                        each.price = each.price.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
                         $('#container-preview').append($('<tr>')
                             .append($('<td>').append(each.id))
                             .append($('<td>').append(each.name))
