@@ -100,8 +100,9 @@ class ClientProcessController extends Controller
 
         $search = $request->search;
         if (!empty($search)) {
-            $q->where('id', 'like', '%' . $search . '%');
+            $q->where('name', 'like', '%' . $search . '%');
         }
+
         $pitches = $q->latest()->paginate(20);
 
         $status = PitchStatusEnum::getArrayView();

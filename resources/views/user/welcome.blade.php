@@ -53,7 +53,11 @@
                 </div>
                 <div class="col-md-3"  style="margin-top:15px;padding:0 8px">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Nhập tên sân..." name="search">
+                        <input type="text" class="form-control" placeholder="Nhập tên sân..." name="search"
+                               @if(request()->search)
+                                   value="{{request()->search}}"
+                               @endif
+                        >
                         <a class="input-group-addon" >
                             <i class="fa fa-search"></i>
                         </a>
