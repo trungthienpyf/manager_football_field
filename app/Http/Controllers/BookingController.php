@@ -20,12 +20,33 @@ class BookingController extends Controller
         View::share('title', ucwords($this->table));
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $bills = Bill::query()->where('status', BillStatusEnum::DANG_DAT)->latest()->paginate();
+            $status=$request->status;
+            $search=$request->q;
+
+        $q = Bill::query();
+        if(!is_null($status)){
+            $q->where('status', $status);
+        }else{
+            $q->where('status', BillStatusEnum::DANG_DAT);
+        }
+        if(!empty($search)){
+
+            $q->orWhere('name_receive', 'like','%' . $search .'%');
+            $q->orWhere('email_receive', 'like','%' . $search .'%');
+            $q->orWhere('phone_receive', 'like','%' . $search .'%');
+        }
+
+          $bills=$q->latest()->paginate();
+
+        $status=BillStatusEnum::getArrayView();
+
         return view('admin.booking.index', [
-            'bills' => $bills
+            'bills' => $bills,
+            'status' => $status
         ]);
+
     }
     public function checkBill( Request $request )
     {

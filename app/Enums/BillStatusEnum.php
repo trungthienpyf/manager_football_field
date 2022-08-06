@@ -22,4 +22,5 @@ final class BillStatusEnum extends Enum
             'Đã hủy' => self::DA_HUY,
         ];
     }
+
 }

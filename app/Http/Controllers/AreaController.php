@@ -33,7 +33,7 @@ class AreaController extends Controller
       }
 
       $area=$query->latest('areas.created_at')
-          ->paginate(2);
+          ->paginate(10);
        $status = PitchStatusEnum::getArrayView();
        $get_size_11=Pitch::query()
            ->where('size','=','2')

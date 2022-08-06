@@ -9,7 +9,36 @@
                 </div>
                 <h4 class="page-title">Lịch đặt sân</h4>
             </div>
+            <form action="{{route('admin.booking.index')}}">
 
+                <div class="row">
+                    <div class="col-2">
+                        <div class="input-group">
+                            <select name="status" id="" class="custom-select">
+                                @foreach($status as $key  => $sta)
+                                    <option value="{{$sta}}"
+                                            @if (request()->status==$sta)
+                                            selected
+                                        @endif
+                                    >{{$key}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control dropdown-toggle" placeholder="Tìm kiếm..." name="q"
+                                   @if(request()->q)
+                                   value="{{request()->q}}"
+                                @endif>
+
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit" id="submitSearch">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -26,8 +55,11 @@
                     <th>Thời gian trả sân</th>
                     <th>Chi tiết</th>
                     <th>Trạng thái</th>
+
+                    @if(is_null(request()->status) || request()->status==0  )
                     <th>Hành động</th>
                     <th>Hành động</th>
+                        @endif
                 </tr>
                 </thead>
 
@@ -38,11 +70,11 @@
                         <td>{{$each->name_receive}}</td>
                         <td>{{$each->phone_receive}}</td>
                         <td>{{$each->price}}</td>
-                        <td>{{$each->time_start}}</td>
-                        <td>{{$each->time_end}}</td>
+                        <td>{{$each->time_date_start}}</td>
+                        <td>{{$each->time_date_start}}</td>
                         <td>Chi tiết để sau</td>
                         <td>{{$each->getKeyByValue($each->status)}}</td>
-
+                            @if(request()->status==0 )
                         <td>
                             <div class="row">
                                 <form action="{{route('admin.booking.accept',$each)}}" method="post"
@@ -131,6 +163,7 @@
                             </form>
 
                         </td>
+                                @endif
                     </tr>
                     </tbody>
                 @endforeach
@@ -236,7 +269,9 @@
 
     <script>
 
-
+        $('.custom-select').change(function () {
+            $('#submitSearch').click()
+        })
         function submitForm(id) {
 
             console.log(id)
@@ -264,7 +299,7 @@
                             arrExcept.push(each.id)
                         })
 
-                        let textDesc=response.warning.replace('đơn này','đơn ' +`<span style="color:red">#${id}</span>` +' này').replace('các đơn','các đơn ' +`<span style="color:red">#${arrExcept.join(' #')}</span>`)
+                        let textDesc = response.warning.replace('đơn này', 'đơn ' + `<span style="color:red">#${id}</span>` + ' này').replace('các đơn', 'các đơn ' + `<span style="color:red">#${arrExcept.join(' #')}</span>`)
 
                         textAlert.html(textDesc)
                         $('#changeColor').attr('class', 'btn btn-danger submitAccept')
@@ -299,12 +334,12 @@
                 $.ajax({
                     url: '{{route('admin.booking.cancel')}}',
                     type: 'delete',
-                    data: {_token: '{{session()->token()}}',id:id},
+                    data: {_token: '{{session()->token()}}', id: id},
                     success: function (response) {
 
                     }
                 })
-                $('tr[id='+id+']').remove()
+                $('tr[id=' + id + ']').remove()
                 // $('.delete-button-field'+id).parent().parent().parent().remove()
                 // $('.modal-backdrop.fade.show').hide()
                 // $('#danger-header-modal').css({
