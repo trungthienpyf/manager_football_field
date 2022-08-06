@@ -260,12 +260,12 @@
                             let checkTimeOver = response.arrGetTime.includes("" + each.time_start + each.time_end)
 
                             $(".selector").append(
-                                `<div class="selecotr-item">
+                                `<span class="selecotr-item">
                     <input type="radio" id="radio${each.id}"name="selector" class="selector-item_radio"  value="${each.id}"
                        ${checkTimeBooking ? 'disabled' : ''} ${checkTimeOver ? 'disabled' : ''}
                     >
                         <label for="radio${each.id}" class="selector-item_label" ${checkTimeOver ? "style='opacity:0.36;pointer-events:none'" : ''} ${checkTimeBooking ? "style='opacity:0.36;pointer-events:none'" : ''}>${each.time_start} - ${each.time_end}</label>
-                    </div>`)
+                    </span>`)
                         }
                     )
 
