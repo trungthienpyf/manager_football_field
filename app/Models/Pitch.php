@@ -50,7 +50,7 @@ class Pitch extends Model
     {
         return $this->belongsTo(Area::class);
     }
-    public function getPriceVNDAttribute($price){
-        return number_format($price, 0, '', ',');
+    public function getPriceVietNamAttribute(){
+        return number_format($this->price, 0, '', ',');
     }
 }

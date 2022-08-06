@@ -20,7 +20,7 @@
                         Brown single-breasted brushed-wool checked blazer
                     </p>
 
-                    <span class="price">Giá thuê: {{$pitch->getPriceVNDAttribute($pitch->price)}}₫/Giờ</span>
+                    <span class="price">Giá thuê: {{$pitch->price_viet_nam}}₫/Giờ</span>
                 </div>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">

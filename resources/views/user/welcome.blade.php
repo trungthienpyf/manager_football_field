@@ -110,7 +110,7 @@
                                     </a>
                                 </div>
                                 <div class="stats pull-right">
-                                    Giá <span style="color:#FF3B30">{{$each->getPriceVNDAttribute($each->price)}}₫</span>/Trận
+                                    Giá <span style="color:#FF3B30">{{$each->price_viet_nam}}₫</span>/Trận
                                 </div>
                             </div>
                             <div class="footer">

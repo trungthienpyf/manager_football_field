@@ -68,8 +68,8 @@
                     <tr id="{{$each->id}}">
                         <td>{{$each->id}}</td>
                         <td>{{$each->name_receive}}</td>
-                        <td>{{$each->phone_receive}}</td>
-                        <td>{{$each->price}}</td>
+                        <td>0{{$each->phone_receive}}</td>
+                        <td>{{$each->pitch->price_viet_nam}}</td>
                         <td>{{$each->time_date_start}}</td>
                         <td>{{$each->time_date_start}}</td>
                         <td>Chi tiết để sau</td>
