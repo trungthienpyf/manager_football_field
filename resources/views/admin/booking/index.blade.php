@@ -71,7 +71,7 @@
                         <td>0{{$each->phone_receive}}</td>
                         <td>{{$each->pitch->price_viet_nam}}</td>
                         <td>{{$each->time_date_start}}</td>
-                        <td>{{$each->time_date_start}}</td>
+                        <td>{{$each->time_date_end}}</td>
                         <td>Chi tiết để sau</td>
                         <td>{{$each->getKeyByValue($each->status)}}</td>
                             @if(request()->status==0 )
