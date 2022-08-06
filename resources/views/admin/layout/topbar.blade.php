@@ -46,7 +46,7 @@
     </button>
     <div class="app-search dropdown d-none d-lg-block">
 
-        <h3 class="mt-3">{{config('app.name')}}</h3 >
+        <a href="{{route('admin.index')}}"><h3 class="mt-3">{{config('app.name')}}</h3 ></a>
         <div class="dropdown-menu dropdown-menu-animated dropdown-lg" id="search-dropdown">
             <!-- item-->
             <div class="dropdown-header noti-title">

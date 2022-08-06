@@ -25,7 +25,7 @@
                                 <li class="side-nav-title side-nav-item">Navigation</li>
 
                                 <li class="side-nav-item">
-                                    <a href="javascript: void(0);" class="side-nav-link">
+                                    <a href="{{route('admin.index')}}" class="side-nav-link">
                                         <i class="uil-home-alt"></i>
 
                                         <span> Trang Chủ </span>
@@ -35,21 +35,28 @@
                                 <li class="side-nav-item">
                                     <a href="javascript: void(0);" class="side-nav-link">
                                         <i class="uil-home-alt"></i>
+                                        <span> Hóa Đơn </span>
+                                    </a>
+                                    <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
+                                        <li>
+                                            <a href="{{route('admin.booking.index')}}">Đơn chờ duyệt</a>
+
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="side-nav-item">
+                                    <a href="javascript: void(0);" class="side-nav-link">
+                                        <i class="uil-home-alt"></i>
 
                                         <span> Khu Vực </span>
                                     </a>
                                     <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
                                         <li>
+                                            <a href="{{route('admin.area.index')}}">Xem</a>
+                                        </li>
+                                        <li>
                                             <a href="{{route('admin.area.create')}}">Thêm</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-crm.html">Sửa</a>
-                                        </li>
-                                        <li>
-                                            <a href="index.html">Ecommerce</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-projects.html">Projects</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -61,44 +68,13 @@
                                     </a>
                                     <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
                                         <li>
-                                            <a href="">Trang Chủ</a>
+                                            <a href="{{route('admin.pitch.index')}}">Xem</a>
 
                                         </li><li>
-                                            <a href="a">Thêm</a>
+                                            <a href="{{route('admin.pitch.create')}}">Thêm sân</a>
 
                                         </li>
-                                        <li>
-                                            <a href="dashboard-crm.html">CRM</a>
-                                        </li>
-                                        <li>
-                                            <a href="index.html">Ecommerce</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-projects.html">Projects</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="side-nav-item">
-                                    <a href="javascript: void(0);" class="side-nav-link">
-                                        <i class="uil-home-alt"></i>
 
-                                        <span> Hóa Đơn </span>
-                                    </a>
-                                    <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
-                                        <li>
-                                            <a href=""></a>
-                                        </li> <li>
-                                            <a href="">Thêm</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-crm.html">CRM</a>
-                                        </li>
-                                        <li>
-                                            <a href="index.html">Ecommerce</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-projects.html">Projects</a>
-                                        </li>
                                     </ul>
                                 </li>
 
