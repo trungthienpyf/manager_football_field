@@ -150,7 +150,7 @@
                                                         <label
                                                             for="radio{{$hours->id}}" class="selector-item_label"
 
-                                                        >{{$hours->time_start}} - {{$hours->time_end}}</label>
+                                                        >{{date('H:i',strtotime($hours->time_start))}} - {{date('H:i',strtotime($hours->time_end))}}</label>
 
                                                     </span>
 
@@ -259,6 +259,8 @@
                             let checkTimeBooking = response.arrCheck.includes("" + each.time_start + each.time_end)
                             let checkTimeOver = response.arrGetTime.includes("" + each.time_start + each.time_end)
 
+                      each.time_start= each.time_start.slice(0,5)
+                        each.time_end=each.time_end.slice(0,5)
                             $(".selector").append(
                                 `<span class="selecotr-item">
                     <input type="radio" id="radio${each.id}"name="selector" class="selector-item_radio"  value="${each.id}"

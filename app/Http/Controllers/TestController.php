@@ -12,5 +12,8 @@ use App\Models\Time;
 
 class TestController extends Controller
 {
-
+        public function test()
+        {
+            dd(Pitch::find(2));
+        }
 }
