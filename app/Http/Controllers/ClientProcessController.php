@@ -40,6 +40,7 @@ class ClientProcessController extends Controller
                         ->where('status', '=', BillStatusEnum::DA_DUYET)
                         ->where('date_receive', $date_search);
                 });
+
             } else {
                 $q->whereNotIn('id', function ($q) use ($date_search, $time_start, $time_end) {
                     $q->select('pitch_id')
@@ -56,31 +57,31 @@ class ClientProcessController extends Controller
                         ->toArray();
 
                 if ($check_parents) {
-                        $querySelectChildren = Pitch::query()
-                            ->select('id')
-                            ->orWhere(function ($query) use ($check_parents) {
-                                foreach ($check_parents as $check) {
+                    $querySelectChildren = Pitch::query()
+                        ->select('id')
+                        ->orWhere(function ($query) use ($check_parents) {
+                            foreach ($check_parents as $check) {
 
-                                    $query->orWhere('pitch_id', $check);
-                                }
-                            })
-                            ->get()->toArray();
+                                $query->orWhere('pitch_id', $check);
+                            }
+                        })
+                        ->get()->toArray();
 
-                        $querySelectParent = Pitch::query()
-                            ->select('pitch_id')
-                            ->orWhere(function ($query) use ($check_parents) {
-                                foreach ($check_parents as $check) {
+                    $querySelectParent = Pitch::query()
+                        ->select('pitch_id')
+                        ->orWhere(function ($query) use ($check_parents) {
+                            foreach ($check_parents as $check) {
 
-                                    $query->orWhere('id', $check);
-                                }
-                            })->distinct()->get()->toArray();
+                                $query->orWhere('id', $check);
+                            }
+                        })->distinct()->get()->toArray();
 
-                        $arrGetParent = [];
+                    $arrGetParent = [];
 
-                        foreach ($querySelectParent as $getHasValue) {
+                    foreach ($querySelectParent as $getHasValue) {
 
-                            $arrGetParent = array_filter($getHasValue);
-                        }
+                        $arrGetParent = array_filter($getHasValue);
+                    }
 
                     $q->where(function ($q) use ($arrGetParent) {
                         foreach ($arrGetParent as $check) {
@@ -97,13 +98,13 @@ class ClientProcessController extends Controller
             }
         }
 
-
+//        $q->dd();
         $search = $request->search;
         if (!empty($search)) {
             $q->where('name', 'like', '%' . $search . '%');
         }
 
-        $pitches = $q->latest()->paginate(20);
+        $pitches = $q->oldest('id')->paginate(20);
 
         $status = PitchStatusEnum::getArrayView();
         date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -189,6 +190,16 @@ class ClientProcessController extends Controller
         $pitch_id = $pitch_real->id;
         $price = $pitch_real->price;
 
+        $checkHasBill = Bill::query()
+            ->where('status', '=', BillStatusEnum::DA_DUYET)
+            ->where('pitch_id', '=', $pitch->id)
+        ->where('date_receive', '=', $request->date )
+        ->where('time_id', '=', $request->selector)
+            ->first();
+        if ($checkHasBill) {
+            $msg = "Có lỗi đã xảy ra!!";
+            return redirect()->back()->with('msg', $msg);
+        }
         $checkPitchBig = Pitch::where('pitch_id', '=', $pitch->id)->first();
         if ($checkPitchBig == null) {
             $getParents = Pitch::where('id', '=', $pitch->id)->first()->pitch_id;
@@ -199,6 +210,7 @@ class ClientProcessController extends Controller
                 ->where('time_id', '=', $request->selector)
                 ->first();
             if ($checkExist) {
+
                 $msg = "Sân lớn của sân này đã được người khác đặt giờ này!!";
                 return redirect()->back()->with('msg', $msg);
             }

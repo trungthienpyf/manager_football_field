@@ -34,15 +34,12 @@ class ApiController extends Controller
         $id_pitch=$request->id;
         $date_receive=$request->val;
 
-        $time = Time::all();
 
         $arrCheck = [];
         $check_time = Time::query()
             ->select('time_start', 'time_end')
-            ->whereIn('id', function ($q) use ($id_pitch,$date_receive) {
-                $q->select('time_id')
-                    ->from('bills')
-                    ->where('status', '=', BillStatusEnum::DA_DUYET)
+            ->whereHas('bills', function ($q) use ($id_pitch,$date_receive) {
+                $q->where('status', '=', BillStatusEnum::DA_DUYET)
                     ->where('date_receive', '=',$date_receive)
                     ->where('pitch_id', '=', $id_pitch);
 
@@ -51,9 +48,66 @@ class ApiController extends Controller
         foreach ($check_time as $each) {
             $arrCheck[] = $each['time_start']  . $each['time_end'] ;
         }
+        $checkPitchBig = Pitch::where('pitch_id', '=', $id_pitch)->first();
+        if ($checkPitchBig == null) {
+            $getParents = Pitch::query()
+
+            ->where('id', '=', $id_pitch)
+                ->first()
+                ->pitch_id;
+            $checkExist = Time::query()
+                ->select('time_start', 'time_end')
+                ->whereHas('bills', function ($q) use ($date_receive,$getParents) {
+                   $q ->where('pitch_id', '=', $getParents)
+                        ->where('status', '=', BillStatusEnum::DA_DUYET)
+                        ->where('date_receive', '=', $date_receive);
+
+
+                })->get()->toArray();
+
+            if (count($checkExist)>=1) {
+                foreach ($checkExist as $each) {
+                    if(!in_array($each['time_start']  . $each['time_end'], $arrCheck, true)){
+                        array_push( $arrCheck,$each['time_start']  . $each['time_end']);
+                    }
+                }
+            }
+        }
+        else if ($checkPitchBig != null) {
+                $array = [];
+                $getChildren = Pitch::query()
+                    ->where('pitch_id', '=',$id_pitch)
+                    ->get()->toArray();
+
+                foreach ($getChildren as  $each) {
+                    $array[] = $each;
+
+                }
+                $checkExist = Bill::query()->with('time:id,time_start,time_end')
+                    ->where(function ($q) use ($array) {
+                    foreach ($array as $child_id) {
+
+                        $q->orWhere('pitch_id', '=', $child_id['id']);
+                    }
+                })->where('status', '=', BillStatusEnum::DA_DUYET)
+                    ->where('date_receive', '=', $date_receive)
+                    ->get()->toArray();
+
+                if (count($checkExist)>=1) {
+                   foreach ($checkExist as $each) {
+                       if(!in_array($each,$arrCheck,true)){
+                           array_push($arrCheck,$each['time']['time_start']  . $each['time']['time_end']);
+                       }
+
+                   }
+                }
+        }
+
+
         $arrGetTime=[];
+        $time = Time::all();
         foreach ($time as $each) {
-            if (time() > strtotime( $date_receive.' '. $each->time_start)) {
+            if (time()+60*60 > strtotime( $date_receive.' '. $each->time_start)) {
                 $arrGetTime[] = $each['time_start']  . $each['time_end'] ;
             }
         }
