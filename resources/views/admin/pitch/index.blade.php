@@ -76,7 +76,7 @@
                             @endif
                         </td>
 
-                        <td>{{$each->getPriceVNDAttribute($each->price)}} VND</td>
+                        <td>{{$each->price_viet_nam}} VND</td>
 
                         <td>{{$each->area->name}}</td>
 

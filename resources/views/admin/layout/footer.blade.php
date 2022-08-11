@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
 
-                2022   @if(date('Y') !=2022) - {{date('Y')}} @endif © Hyper - Coderthemes.com
+                2022   @if(date('Y') !=2022) - {{date('Y')}} @endif © thienity, made with love
             </div>
             <div class="col-md-6">
                 <div class="text-md-right footer-links d-none d-md-block">

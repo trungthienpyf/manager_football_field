@@ -120,7 +120,7 @@
         </div>
         <hr>
         <div class="copyright">
-            © 2022   @if(date('Y') !=2022) - {{date('Y')}} @endif  Creative Tim, made with love
+            © 2022   @if(date('Y') !=2022) - {{date('Y')}} @endif  thienity, made with love
         </div>
     </div>
 </footer>
