@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\BillStatusEnum;
+use App\Enums\PitchSizeEnum;
 use App\Enums\PitchStatusEnum;
 use App\Http\Requests\Client\BookingRequest;
 use App\Models\Area;
@@ -17,6 +18,8 @@ class ClientProcessController extends Controller
 {
     public function index(Request $request)
     {
+        $search = $request->search;
+        $searchSize = $request->sizeSearch;
         $area = Area::get();
 
         $q = Pitch::query()->orderByDesc('created_at');
@@ -49,12 +52,12 @@ class ClientProcessController extends Controller
                         ->whereBetween('expected_time', [$date_search . ' ' . $time_start, $date_search . ' ' . $time_end]);
                 });
 
-                    $check_parents = Bill::query()
-                        ->select('pitch_id')
-                        ->where('status', '=', BillStatusEnum::DA_DUYET)
-                        ->whereBetween('expected_time', [$date_search . ' ' . $time_start, $date_search . ' ' . $time_end])
-                        ->get()
-                        ->toArray();
+                $check_parents = Bill::query()
+                    ->select('pitch_id')
+                    ->where('status', '=', BillStatusEnum::DA_DUYET)
+                    ->whereBetween('expected_time', [$date_search . ' ' . $time_start, $date_search . ' ' . $time_end])
+                    ->get()
+                    ->toArray();
 
                 if ($check_parents) {
                     $querySelectChildren = Pitch::query()
@@ -99,15 +102,20 @@ class ClientProcessController extends Controller
         }
 
 //        $q->dd();
-        $search = $request->search;
+
         if (!empty($search)) {
             $q->where('name', 'like', '%' . $search . '%');
+        }
+        if (!empty($searchSize)) {
+            $q->where('size',   $searchSize);
         }
 
         $pitches = $q->oldest('id')->paginate(20);
 
         $status = PitchStatusEnum::getArrayView();
         date_default_timezone_set('Asia/Ho_Chi_Minh');
+
+        $sizeSearch = PitchSizeEnum::getArrayView();
 
 
         return view('user.welcome', [
@@ -118,6 +126,7 @@ class ClientProcessController extends Controller
             'dateSearch' => $date_search,
             'timeStartSearch' => $time_start,
             'timeEndSearch' => $time_end,
+            'sizeSearch' => $sizeSearch,
         ]);
     }
 
@@ -193,8 +202,8 @@ class ClientProcessController extends Controller
         $checkHasBill = Bill::query()
             ->where('status', '=', BillStatusEnum::DA_DUYET)
             ->where('pitch_id', '=', $pitch->id)
-        ->where('date_receive', '=', $request->date )
-        ->where('time_id', '=', $request->selector)
+            ->where('date_receive', '=', $request->date)
+            ->where('time_id', '=', $request->selector)
             ->first();
         if ($checkHasBill) {
             $msg = "Có lỗi đã xảy ra!!";

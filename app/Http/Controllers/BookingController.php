@@ -80,9 +80,6 @@ class BookingController extends Controller
     public function accept_booking( Request $request )
     {
 
-        $check=true;
-
-
         $bill = Bill::where('id',$request->id);
 
 

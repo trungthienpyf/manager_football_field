@@ -3,7 +3,7 @@
 @section('search')
     <div class="container">
         <h2 class="section-title" style="color:black;margin-top:0">Tìm kiếm</h2>
-        <form action="" method="get">
+        <form action="" method="get" id="formSubmit">
             <div class="row" style="border: 1px solid #f9f9f9;box-shadow: #969ea633 0px 0px 24px;">
                 <div class="col-md-2">
                     <div class="form-group" style="margin-top:15px">
@@ -76,7 +76,24 @@
 @section('content')
 
     <div class="container">
-        <h2 class="section-title" style="color:black">Sân bóng đá</h2>
+        <h2 class="section-title" style="color:black">Sân bóng đá </h2>
+        <div style="float:right;padding:24px 24px 0 0">
+
+                <select name="sizeSearch" id="selectSize" form="formSubmit" style="height:30px">
+                    <option value="">Loại sân</option>
+                    @foreach($sizeSearch as $key=> $size)
+                    <option value="{{$size}}"
+                            @if(request()->sizeSearch==$size)
+                                selected
+                            @endif
+                    >
+                        {{$key}}
+                    </option>
+                    @endforeach
+                </select>
+
+
+        </div>
         <div class="row">
             @foreach ($pitches as $each)
                 <div class="col-md-3">
@@ -139,5 +156,9 @@
 
 @push('scripts')
 
-        <script>$.NotificationApp.send("Title","Your awesome message text","Position","Background color","Icon")</script>
+        <script>
+            $('#selectSize').change(function () {
+            $('#formSubmit').submit()
+            })
+        </script>
 @endpush
