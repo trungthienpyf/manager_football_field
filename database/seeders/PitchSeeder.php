@@ -40,7 +40,7 @@ class PitchSeeder extends Seeder
         Time::insert($arrEvening);
 
 
-        $faker = \Faker\Factory::create();
+        $faker = \Faker\Factory::create('vi_VN');
 //        $area = Company::query()->pluck('id')->toArray();
 
         for ($i = 1; $i <= 400; $i++) {
@@ -55,11 +55,20 @@ class PitchSeeder extends Seeder
             }
 
             $area_id = Pitch::query()->where('id', $pitch_id)->value('area_id');
+            $path = public_path('storage/images/');
+            $files = \File::files($path);
+            $arrNameFiles=[];
+
+            foreach($files as $path) {
+                $file = pathinfo($path);
+                $arrNameFiles[]= $file['basename'] ;
+            }
+            $randomFile = $arrNameFiles[array_rand($arrNameFiles)];
 
             Pitch::insert([
-                'name' => $faker->name,
+                'name' =>$faker->middleName . ' '. $faker->lastName,
                 'price' => $faker->numberBetween(100000, 900000),
-                'img' => $faker->imageUrl(),
+                'img' => 'images/'.$randomFile,
                 'status' => 0,
                 'size' => 1,
                 'pitch_id' => $pitch_id,
