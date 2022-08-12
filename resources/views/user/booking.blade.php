@@ -181,7 +181,7 @@
                                                         <input type="radio" id="radio{{$hours->id}}" name="selector"
                                                                class="selector-item_radio" value="{{$hours->id}}"
 
-                                                        @if(!empty($dateSearch) && !empty($timeStartSearch) && !empty($timeEndSearch) && $timeStartSearch == $hours->time_start && $timeEndSearch == $hours->time_end )
+                                                        @if(!empty($dateSearch) && !empty($timeStartSearch) && !empty($timeEndSearch) && $timeStartSearch == date('H:i',strtotime($hours->time_start)) && $timeEndSearch == date('H:i',strtotime($hours->time_end)) )
                                                                 checked
                                                             @endif
                                                         >
