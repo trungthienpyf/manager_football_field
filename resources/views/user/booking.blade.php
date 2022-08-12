@@ -14,13 +14,15 @@
                 <div class="clearfix"></div>
                 <div class="product-details">
                     <a href="#">
-                        <h3 class="title">Sân bóng: {{$pitch->name}}</h3>
+                        <h3 class="title">Sân bóng đá cỏ nhân tạo {{$pitch->name}}</h3>
                     </a>
                     <p class="description">
-                        Brown single-breasted brushed-wool checked blazer
+                        <i class="fa fa-map-marker" aria-hidden="true"></i> 399/45 Bình Thành , Khu phố 2 , P. Bình Hưng
+                        Hoà B, Quận Bình Tân, Tp Hồ Chí Minh
                     </p>
 
                     <span class="price">Giá thuê: {{$pitch->price_viet_nam}}₫/Giờ</span>
+
                 </div>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
@@ -28,19 +30,32 @@
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
                                    aria-expanded="true" aria-controls="collapseOne">
-                                    Product Description
+                                    Giới thiệu về sân
                                 </a>
                             </h4>
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
                              aria-labelledby="headingOne">
                             <div class="panel-body">
-                                Immaculately crafted in England using wool from esteemed British cloth house Dormeuile,
-                                this Kingsman blazer typifies the line's uncompromising luxury. The dashing check, high
-                                armholes and trim silhouette exudes timeless elegance. Keep your look modern by wearing
-                                it over a cashmere cardigan and add a little flair with a silk pocket square. This item
-                                is small to size, take the next size up. Shown here with a Kingman shirt, cardigan,
-                                trousers, tie, pocket square, cufflinks and shoes. Designer exclusively for MR PORTER
+                                Sân bóng đá cỏ nhân tạo
+                                <a href="{{route('detail',$pitch)}}">
+                                    <strong
+                                        style="color:#e74c3c">{{$pitch->name}}
+                                    </strong>
+                                </a> được xây dựng hệ thống nhiều
+                                sân. Sân bóng có đầy đủ tiện ích, công trình phụ trợ được đầu tư bài bản. Nằm ở khu
+                                vực giao thông thuận lợi, vị trí rộng rãi, thoáng mát.
+
+                                Nằm ở trung tâm quận Bình Tân, Sân bóng
+                                <a href="{{route('detail',$pitch)}}">
+                                    <strong
+                                        style="color:#e74c3c">{{$pitch->name}}
+                                    </strong>
+                                </a> là địa điểm yêu thích của công
+                                đồng
+                                bóng đá phủi quanh khu vực, bên cạnh đó chất lượng mặt cỏ tốt, thái độ nhân viên và
+                                giá
+                                thuê đều được đánh giá cao.
                             </div>
                         </div>
                     </div>
@@ -66,14 +81,37 @@
                             <h4 class="panel-title">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
                                    href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Details
+                                    Về chúng tôi
                                 </a>
                             </h4>
                         </div>
                         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
                              aria-labelledby="headingThree">
                             <div class="panel-body">
-                                85% wool, 15% linen. Dry-clean only
+                                <p><a href="{{route('index')}}">
+                                        <strong
+                                            style="color:#e74c3c">{{config('app.name')}}
+                                        </strong>
+                                    </a> là đơn vị đi đầu trong việc đem đến giải pháp toàn diện cho sân bóng
+                                    đá, bao gồm: thi công sân cỏ nhân tạo, hợp tác đầu tư sân và dịch vụ vận hành sân
+                                    bóng
+                                    đá chuyên nghiệp.
+
+
+                                </p>
+                                <p><a href="{{route('index')}}">
+                                        <strong
+                                            style="color:#e74c3c">{{config('app.name')}}
+                                        </strong>
+                                    </a> kỳ vọng xây dựng dịch vụ giúp kết nối cộng đồng người chơi bóng đá và
+                                    chủ sân, chúng tôi mong muốn và sẵn sàng hợp tác với tất cả chủ sân trên toàn quốc
+                                    để
+                                    đem đến dịch vụ đặt sân trực tuyến tốt nhất và tiện lợi nhất đến với khách hàng..
+                                </p>
+                                <p> Chịu trách nhiệm: Nguyễn Trung Thiện - Hotline: 090.479.xxxx
+                                </p>
+                                <p>Chân thành cảm ơn.</p>
+
                             </div>
                         </div>
                     </div>

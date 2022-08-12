@@ -7,57 +7,21 @@
                 <span class="icon-bar bar2"></span>
                 <span class="icon-bar bar3"></span>
             </button>
-            <a class="navbar-brand" href="https://gsdk.creative-tim.com"><i class="fa fa-chevron-left"></i> Back to Kit</a>
+            <a class="navbar-brand" href="{{route('index')}}">{{config('app.name')}}</a>
         </div>
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="components.html">
-                        All Components
+                        Zalo
+                    </a>
+                </li> <li>
+                    <a href="components.html">
+                        Phone
                     </a>
                 </li>
-                <li>
-                    <a href="home.html">
-                        Home
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        Blog
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu dropdown-with-icons">
-                        <li>
-                            <a href="blog-page.html">
-                                <i class="pe-7s-comment"></i> Blog Page
-                            </a>
-                        </li>
-                        <li>
-                            <a href="blog-post.html">
-                                <i class="pe-7s-news-paper"></i> Blog Post
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Ecommerce
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu dropdown-with-icons">
-                        <li>
-                            <a href="ecommerce.html">
-                                <i class="pe-7s-ticket"></i> Store Page
-                            </a>
-                        </li>
-                        <li>
-                            <a href="product-page.html">
-                                <i class="pe-7s-piggy"></i> Product Page
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         More
@@ -91,7 +55,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="https://www.creative-tim.com/product/get-shit-done-pro" class="btn btn-round btn-default">Buy this Kit!</a></li>
+
             </ul>
         </div>
     </div>
