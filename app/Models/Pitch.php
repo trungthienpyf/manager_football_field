@@ -38,6 +38,10 @@ class Pitch extends Model
     {
         return $this->size == '1' ? '7' :'11';
     }
+    public function getNameImgAttribute()
+    {
+        return url('/storage') .'/' .$this->img;
+    }
 //    public function getNameOfSizeAttribute($param)
 //    {
 //        $nameOfParents =Pitch::query()

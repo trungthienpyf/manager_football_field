@@ -44,15 +44,20 @@
             <tbody>
             <tr scope="row">
                 <td>{{$each->id}}</td>
-                <td>{{$each->name}}</td>
+                <td>
+                    <a href="{{route('admin.area.edit',$each)}}">
+                        {{$each->name}}
+                    </a>
+
+                </td>
                 <td>
 
-                    <a href="">
-                    </a>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#bs-example-modal-lg"
-                            onClick="previewPitches( {{$each->id}} )">
+                    <a href="{{route('admin.area.show',$each)}}"  class="button_preview" target="_blank">
                         <i class="dripicons-preview"></i>
-                    </button>
+                    </a>
+
+
+
                     <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog"
                          aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
@@ -94,17 +99,17 @@
 
                 </td>
                 <td>
-                    <a href="{{route('admin.area.edit',$each)}}">
-                        <a href="{{route('admin.area.edit',$each)}}" class="action-icon">
+
+                        <a href="{{route('admin.area.edit',$each)}}"  class="action-icon button_edit">
                             <i class="mdi mdi-pencil"></i>
                         </a>
-                    </a>
+
                 </td>
                 <td>
                     <form action="{{route('admin.area.destroy',$each)}}" method="post">
                         @csrf
                         @method('delete')
-                        <button id="delete-button-field" class="btn btn-secondary delete-button-field{{$each->id}}"
+                        <button id="delete-button-field" class="btn btn-danger delete-button-field{{$each->id}}"
                                 type="button" data-toggle="modal"
                                 data-target="#danger-header-modal" onClick="deleteArea({{ $each->id  }})">Xóa
                         </button>
@@ -226,29 +231,7 @@
 @endsection
 @push('scripts')
     <script>
-        function previewPitches(id) {
-            console.log(id)
 
-            $.ajax({
-                url: '{{route('api.getPitches')}}',
-                type: 'POST',
-                data: {id: id},
-                success: function (response) {
-                    response.pitches.forEach(function (each) {
-
-                        each.price = each.price.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
-                        $('#container-preview').append($('<tr>')
-                            .append($('<td>').append(each.id))
-                            .append($('<td>').append(each.name))
-                            .append($('<td>').append(each.img))
-                            .append($('<td>').append(each.price))
-                            .append($('<td>').append(each.size == 1 ? "Sân 7" : "Sân 11"))
-                        )
-                    })
-
-                },
-            })
-        }
 
 
         $('#submitForm').click(function () {

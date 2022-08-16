@@ -10,7 +10,9 @@
     <!-- App css -->
     <link href="{{asset('css/icons.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/app-creative.min.css')}}" rel="stylesheet" type="text/css" id="light-style">
+
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.css' rel='stylesheet' />
     {{--    <link href="{{asset('css/app-creative-dark.min.css')}}" rel="stylesheet" type="text/css" id="dark-style">--}}
     {{--    <link href="assets/css/app-creative.min.css" rel="stylesheet" type="text/css" id="light-style">--}}
     {{--    <link href="assets/css/app-creative-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" disabled="disabled">--}}
@@ -92,6 +94,8 @@
 {{--<script src="assets/js/vendor.min.js"></script>--}}
 <script src="{{asset('js/vendor.min.js')}}"></script>
 <script src="{{asset('js/app.min.js')}}"></script>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js'></script>
 
 @stack('scripts')
 </body>

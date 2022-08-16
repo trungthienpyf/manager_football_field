@@ -68,11 +68,16 @@
                 @foreach ($pitch as $each)
                     <tr>
                         <td>{{$each->id}}</td>
-                        <td>{{$each->name}}</td>
+                        <td>
+                            <a href="{{route('admin.pitch.edit',$each)}}" >
+                                {{$each->name}}
+                            </a>
+
+                        </td>
 
                         <td>
                             @if(!empty($each->img))
-                                <img src="{{ url('/storage') }}/{{$each->img}}" alt="" width="100px">
+                                <img src="{{ $each->name_img}}" alt="" width="100px">
                             @endif
                         </td>
 
@@ -83,7 +88,7 @@
 
                         <td>{{$each->getNameSizeAttribute()}}</td>
                         <td>
-                            <a href="{{route('admin.pitch.edit',$each)}}" class="action-icon">
+                            <a href="{{route('admin.pitch.edit',$each)}}" class="action-icon button_edit">
                                 <i class="mdi mdi-pencil"></i>
                             </a>
                         </td>
@@ -92,7 +97,7 @@
 
                                 @csrf
                                 @method('delete')
-                                <button id="delete-button-field" class="btn btn-secondary" type="button"
+                                <button id="delete-button-field" class="btn btn-danger" type="button"
                                         data-toggle="modal" data-target="#danger-header-modal"
                                         onClick="deletePitch({{ $each->id  }})">Xóa
                                 </button>

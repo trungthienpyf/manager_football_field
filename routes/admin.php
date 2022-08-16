@@ -20,6 +20,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/area', [AreaController::class,'index'])->name('area.index');
     Route::get('/area/create', [AreaController::class,'create'])->name('area.create');
+    Route::get('/area/{id}', [AreaController::class,'show'])->name('area.show');
+    Route::get('/area/calendar/{id}', [AreaController::class,'calendarBooking'])->name('area.calendarBooking');
     Route::post('/area', [AreaController::class, 'store'])->name('area.store');
     Route::get('/area/edit/{area}', [AreaController::class, 'edit'])->name('area.edit');
     Route::put('/area/{area}', [AreaController::class, 'update'])->name('area.update');

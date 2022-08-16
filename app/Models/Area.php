@@ -15,4 +15,5 @@ class Area extends Model
     {
         return $this->hasMany(Pitch::class);
     }
+
 }

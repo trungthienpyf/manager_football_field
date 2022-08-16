@@ -24,3 +24,4 @@ Route::get('/size_11',[ApiController::class,'getSize11'])->name('size_11');
 Route::post('/pass_area',[ApiController::class,'returnValueArea'])->name('pass_area');
 Route::post('/check_time',[ApiController::class,'checkTimeApi'])->name('check_time');
 Route::post('/getPitchesByArea',[ApiController::class,'getPitchesByArea'])->name('getPitches');
+Route::post('/getDataForArea',[ApiController::class,'getDataForArea'])->name('getDataForArea');

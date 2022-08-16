@@ -72,3 +72,25 @@
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px
 }
+.table{
+    border:1px solid #e7ecf1!important;
+    background-color: #fff;
+
+    margin:30px 0px!important;
+}
+.button_preview{
+    padding:7px 12px;
+    text-decoration:none;
+    text-align: center;
+    border-radius:4px;
+    color:white;
+    background-color:#36c6d3;
+}
+.button_edit{
+
+    border-radius: 3px;
+    padding: 7px 12px!important;
+
+    color:white!important;
+    background-color:#4d97c1;
+}
