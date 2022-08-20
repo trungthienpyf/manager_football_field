@@ -1,13 +1,21 @@
 @extends('admin.layout.master')
 @section('content')
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+            font-size: 14px;
+        }
         #calendar {
             max-width: 1000px;
-            margin: 40px auto;
+            margin: 20px auto 40px auto;
             background-color: #fff;
             border-top: 4px solid #fac863;
             box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
         }
+
+
     </style>
     <div class="row">
         <div class="col-12">
@@ -42,7 +50,7 @@
                 console.log(response.data)
 
                 var calendar = new FullCalendar.Calendar(calendarEl, {
-                    height: 1350,
+
 
                     eventMaxStack: true,
                     expandRows: true,

@@ -20,7 +20,7 @@
     <link href="{{asset('css/examples.css')}}" rel="stylesheet">
     <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
 
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Grand+Hotel|Open+Sans:400,300" rel="stylesheet" type="text/css">
@@ -85,7 +85,7 @@
 
 <!--  Get Shit Done Kit PRO Core javascript 	 -->
 <script src="../assets/js/get-shit-done.js"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
 
 @stack('scripts')

@@ -3,7 +3,7 @@
 @section('search')
     <div class="container">
         <h2 class="section-title" style="color:black;margin-top:0">Tìm kiếm</h2>
-        <form action="" method="get" id="formSubmit">
+        <form action="" method="get" id="formSubmit" autocomplete="off">
             <div class="row" style="border: 1px solid #f9f9f9;box-shadow: #969ea633 0px 0px 24px;">
                 <div class="col-md-2">
                     <div class="form-group" style="margin-top:15px">
@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-2" style="margin-top:15px;padding:0 8px">
                     <div class="input-group" >
-                        <input class="form-control" id="time" name="time_start"
+                        <input class="form-control timepicker1" id="time" name="time_start"
                                @if(!empty($timeStartSearch))
                                value="{{$timeStartSearch}}"
                                @endif
@@ -41,10 +41,12 @@
                 </div>
                 <div class="col-md-2" style="margin-top:15px;padding:0 8px">
                     <div class="input-group" >
-                        <input class="form-control" id="time" name="time_end" placeholder="23:00"
+                        <input class="form-control timepicker2" id="time" name="time_end" placeholder="22:00"
                                @if(!empty($timeEndSearch))
                                value="{{$timeEndSearch}}"
+
                             @endif
+                               disabled
                         >
                         <a class="input-group-addon" >
                             <i class="fa fa-clock-o"></i>
@@ -160,5 +162,49 @@
             $('#selectSize').change(function () {
             $('#formSubmit').submit()
             })
+            const timeStart = ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "18:00", "19:00", "20:00", "21:00"];
+            const timeEnd = [ "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
+
+            function changeOpenPicker(){
+
+               let time= $(this).val()
+                if(timeStart.includes(time)){
+                    $('.timepicker2').prop("disabled", false);
+                    let timeValid=time.slice(0,2)-0 +1
+                    $('.timepicker2').timepicker('option', 'minTime' ,timeValid+'')
+
+
+                }else{
+                    $('.timepicker2').prop("disabled", true);
+                }
+
+
+            }
+
+            $('.timepicker1').timepicker({
+                timeFormat: 'HH:mm',
+                interval: 60,
+                minTime: '7',
+                maxTime: '21',
+
+
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true,
+                change: changeOpenPicker
+            });
+            $('.timepicker2').timepicker({
+                timeFormat: 'HH:mm',
+                interval: 60,
+                minTime: '8',
+                maxTime: '22',
+
+
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true
+            });
+
+
         </script>
 @endpush
