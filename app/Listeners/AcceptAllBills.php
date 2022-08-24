@@ -5,10 +5,9 @@ namespace App\Listeners;
 use App\Enums\BillStatusEnum;
 use App\Events\AcceptBills;
 use App\Models\Bill;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
-class AcceptAllBillsDuplicate
+
+class AcceptAllBills
 {
     /**
      * Create the event listener.
@@ -37,6 +36,7 @@ class AcceptAllBillsDuplicate
 
         foreach ($bills as $bill) {
             $bill->status = BillStatusEnum::DA_HUY;
+            $bill->admin_id = $event->admin_id;
             $bill->save();
 
         }

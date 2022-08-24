@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\RegisterAccountAction;
 use App\Enums\BillStatusEnum;
 use App\Enums\PitchSizeEnum;
 use App\Enums\PitchStatusEnum;
@@ -12,6 +13,10 @@ use App\Models\Pitch;
 use App\Models\Time;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Throwable;
 
 
 class ClientProcessController extends Controller
@@ -193,12 +198,13 @@ class ClientProcessController extends Controller
         ]);
     }
 
-    public function pending(BookingRequest $request, Pitch $pitch)
+    public function pending(BookingRequest $request, Pitch $pitch,RegisterAccountAction $action)
     {
+
+
         $pitch_real = Pitch::find($pitch->id);
         $pitch_id = $pitch_real->id;
         $price = $pitch_real->price;
-
         $checkHasBill = Bill::query()
             ->where('status', '=', BillStatusEnum::DA_DUYET)
             ->where('pitch_id', '=', $pitch->id)
@@ -245,11 +251,11 @@ class ClientProcessController extends Controller
             if ($checkExist) {
                 $msg = "Sân nhỏ của sân này đã được người khác đặt giờ này!!";
                 return redirect()->back()->with('msg', $msg);
+
             }
         }
         $name_time = Time::query()->where('id', $request->selector)->value('time_start');
         $expected_time = $request->date . ' ' . $name_time;
-
 
         Bill::create([
             'email_receive' => $request->email,
@@ -262,9 +268,17 @@ class ClientProcessController extends Controller
             'expected_time' => $expected_time,
 
         ]);
-        return redirect()->route('index');
+        if($request->email){
+            $action->handle( $request->name_receive,$request->phone,$request->email,Hash::make(Str::random(8)));
 
+        }
 
+        return redirect()->route('thanks');
+    }
+
+    public function thanks(Request $request){
+
+        return view('user.thanks');
     }
 
 

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\BillStatusEnum;
-use App\Models\Bill;
 
+
+use App\Mail\BillMail;
+use App\Models\Bill;
 use App\Models\Pitch;
 use App\Models\Time;
 use Carbon\Carbon;
@@ -15,26 +17,17 @@ class TestController extends Controller
 {
     public function test()
     {
-        $a =  Pitch::query()
-            ->with('bills.time')
-            ->whereRelation('area','id','=',1)
-            ->whereRelation('bills','status','=',BillStatusEnum::DA_DUYET)
-            ->whereHas('bills')
+        $bills = Bill::query()->where('time_id',7)
+            ->where('pitch_id', 2)
+            ->where('date_receive', "2022-08-26")
+            ->where('status', BillStatusEnum::DANG_DAT)
+            ->get();
 
-            ->get()
-            ->map(function($each){
-                $start = $each->bills[0]->date_receive . ' ' . $each->bills[0]->time->time_start;
-                $end = $each->bills[0]->date_receive . ' ' . $each->bills[0]->time->time_end;
+        foreach ($bills as $bill) {
+            $bill->status = BillStatusEnum::DA_HUY;
+            $bill->admin_id =1;
+            $bill->save();
 
-                return ['title' => $each->name,
-                    'start' => $start,
-                    'end' => $end,
-                ];
-            })->toArray();
-
-
-        dd($a);
-        return view('test');
-
+        }
     }
 }

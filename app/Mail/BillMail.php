@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Bill extends Mailable
+class BillMail extends Mailable
 {
     use Queueable, SerializesModels;
         public $details;
@@ -31,8 +31,10 @@ class Bill extends Mailable
     public function build()
     {
 
-        return $this->subject('Mail from ItSolutionStuff.com')
-            ->view('emails.sendBillMail');
+        return $this->subject('Mail from Booking Football Pitches')
+
+
+            ->markdown('emails.sendBillMail');
 
     }
 }

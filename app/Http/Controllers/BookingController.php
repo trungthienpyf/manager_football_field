@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Enums\BillStatusEnum;
 use App\Events\AcceptBills;
-use App\Listeners\AceptAllBillsDuplicate;
 use App\Models\Area;
 use App\Models\Bill;
 use App\Models\Pitch;
@@ -22,6 +21,7 @@ class BookingController extends Controller
 
     public function index(Request $request)
     {
+
             $status=$request->status;
             $search=$request->q;
 
@@ -62,7 +62,8 @@ class BookingController extends Controller
             ->where('pitch_id', $pitch_id)
             ->where('date_receive', $date_receive)
             ->where('status',BillStatusEnum::DANG_DAT)
-            ->where('id','!=',$request->id)->get();
+            ->where('id','!=',$request->id)
+            ->get();
 
         if ($bills->count()>= 1) {
             return response()->json([
@@ -81,7 +82,7 @@ class BookingController extends Controller
     {
 
         $bill = Bill::where('id',$request->id);
-
+       $admin_id= auth()->user()->id;
 
         $arrBill = $bill->first()->toArray();
 
@@ -91,10 +92,12 @@ class BookingController extends Controller
 
 
 
-        $bill->update(['status' => BillStatusEnum::DA_DUYET]);
-//     AceptBills::dispatch($time_id, $pitch_id, $date_receive);
+        $bill->update(['status' => BillStatusEnum::DA_DUYET,
+            'admin_id'       => $admin_id,
+            ]);
+//     AcceptBills::dispatch($time_id, $pitch_id, $date_receive);
 
-        $arrId = event(new AcceptBills($time_id,$pitch_id,$date_receive));
+        $arrId = event(new AcceptBills($time_id,$pitch_id,$date_receive,$admin_id));
 
         return response()->json([
             'success' => true,

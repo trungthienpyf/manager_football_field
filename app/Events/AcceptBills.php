@@ -20,11 +20,12 @@ class AcceptBills
      *
      * @return void
      */
-    public function __construct($time_id,$pitch_id,$date_receive)
+    public function __construct($time_id,$pitch_id,$date_receive,$admin_id)
     {
         $this->time_id=$time_id;
         $this->pitch_id=$pitch_id;
         $this->date_receive=$date_receive;
+        $this->admin_id=$admin_id;
     }
 
     /**

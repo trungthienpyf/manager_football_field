@@ -19,7 +19,7 @@ class CreateBillsTable extends Migration
             $table->tinyInteger('status')->comment('BillStatusEnum')->default('0');
             $table->integer('price');
             $table->date('date_receive');
-            $table->integer('phone_receive');
+            $table->string('phone_receive');
             $table->string('name_receive');
             $table->string('email_receive')->nullable();
             $table->foreignId('time_id')->constrained('times');
