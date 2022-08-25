@@ -18,7 +18,7 @@
             <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#"
                role="button" aria-haspopup="false" aria-expanded="false">
                 <span class="account-user-avatar">
-                    <img src="assets/images/users/avatar-1.jpg" alt="user-image"
+                    <img src="https://lippianfamilydentistry.net/wp-content/uploads/2015/11/user-default.png" alt="user-image"
                          class="rounded-circle">
                 </span>
                 <span>

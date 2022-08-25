@@ -33,6 +33,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Tên khu vực</th>
+            <th scope="col">Lịch các sân đã cho thuê</th>
             <th scope="col">Xem các sân của khu vực</th>
             <th scope="col">Thêm sân</th>
             <th scope="col">Sửa</th>
@@ -50,44 +51,20 @@
                     </a>
 
                 </td>
+                <td >
+
+                    <a  href="{{route('admin.area.calendarBooking',$each)}}"  class="button_preview" target="_blank">
+                        <i class="dripicons-calendar" aria-hidden="true"></i>
+                    </a>
+
+
+                </td>
                 <td>
 
                     <a href="{{route('admin.area.show',$each)}}"  class="button_preview" target="_blank">
                         <i class="dripicons-preview"></i>
                     </a>
 
-
-
-                    <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog"
-                         aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content" style="max-height: 900px; min-width: 1000px;overflow-y: scroll;">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myLargeModalLabel">Các sân thuộc khu
-                                        vực {{$each->name}}</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <table class="table  table-centered mb-0">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Tên</th>
-                                            <th>Hình</th>
-                                            <th>Giá</th>
-                                            <th>Loại người</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="container-preview">
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div>
                     <span class="pl-1">  {{$each->countPitch}} Sân </span>
                 </td>
                 <td>

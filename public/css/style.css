@@ -94,3 +94,65 @@
     color:white!important;
     background-color:#4d97c1;
 }
+.button_accept{
+    padding:6px 8px;
+    text-decoration:none;
+    text-align: center;
+    border-radius:4px;
+    color:white;
+    background-color:#5eba7d;
+}
+.button_cancel{
+    margin-left:8px;
+    padding:6px 8px;
+    text-decoration:none;
+    text-align: center;
+    border-radius:4px;
+    color:white;
+    background-color:#dc3545;
+}
+.pending{
+    border-radius: 0.25em;
+    color: #fff;
+    display: inline;
+    font-size: 80%;
+    font-weight: 500;
+    line-height: 1;
+    padding: 0.3em 0.7em 0.4em;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+
+    background-color: #f1c40f;
+    border: 1px solid #c29d0b!important;
+}
+.changeColorAccept{
+    border-radius: 0.25em;
+    color: #fff;
+    display: inline;
+    font-size: 80%;
+    font-weight: 500;
+    line-height: 1;
+    padding: 0.3em 0.7em 0.4em;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+    background-color:#36c6d3;
+    border: 1px solid #c29d0b!important;
+
+}
+.reject{
+    border-radius: 0.25em;
+    color: #fff;
+    display: inline;
+    font-size: 80%;
+    font-weight: 500;
+    line-height: 1;
+    padding: 0.3em 0.7em 0.4em;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+    background-color:#dc3545;
+    border: 1px solid #c29d0b!important;
+
+}

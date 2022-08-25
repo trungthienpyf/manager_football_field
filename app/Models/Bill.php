@@ -27,6 +27,10 @@ class Bill extends Model
         return array_search($value, BillStatusEnum::getArrayView(), true);
     }
 
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
     public function pitch()
     {
         return $this->belongsTo(Pitch::class);

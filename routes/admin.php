@@ -39,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/booking', [BookingController::class,'index'])->name('booking.index');
     Route::post('/booking/accept', [BookingController ::class, 'accept_booking'])->name('booking.accept');
     Route::post('/booking/checkBill', [BookingController ::class, 'checkBill'])->name('booking.checkBill');
+    Route::get('/booking/detail/{bill}', [BookingController ::class, 'detail_Bill'])->name('booking.detail_Bill');
 
     Route::delete('/booking/cancel', [BookingController ::class, 'cancel_booking'])->name('booking.cancel');
 

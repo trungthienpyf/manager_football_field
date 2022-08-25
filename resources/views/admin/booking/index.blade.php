@@ -25,6 +25,14 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-2">
+                        <div class="input-group mb-2">
+                            <input type="date" class="form-control dropdown-toggle" name="date"
+                                   @if(request()->date)
+                                   value="{{request()->date}}"
+                                @endif>
+                        </div>
+                    </div>
                     <div class="col-3">
                         <div class="input-group mb-2">
                             <input type="text" class="form-control dropdown-toggle" placeholder="Tìm kiếm..." name="q"
@@ -37,6 +45,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </form>
         </div>
@@ -57,113 +66,125 @@
                     <th>Trạng thái</th>
 
                     @if(is_null(request()->status) || request()->status==0  )
-                    <th>Hành động</th>
-                    <th>Hành động</th>
-                        @endif
+                        <th>Hành động</th>
+
+                    @endif
                 </tr>
                 </thead>
 
                 @foreach ($bills as $each)
                     <tbody>
                     <tr id="{{$each->id}}">
-                        <td>{{$each->id}}</td>
-                        <td>{{$each->name_receive}}</td>
-                        <td>0{{$each->phone_receive}}</td>
-                        <td>{{$each->pitch->price_viet_nam}}</td>
+                        <td><a href="">{{$each->id}}</a></td>
+                        <td>
+                            {{$each->name_receive}}
+                        </td>
+                        <td>
+                            <a href="">{{$each->phone_receive}}</a>
+                        </td>
+                        <td>{{$each->pitch->price_viet_nam}}₫/Giờ</td>
                         <td>{{$each->time_date_start}}</td>
                         <td>{{$each->time_date_end}}</td>
-                        <td>Chi tiết để sau</td>
-                        <td>{{$each->getKeyByValue($each->status)}}</td>
-                            @if(request()->status==0 )
                         <td>
-                            <div class="row">
-                                <form action="{{route('admin.booking.accept',$each)}}" method="post"
-                                      class="form_accept{{$each->id}}">
+                            <a href="{{route('admin.booking.detail_Bill',$each)}}" class="button_preview"
+                               target="_blank">
+                                <i class="dripicons-information" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <span  @if($each->status==0)
+                                   class="pending"
+                                @elseif($each->status==1)
+                            class="changeColorAccept"
+                                   @elseif($each->status==2)
+                            class="reject"
+                                @endif>
+                                {{$each->getKeyByValue($each->status)}}
+                            </span>
+                        </td>
+                        @if(request()->status==0 )
+                            <td>
+                                <div class="row">
+                                    <form action="{{route('admin.booking.accept',$each)}}" method="post"
+                                          class="form_accept{{$each->id}} button_accept">
 
-                                    <button type="button" class="action-icon buttonSubmit"
-                                            style="border:0; background-color: transparent;"
-                                            data-toggle="modal"
-                                            data-target="#warning-header-modal"
-                                            onclick="submitForm({{$each->id}})"
-                                            id="buttonSubmitForm{{$each->id}}"
-                                    >
-                                        <i class="mdi mdi-check" style="color:green"></i>
-                                    </button>
-                                </form>
-                                <div id="warning-header-modal" class="modal fade" tabindex="-1" role="dialog"
-                                     aria-labelledby="warning-header-modalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header modal-colored-header bg-warning"
-                                                 id="changeColorHeader">
-                                                <h4 class="modal-title" id="warning-header-modalLabel">Thông báo</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">×
-                                                </button>
-                                            </div>
-                                            <div class="modal-body" id="text-body-alert">
+                                        <button type="button" class="action-icon buttonSubmit"
+                                                style="border:0; background-color: transparent;"
+                                                data-toggle="modal"
+                                                data-target="#warning-header-modal"
+                                                onclick="submitForm({{$each->id}})"
+                                                id="buttonSubmitForm{{$each->id}}"
+                                        >
+                                            <i class="mdi mdi-check" class="change_color" style="color:white"></i>
+                                        </button>
+                                    </form>
+                                    <div id="warning-header-modal" class="modal fade" tabindex="-1" role="dialog"
+                                         aria-labelledby="warning-header-modalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header modal-colored-header bg-warning"
+                                                     id="changeColorHeader">
+                                                    <h4 class="modal-title" id="warning-header-modalLabel">Thông
+                                                        báo</h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">×
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" id="text-body-alert">
 
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">
+                                                        Đóng
+                                                    </button>
+                                                    <button type="button" class="btn btn-warning submitAccept"
+                                                            data-dismiss="modal" id="changeColor">Duyệt
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng
-                                                </button>
-                                                <button type="button" class="btn btn-warning submitAccept"
-                                                        data-dismiss="modal" id="changeColor">Duyệt
-                                                </button>
+                                        </div>
+                                    </div>
+                                    <form action="{{route('admin.booking.cancel',$each)}}" class="button_cancel"
+                                          method="post">
+                                        @csrf
+                                        <button type="button" class="action-icon"
+                                                style="border:0; background-color: transparent;"
+                                                data-toggle="modal"
+                                                data-target="#danger-header-modal"
+                                                onclick="rejectForm({{$each->id}})"
+                                        >
+                                            <i class="mdi mdi-close" style="color:white"></i>
+                                        </button>
+                                    </form>
+                                    <div id="danger-header-modal" class="modal fade" tabindex="-1" role="dialog"
+                                         aria-labelledby="danger-header-modalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header modal-colored-header bg-danger"
+                                                     id="changeColorHeader">
+                                                    <h4 class="modal-title" id="danger-header-modalLabel">Thông báo</h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">×
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" id="text-body-danger">
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">
+                                                        Đóng
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger " id="deleteSubmit"
+                                                            data-dismiss="modal">Hủy đơn
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <form action="{{route('admin.booking.cancel',$each)}}" method="post">
-                                    @csrf
-                                    <button type="button" class="action-icon"
-                                            style="border:0; background-color: transparent;"
-                                            data-toggle="modal"
-                                            data-target="#danger-header-modal"
-                                            onclick="rejectForm({{$each->id}})"
-                                    >
-                                        <i class="mdi mdi-close" style="color:red"></i>
-                                    </button>
-                                </form>
-                                <div id="danger-header-modal" class="modal fade" tabindex="-1" role="dialog"
-                                     aria-labelledby="danger-header-modalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header modal-colored-header bg-danger"
-                                                 id="changeColorHeader">
-                                                <h4 class="modal-title" id="danger-header-modalLabel">Thông báo</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">×
-                                                </button>
-                                            </div>
-                                            <div class="modal-body" id="text-body-danger">
+                            </td>
 
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng
-                                                </button>
-                                                <button type="button" class="btn btn-danger " id="deleteSubmit"
-                                                        data-dismiss="modal">Hủy đơn
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <form action="{{route('admin.pitch.destroy',$each)}}" method="post">
-
-                                @csrf
-                                @method('delete')
-                                <button id="delete-button-field" class="btn btn-secondary" type="button"
-                                        data-toggle="modal" data-target="#warning-header-modal"
-                                        onClick="deletePitch({{ $each->id  }})">Xóa
-                                </button>
-                            </form>
-
-                        </td>
-                                @endif
+                        @endif
                     </tr>
                     </tbody>
                 @endforeach
@@ -254,7 +275,7 @@
                 }
             </style>
             <div class="d-flex justify-content-center">
-                {{ $bills->links()  }}
+                {{ $bills->appends(request()->all())->links()  }}
             </div>
 
         </div>
@@ -272,6 +293,7 @@
         $('.custom-select').change(function () {
             $('#submitSearch').click()
         })
+
         function submitForm(id) {
 
             console.log(id)

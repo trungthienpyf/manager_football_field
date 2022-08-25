@@ -18,4 +18,7 @@ class Admin extends Model implements Authenticatable
         'password',
         'level',
     ];
+    public function bills(){
+         return   $this->hasMany(Bill::class);
+    }
 }

@@ -42,6 +42,13 @@
                                             <a href="{{route('admin.booking.index')}}">Đơn chờ duyệt</a>
 
                                         </li>
+                                        <li>
+                                            <a href="{{route('admin.booking.index')}}?status=1">Đơn đã duyệt</a>
+
+                                        </li>
+                                        <li>
+                                            <a href="{{route('admin.booking.index')}}?status=2">Đơn đã hủy</a>
+                                        </li>
                                     </ul>
                                 </li>
 

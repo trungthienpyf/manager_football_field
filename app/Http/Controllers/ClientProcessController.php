@@ -6,17 +6,21 @@ use App\Actions\RegisterAccountAction;
 use App\Enums\BillStatusEnum;
 use App\Enums\PitchSizeEnum;
 use App\Enums\PitchStatusEnum;
+
 use App\Http\Requests\Client\BookingRequest;
+
+use App\Mail\BillMail;
 use App\Models\Area;
 use App\Models\Bill;
 use App\Models\Pitch;
 use App\Models\Time;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Throwable;
+
 
 
 class ClientProcessController extends Controller
@@ -270,7 +274,12 @@ class ClientProcessController extends Controller
         ]);
         if($request->email){
             $action->handle( $request->name_receive,$request->phone,$request->email,Hash::make(Str::random(8)));
-
+//            $details=[
+//                'name'=>$request->name_receive,
+//                'phone'=>$request->phone,
+//                'password'=>Hash::make(Str::random(8)),
+//            ];
+//            Mail::to($request->email)->send(new BillMail($details));
         }
 
         return redirect()->route('thanks');

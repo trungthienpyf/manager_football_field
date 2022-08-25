@@ -3,12 +3,7 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
-                <div class="page-title-right">
 
-                    <a class="btn btn-primary" href="{{route('admin.area.calendarBooking',$id)}}">
-                        Xem sân đã cho thuê
-                    </a>
-                </div>
                 <h4 class="page-title">Chi tiết khu vực
                     <a href="{{route('admin.area.edit',$id)}}">
                         {{$titleArea->name}}
@@ -26,6 +21,12 @@
                                     <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                                 </div>
                             </div>
+                        </div>
+                        <div class="page-title">
+
+                            <a class="btn btn-primary" href="{{route('admin.area.calendarBooking',$id)}}">
+                                <i class="dripicons-calendar" aria-hidden="true"></i>  Xem sân đã cho thuê
+                            </a>
                         </div>
                     </div>
                 </form>

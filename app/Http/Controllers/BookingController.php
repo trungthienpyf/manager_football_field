@@ -24,6 +24,7 @@ class BookingController extends Controller
 
             $status=$request->status;
             $search=$request->q;
+            $date=$request->date;
 
         $q = Bill::query();
         if(!is_null($status)){
@@ -31,11 +32,17 @@ class BookingController extends Controller
         }else{
             $q->where('status', BillStatusEnum::DANG_DAT);
         }
-        if(!empty($search)){
 
-            $q->orWhere('name_receive', 'like','%' . $search .'%');
-            $q->orWhere('email_receive', 'like','%' . $search .'%');
-            $q->orWhere('phone_receive', 'like','%' . $search .'%');
+        if(!empty($search)){
+            $q->where(function ($q) use ($search) {
+                $q->orWhere('name_receive', 'like','%' . $search .'%');
+                $q->orWhere('email_receive', 'like','%' . $search .'%');
+                $q->orWhere('phone_receive', 'like','%' . $search .'%');
+            });
+        }
+
+        if(!empty($date)){
+                $q->where('date_receive', $date);
         }
 
           $bills=$q->latest()->paginate();
@@ -122,6 +129,10 @@ class BookingController extends Controller
             ]);
         }
 
+    }
+    public function detail_Bill(Bill $bill){
+
+        return view('admin.booking.detail_booking',['bill'=>$bill]);
     }
 
 
