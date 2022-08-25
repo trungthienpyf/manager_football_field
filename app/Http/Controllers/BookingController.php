@@ -25,8 +25,12 @@ class BookingController extends Controller
             $status=$request->status;
             $search=$request->q;
             $date=$request->date;
+            $area=$request->area;
 
+        $statusRender=BillStatusEnum::getArrayView();
+        $areaRender=Area::all();
         $q = Bill::query();
+
         if(!is_null($status)){
             $q->where('status', $status);
         }else{
@@ -40,18 +44,25 @@ class BookingController extends Controller
                 $q->orWhere('phone_receive', 'like','%' . $search .'%');
             });
         }
-
         if(!empty($date)){
-                $q->where('date_receive', $date);
+            $q->where('date_receive', $date);
+        }
+
+        if(!empty($area)){
+                $q->whereRelation('pitch.area',function ($q) use($area){
+                    $q->where('id',$area);
+                });
         }
 
           $bills=$q->latest()->paginate();
 
-        $status=BillStatusEnum::getArrayView();
+
+
 
         return view('admin.booking.index', [
             'bills' => $bills,
-            'status' => $status
+            'status' => $statusRender,
+            'areaRender' => $areaRender,
         ]);
 
     }

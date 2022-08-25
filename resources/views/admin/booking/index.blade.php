@@ -27,6 +27,20 @@
                     </div>
                     <div class="col-2">
                         <div class="input-group mb-2">
+                            <select name="area" id="" class="custom-select">
+                                <option value="">Chọn khu vực</option>
+                                @foreach($areaRender as $key  => $area)
+                                    <option value="{{$area->id}}"
+                                            @if (request()->area==$area->id)
+                                            selected
+                                        @endif
+                                    >{{$area->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="input-group mb-2">
                             <input type="date" class="form-control dropdown-toggle" name="date"
                                    @if(request()->date)
                                    value="{{request()->date}}"

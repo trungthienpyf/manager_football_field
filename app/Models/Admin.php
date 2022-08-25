@@ -21,4 +21,5 @@ class Admin extends Model implements Authenticatable
     public function bills(){
          return   $this->hasMany(Bill::class);
     }
+
 }

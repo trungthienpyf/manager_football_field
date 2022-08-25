@@ -23,7 +23,13 @@
                 </span>
                 <span>
                     <span class="account-user-name">{{auth()->user()->name}}</span>
-                    <span class="account-position">Founder</span>
+                    <span class="account-position">
+                        @if(auth()->user()->level==1)
+                            Admin
+                        @elseif(auth()->user()->level==0)
+                            Super Admin
+                        @endif
+                    </span>
                 </span>
             </a>
             <div

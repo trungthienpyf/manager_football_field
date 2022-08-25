@@ -35,6 +35,7 @@
             <th scope="col">Tên khu vực</th>
             <th scope="col">Lịch các sân đã cho thuê</th>
             <th scope="col">Xem các sân của khu vực</th>
+            <th scope="col">Xem đơn của khu</th>
             <th scope="col">Thêm sân</th>
             <th scope="col">Sửa</th>
             <th scope="col">Xóa</th>
@@ -52,12 +53,9 @@
 
                 </td>
                 <td >
-
                     <a  href="{{route('admin.area.calendarBooking',$each)}}"  class="button_preview" target="_blank">
                         <i class="dripicons-calendar" aria-hidden="true"></i>
                     </a>
-
-
                 </td>
                 <td>
 
@@ -66,6 +64,11 @@
                     </a>
 
                     <span class="pl-1">  {{$each->countPitch}} Sân </span>
+                </td>
+                <td >
+                    <a  href="{{route('admin.booking.index')}}?area={{$each->id}}"  class="button_preview" target="_blank">
+                        <i class="dripicons-document" aria-hidden="true"></i>
+                    </a>
                 </td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signup-modal"
