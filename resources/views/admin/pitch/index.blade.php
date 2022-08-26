@@ -57,7 +57,6 @@
                     <th>Tên</th>
                     <th>Hình</th>
                     <th>Giá</th>
-
                     <th>Khu vực</th>
                     <th>Loại người</th>
                     <th>Sửa</th>
@@ -69,9 +68,33 @@
                     <tr>
                         <td>{{$each->id}}</td>
                         <td>
-                            <a href="{{route('admin.pitch.edit',$each)}}" >
-                                {{$each->name}}
-                            </a>
+                            <ul>
+                                <li  class="name_hover" >
+                                    <a href="{{route('admin.pitch.edit',$each)}}">  {{$each->name}}</a>
+
+                                    @if($each->pitch)
+
+                                        <ul class="open_hover">
+                                            <h4 style="color:#4d97c1" class="padding_content">Thuộc sân to</h4>
+                                            <li class="padding_content">
+                                                <a href="{{route('admin.pitch.edit',$each->pitch->id)}}"> <div> Tên sân: {{$each->pitch->name}}</div></a>
+
+                                            </li>
+                                        </ul>
+                                    @elseif($each->pitches)
+                                        <ul class="open_hover">
+                                            <h4 style="color:#4d97c1" class="padding_content">Sân nhỏ thuộc sân</h4>
+
+                                            <li class="padding_content" >
+                                                @foreach($each->pitches as $child)
+                                                    <a href="{{route('admin.pitch.edit',$child->id)}}"> <div> Tên sân: {{$child->name}}</div></a>
+                                                @endforeach
+                                            </li>
+                                        </ul>
+                                    @endif
+                                </li>
+                            </ul>
+
 
                         </td>
 
@@ -83,7 +106,11 @@
 
                         <td>{{$each->price_viet_nam}} VND</td>
 
-                        <td>{{$each->area->name}}</td>
+                        <td>
+                            <a href="{{route('admin.area.show',$each->area->id)}}">
+                                {{$each->area->name}}
+                            </a>
+                        </td>
 
 
                         <td>{{$each->getNameSizeAttribute()}}</td>

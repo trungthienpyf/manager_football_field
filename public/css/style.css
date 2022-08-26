@@ -156,3 +156,24 @@
     border: 1px solid #c29d0b!important;
 
 }
+.name_hover{
+    list-style: none;
+}
+.name_hover:hover .open_hover{
+    display:block;
+    background-color:#ccc!important;
+
+
+}
+.open_hover{
+    border-radius: 3px;
+    position:absolute;
+    display:none;
+    list-style: none;
+    width:200px;
+    min-height:80px;
+
+}
+.padding_content{
+    margin:5px;
+}
