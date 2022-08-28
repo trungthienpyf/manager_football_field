@@ -3,25 +3,25 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <div class="tab-content">
                     <div class="tab-pane active" id="product-page1">
-                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="640 px">
+                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="540 px">
                     </div>
                     <div class="tab-pane" id="product-page2">
-                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="640 px">
+                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="540 px">
                     </div>
                     <div class="tab-pane" id="product-page3">
-                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="640 px">
+                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="540 px">
                     </div>
                     <div class="tab-pane" id="product-page4">
-                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="640 px">
+                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="540 px">
                     </div>
                     <div class="tab-pane" id="product-page5">
-                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="640 px">
+                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="540 px">
                     </div>
                     <div class="tab-pane" id="product-page6">
-                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="640 px">
+                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="540 px">
                     </div>
                 </div>
                 <div class="nbs-flexisel-container">
@@ -103,7 +103,7 @@
                         Hoà B, Quận Bình Tân, Tp Hồ Chí Minh
                     </p>
 
-                    <p class="price">Giá thuê: {{$pitch->price_viet_nam}}₫/Giờ</p>
+                    <p class="price" style="color:#FF3B30">{{$pitch->price_viet_nam}}₫/Giờ</p>
                     <div style="border-top: 1px solid #f3f3f3">
                         <h3>Tiện ích tại sân</h3>
                         <div style="display:flex;justify-content: space-between;">
@@ -218,7 +218,7 @@
                     </div>
                 </div> <!-- Acordeon  -->
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="product-details">
                     <a href="">
                         <h2 style="color:black">Đặt sân qua các kênh sau</h2>
@@ -260,6 +260,80 @@
 
                     </a>
                 </div>
+
+                @if($pitch->pitch)
+                    <div class="title">
+                        <h4 style="text-align:center;">Sân to của sân</h4>
+                    </div>
+                    <div class="row " style="padding-top:10px">
+
+
+                            <div class="col-md-4">
+                                <div class="card card-product card-plain">
+                                    <div class="image">
+                                        <a href="#">
+                                            <img src="{{ url('/storage') }}/{{$pitch->pitch->img}}" alt="..." width="165" height="124">
+                                        </a>
+                                    </div>
+                                    <div class="content">
+                                        <a href="#">
+                                            <h4 class="title">{{$pitch->pitch->name}}</h4>
+                                        </a>
+                                        <p class="description">
+                                            Sân bóng có đầy đủ tiện ích, công trình phụ trợ được đầu tư bài bản. Nằm ở khu vực giao thông thuận lợi, vị trí rộng rãi, thoáng mát.
+                                        </p>
+                                        <div class="footer">
+
+                                            <span class="price price-old"> {{$pitch->pitch->first_price_viet_nam }}₫</span>
+                                            <span class="price price-new"> {{$pitch->pitch->price_viet_nam}}₫/Giờ</span>
+                                            <p class="price"></p>
+                                            <button class="btn btn-danger btn-simple pull-right" rel="tooltip" title="" data-placement="left" data-original-title="Remove from wishlist">
+                                                <i class="fa fa-heart"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                    @elseif($pitch->pitches)
+                        <div class="title">
+                            <h4 style="text-align:center;">Các sân nhỏ của sân</h4>
+                        </div>
+                        <div class="row " style="padding-top:10px">
+
+                            @foreach($pitch->pitches as $getChild)
+                                <div class="col-md-4">
+                                    <div class="card card-product card-plain">
+                                        <div class="image">
+                                            <a href="#">
+                                                <img src="{{ url('/storage') }}/{{$getChild->img}}" alt="..." width="165" height="124">
+                                            </a>
+                                        </div>
+                                        <div class="content">
+                                            <a href="#">
+                                                <h4 class="title">{{$getChild->name}}</h4>
+                                            </a>
+                                            <p class="description">
+                                                Sân bóng có đầy đủ tiện ích, công trình phụ trợ được đầu tư bài bản. Nằm ở khu vực giao thông thuận lợi, vị trí rộng rãi, thoáng mát.
+                                            </p>
+                                            <div class="footer">
+
+                                                <span class="price price-old"> {{$getChild->first_price_viet_nam }}₫</span>
+                                                <span class="price price-new"> {{$getChild->price_viet_nam}}₫/Giờ</span>
+                                                <p class="price"></p>
+                                                <button class="btn btn-danger btn-simple pull-right" rel="tooltip" title="" data-placement="left" data-original-title="Remove from wishlist">
+                                                    <i class="fa fa-heart"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                @endif
+
+
             </div>
 
         </div>

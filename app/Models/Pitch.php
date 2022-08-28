@@ -57,4 +57,8 @@ class Pitch extends Model
     public function getPriceVietNamAttribute(){
         return number_format($this->price, 0, '', ',');
     }
+    public function getFirstPriceVietNamAttribute(){
+        return number_format($this->price +200000, 0, '', ',');
+    }
+
 }
