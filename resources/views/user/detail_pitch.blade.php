@@ -311,7 +311,7 @@
                                             </a>
                                         </div>
                                         <div class="content">
-                                            <a href="#">
+                                            <a href="{{route('detail',$getChild->id)}}">
                                                 <h4 class="title">{{$getChild->name}}</h4>
                                             </a>
                                             <p class="description">
@@ -322,9 +322,6 @@
                                                 <span class="price price-old"> {{$getChild->first_price_viet_nam }}₫</span>
                                                 <span class="price price-new"> {{$getChild->price_viet_nam}}₫/Giờ</span>
                                                 <p class="price"></p>
-                                                <button class="btn btn-danger btn-simple pull-right" rel="tooltip" title="" data-placement="left" data-original-title="Remove from wishlist">
-                                                    <i class="fa fa-heart"></i>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
