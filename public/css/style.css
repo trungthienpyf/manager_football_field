@@ -177,3 +177,9 @@
 .padding_content{
     margin:5px;
 }
+.borderStatistic{
+    margin: 20px 0;
+    background-color:#fff;
+    padding: 1.5rem;
+    box-shadow:  0 0 35px 0 rgb(154 161 171 / 15%);;
+}

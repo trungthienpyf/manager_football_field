@@ -94,7 +94,7 @@
 {{--<script src="assets/js/vendor.min.js"></script>--}}
 <script src="{{asset('js/vendor.min.js')}}"></script>
 <script src="{{asset('js/app.min.js')}}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js'></script>
 
 @stack('scripts')

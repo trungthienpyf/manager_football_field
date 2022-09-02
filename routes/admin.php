@@ -5,6 +5,7 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PitchController;
+use App\Http\Controllers\StatisticController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,9 @@ Route::post('/signup', [AuthController::class,'adminSignUp'])->name('signup');
 Route::post('/signin', [AuthController::class,'adminSignIn'])->name('signin');
 Route::get('/logout', [AuthController::class,'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function (){
-        return view('admin.layout.master');
-    })->name('index');
+    Route::get('/dashboard', [StatisticController::class,'index'])->name('index');
+    Route::get('/apiSumBill', [StatisticController::class,'apiSum'])->name('apiSum');
+    Route::get('/apiStatus', [StatisticController::class,'apiStatus'])->name('apiStatus');
 
     Route::get('/area', [AreaController::class,'index'])->name('area.index');
     Route::get('/area/create', [AreaController::class,'create'])->name('area.create');
