@@ -31,6 +31,7 @@ class BillMail extends Mailable
     public function build()
     {
 
+
         return $this->subject('Mail from Booking Football Pitches')
             ->markdown('emails.sendBillMail');
 

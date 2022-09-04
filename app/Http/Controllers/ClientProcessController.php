@@ -273,13 +273,17 @@ class ClientProcessController extends Controller
 
         ]);
         if($request->email){
-            $action->handle( $request->name_receive,$request->phone,$request->email,Hash::make(Str::random(8)));
-//            $details=[
-//                'name'=>$request->name_receive,
-//                'phone'=>$request->phone,
-//                'password'=>Hash::make(Str::random(8)),
-//            ];
-//            Mail::to($request->email)->send(new BillMail($details));
+//            $action->handle( $request->name_receive,$request->phone,$request->email,Hash::make(Str::random(8)));
+           $getNamePitch= Pitch::query()->where('id', $pitch_id)->first()->name;
+           $time= Time::query()->where('id',$request->selector)->first();
+
+
+            $details=[
+                'name'=> $getNamePitch,
+                'timeSlot'=> $request->date. ' ' . $time->time_start . ' ' . $time->time_end,
+                'price'=>$price,
+            ];
+            Mail::to($request->email)->send(new BillMail($details));
         }
 
         return redirect()->route('thanks');
