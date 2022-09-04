@@ -34,7 +34,7 @@
                                 </li>
                                 <li class="side-nav-item">
                                     <a href="javascript: void(0);" class="side-nav-link">
-                                        <i class="uil-home-alt"></i>
+                                        <i class="mdi mdi-shopping"></i>
                                         <span> Hóa Đơn </span>
                                     </a>
                                     <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
@@ -48,7 +48,7 @@
 
                                 <li class="side-nav-item">
                                     <a href="javascript: void(0);" class="side-nav-link">
-                                        <i class="uil-home-alt"></i>
+                                        <i class="mdi mdi-map-marker"></i>
 
                                         <span> Khu Vực </span>
                                     </a>
@@ -63,7 +63,7 @@
                                 </li>
                                 <li class="side-nav-item">
                                     <a href="javascript: void(0);" class="side-nav-link">
-                                        <i class="uil-home-alt"></i>
+                                        <i class="mdi mdi-soccer-field"></i>
 
                                         <span> Sân </span>
                                     </a>
