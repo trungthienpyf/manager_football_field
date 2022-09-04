@@ -8,6 +8,8 @@
                         <a  href="{{route('admin.booking.index')}}" >
                             <i class="dripicons-backspace"></i> Quay lại
                         </a>
+
+
                     </div>
 
                 <h4 class="page-title">Chi tiết đơn đặt</h4>

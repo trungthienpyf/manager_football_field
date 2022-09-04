@@ -1,92 +1,180 @@
 @extends('admin.layout.master')
 <!-- Styles -->
 @section('content')
-<style>
-    #chartdiv {
-        width: 100%;
-        height: 500px;
-    }
-</style>
-<div class="row">
-    <div class="col-lg-5">
-{{--        style="padding-bottom: 47px"--}}
-        <div class="borderStatistic">
-            <div id="chartApex"></div>
-            <div class="row text-center mt-2">
+    <style>
+        #chartdiv {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
 
-                <div class="col-md-6">
-                    <i class="mdi mdi-check-outline widget-icon rounded-circle bg-light-lighten text-muted"></i>
-                    <h3 class="font-weight-normal mt-3">
-                        <span class="qtySuccess"></span>
-                    </h3>
-                    <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i> Đặt thành công</p>
-                </div>
-                <div class="col-md-6">
-                    <i class="mdi mdi-close-circle-outline widget-icon rounded-circle bg-light-lighten text-muted"></i>
-                    <h3 class="font-weight-normal mt-3">
-                        <span class="qtyFail"></span>
-                    </h3>
-                    <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle " style="color: #23e5a4"></i> Hủy</p>
-                </div>
+                <h4 class="page-title">Quản lý số liệu</h4>
             </div>
-            <h2 style="text-align: center;color: #0e0f11;margin-top: 34px">Tỉ lệ trạng thái đặt sân</h2>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h5 class="text-muted font-weight-normal mt-0 text-truncate" title="Campaign Sent">Giờ thuê
+                                nhiều nhất</h5>
+                            <h3 class="my-2 py-1">{{date('H:i',strtotime($getSlotTimeMost->time_start))}}
+                                - {{date('H:i',strtotime($getSlotTimeMost->time_end))}}</h3>
+                            <p class="mb-0 text-muted">
+                                <span class="text-success mr-2">sl {{$getSlotTimeMost->sl}}</span>
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <i class="mdi mdi-clock widget-icon bg-info-lighten text-info"></i>
+                        </div>
+                    </div> <!-- end row-->
+                </div> <!-- end card-body -->
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h5 class="text-muted font-weight-normal mt-0 text-truncate" title="New Leads">Khu vực nhiều đơn</h5>
+                            <h3 class="my-2 py-1">{{$getBillOfArea->country}}</h3>
+                            <p class="mb-0 text-muted">
+                                <span class="text-success mr-2">sl {{$getBillOfArea->visits}}</span>
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <i class="mdi mdi-map-marker widget-icon bg-info-lighten text-info" ></i>
+                        </div>
+                    </div> <!-- end row-->
+                </div> <!-- end card-body -->
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h5 class="text-muted font-weight-normal mt-0 text-truncate" title="Deals">Đơn</h5>
+                            <h3 class="my-2 py-1">{{$totalBill}}</h3>
+                            <p class="mb-0 text-muted">
+                                <span class="text-success mr-2">sl</span>
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <i class="mdi mdi-cart-plus widget-icon bg-danger-lighten text-danger"></i>
+                        </div>
+                    </div> <!-- end row-->
+                </div> <!-- end card-body -->
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h5 class="text-muted font-weight-normal mt-0 text-truncate" title="Booked Revenue">Tổng doanh thu</h5>
+                            <h3 class="my-2 py-1">{{ number_format($totalPrice, 0, '', ',')}}</h3>
+                            <p class="mb-0 text-muted">
+                                <span class="text-success mr-2"> VND</span>
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <i class="mdi mdi-currency-usd widget-icon bg-info-lighten text-info"></i>
+                        </div>
+                    </div> <!-- end row-->
+                </div> <!-- end card-body -->
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+    </div>
+    <div class="row">
+        <div class="col-lg-5">
+            {{--        style="padding-bottom: 47px"--}}
+            <div class="borderStatistic">
+                <div id="chartApex"></div>
+                <div class="row text-center mt-2">
+
+                    <div class="col-md-6">
+                        <i class="mdi mdi-check-outline widget-icon rounded-circle bg-light-lighten text-muted"></i>
+                        <h3 class="font-weight-normal mt-3">
+                            <span class="qtySuccess"></span>
+                        </h3>
+                        <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i> Đặt
+                            thành công</p>
+                    </div>
+                    <div class="col-md-6">
+                        <i class="mdi mdi-close-circle-outline widget-icon rounded-circle bg-light-lighten text-muted"></i>
+                        <h3 class="font-weight-normal mt-3">
+                            <span class="qtyFail"></span>
+                        </h3>
+                        <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle "
+                                                           style="color: #23e5a4"></i> Hủy</p>
+                    </div>
+                </div>
+                <h2 style="text-align: center;color: #0e0f11;margin-top: 34px">Tỉ lệ trạng thái đặt sân</h2>
+            </div>
+
+        </div>
+        <div class="col-lg-7">
+            <div class="borderStatistic">
+                <div id="chartdiv"></div>
+                <h2 style="text-align: center;color: #0e0f11">Thông kê số lượng sân đã được đặt trong tháng</h2>
+            </div>
         </div>
 
     </div>
-    <div class="col-lg-7">
-        <div class="borderStatistic">
-            <div id="chartdiv"></div>
-            <h2 style="text-align: center;color: #0e0f11">Thông kê số lượng sân đã được đặt trong tháng</h2>
-        </div>
-    </div>
-
-</div>
 
 
-<!-- Resources -->
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 
 
 
 
 
-<!-- Chart code -->
-<script>
+    <!-- Chart code -->
+    <script>
 
 
+        am5.ready(function () {
+            let arrSeries = [];
+            let arrLabels = [];
+            let arrCount = []
 
-    am5.ready(function() {
-        let arrSeries=[];
-        let arrLabels=[];
-        let arrCount=[]
+            $.ajax({
+                url: '{{route('admin.apiStatus')}}',
+                async: false,
+                type: 'get',
+                success: function (response) {
+                    let object = response[0]
+                    console.log(object)
+                    for (const property in object) {
+                        arrLabels.push(property)
 
-        $.ajax({
-            url: '{{route('admin.apiStatus')}}',
-            async:false,
-            type: 'get',
-            success: function (response) {
-                let   object=response[0]
-                console.log(object)
-                for (const property in object) {
-                    arrLabels.push(property)
+                        arrCount.push(object[property])
+                        arrSeries.push(parseFloat(object[property] / (response[0].Sum) * 100).toFixed(2))
 
-                    arrCount.push(object[property])
-                        arrSeries.push(parseFloat(object[property]/(response[0].Sum)*100).toFixed(2))
+                    }
+
 
                 }
+            })
 
-
-
-            }
-        })
-
-        console.log(arrSeries,arrLabels)
-        $('.qtySuccess').text(arrCount[0])
-        $('.qtyFail').text(arrCount[1])
-        var options = {
-                series:arrSeries.slice(0,-1),
+            console.log(arrSeries, arrLabels)
+            $('.qtySuccess').text(arrCount[0])
+            $('.qtyFail').text(arrCount[1])
+            var options = {
+                series: arrSeries.slice(0, -1),
                 chart: {
                     height: 350,
                     type: 'radialBar',
@@ -104,122 +192,118 @@
                         }
                     }
                 },
-                labels: arrLabels.slice(0,-1),
+                labels: arrLabels.slice(0, -1),
             };
 
             var chart = new ApexCharts(document.querySelector("#chartApex"), options);
             chart.render();
 
 
-
 // Create root element
 // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-        var root = am5.Root.new("chartdiv");
+            var root = am5.Root.new("chartdiv");
 
 
 // Set themes
 // https://www.amcharts.com/docs/v5/concepts/themes/
-        root.setThemes([
-            am5themes_Animated.new(root)
-        ]);
+            root.setThemes([
+                am5themes_Animated.new(root)
+            ]);
 
 
 // Create chart
 // https://www.amcharts.com/docs/v5/charts/xy-chart/
-        var chart2 = root.container.children.push(am5xy.XYChart.new(root, {
-            panX: false,
-            panY: false,
-            wheelX: "panX",
-            wheelY: "zoomX",
-            layout: root.verticalLayout
-        }));
+            var chart2 = root.container.children.push(am5xy.XYChart.new(root, {
+                panX: false,
+                panY: false,
+                wheelX: "panX",
+                wheelY: "zoomX",
+                layout: root.verticalLayout
+            }));
 
 
 // Data
-        var colors = chart2.get("colors");
-var data=[]
+            var colors = chart2.get("colors");
+            var data = []
 
-        $.ajax({
+            $.ajax({
                 url: '{{route('admin.apiSum')}}',
-                async:false,
+                async: false,
                 type: 'get',
                 success: function (response) {
-                   // console.log(response)
-                   data.push(...response)
+                    // console.log(response)
+                    data.push(...response)
 
 
                 }
             })
 
-        data.map(function(d){
+            data.map(function (d) {
 
-            return  d.visits=parseInt(d.visits), d.icon='',d.columnSettings = { fill: colors.next() }
-        })
-
-
-
+                return d.visits = parseInt(d.visits), d.icon = '', d.columnSettings = {fill: colors.next()}
+            })
 
 
 // Create axes
 // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-        var xAxis = chart2.xAxes.push(am5xy.CategoryAxis.new(root, {
-            categoryField: "country",
-            renderer: am5xy.AxisRendererX.new(root, {
-                minGridDistance: 30
-            }),
+            var xAxis = chart2.xAxes.push(am5xy.CategoryAxis.new(root, {
+                categoryField: "country",
+                renderer: am5xy.AxisRendererX.new(root, {
+                    minGridDistance: 30
+                }),
 
-            bullet: function (root, axis, dataItem) {
-                return am5xy.AxisBullet.new(root, {
-                    location: 0.5,
-                    sprite: am5.Picture.new(root, {
-                        width: 24,
-                        height: 24,
-                        centerY: am5.p50,
-                        centerX: am5.p50,
-                        src: dataItem.dataContext.icon
-                    })
-                });
-            }
-        }));
+                bullet: function (root, axis, dataItem) {
+                    return am5xy.AxisBullet.new(root, {
+                        location: 0.5,
+                        sprite: am5.Picture.new(root, {
+                            width: 24,
+                            height: 24,
+                            centerY: am5.p50,
+                            centerX: am5.p50,
+                            src: dataItem.dataContext.icon
+                        })
+                    });
+                }
+            }));
 
-        xAxis.get("renderer").labels.template.setAll({
-            paddingTop: 20
-        });
+            xAxis.get("renderer").labels.template.setAll({
+                paddingTop: 20
+            });
 
-        xAxis.data.setAll(data);
+            xAxis.data.setAll(data);
 
-        var yAxis = chart2.yAxes.push(am5xy.ValueAxis.new(root, {
-            renderer: am5xy.AxisRendererY.new(root, {})
-        }));
+            var yAxis = chart2.yAxes.push(am5xy.ValueAxis.new(root, {
+                renderer: am5xy.AxisRendererY.new(root, {})
+            }));
 
 // Add series
 // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-        var series = chart2.series.push(am5xy.ColumnSeries.new(root, {
-            xAxis: xAxis,
-            yAxis: yAxis,
-            valueYField: "visits",
-            categoryXField: "country"
-        }));
+            var series = chart2.series.push(am5xy.ColumnSeries.new(root, {
+                xAxis: xAxis,
+                yAxis: yAxis,
+                valueYField: "visits",
+                categoryXField: "country"
+            }));
 
-        series.columns.template.setAll({
-            tooltipText: "{categoryX}: {valueY}",
-            tooltipY: 0,
-            strokeOpacity: 0,
-            templateField: "columnSettings",
-            name:'a',
-        });
+            series.columns.template.setAll({
+                tooltipText: "{categoryX}: {valueY}",
+                tooltipY: 0,
+                strokeOpacity: 0,
+                templateField: "columnSettings",
+                name: 'a',
+            });
 
-        series.data.setAll(data);
+            series.data.setAll(data);
 
 
 // Make stuff animate on load
 // https://www.amcharts.com/docs/v5/concepts/animations/
-        series.appear();
-        chart2.appear(1000, 100);
+            series.appear();
+            chart2.appear(1000, 100);
 
-    }); // end am5.ready()
-</script>
+        }); // end am5.ready()
+    </script>
 
-<!-- HTML -->
+    <!-- HTML -->
 
 @endsection
