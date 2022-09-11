@@ -6,7 +6,7 @@
             <div class="col-md-6">
                 <div class="tab-content">
                     <div class="tab-pane active" id="product-page1">
-                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="540 px">
+                        <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px ">
                     </div>
                     <div class="tab-pane" id="product-page2">
                         <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 360px " width="540 px">
@@ -30,62 +30,62 @@
                             style="left: -113.75px;">
                             <li class="nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page6" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                             <li class="active nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page1" role="tab" data-toggle="tab" aria-expanded="false">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                             <li class="nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page2" role="tab" data-toggle="tab" aria-expanded="false">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                             <li class="nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page3" role="tab" data-toggle="tab" aria-expanded="false">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                             <li class="nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page4" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                             <li class="nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page5" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                             <li class="nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page6" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                             <li class="active nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page1" role="tab" data-toggle="tab" aria-expanded="false">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                             <li class="nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page2" role="tab" data-toggle="tab" aria-expanded="false">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                             <li class="nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page3" role="tab" data-toggle="tab" aria-expanded="false">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                             <li class="nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page4" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                             <li class="nbs-flexisel-item" style="width: 113.75px;">
                                 <a href="#product-page5" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
+                                    <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="...">
                                 </a>
                             </li>
                         </ul>
@@ -228,7 +228,7 @@
                 <div class="social-line">
                     <a href="{{ route('booking',$pitch) }}" class="btn btn-fill btn-social"
                        style="font-size:20px;background-color:#dd4b39;border:0">
-                        Đặt sân ngay
+                        Đặt lịch ngay
                     </a>
                 </div>
 
@@ -272,7 +272,7 @@
                                 <div class="card card-product card-plain">
                                     <div class="image">
                                         <a href="#">
-                                            <img src="{{ url('/storage') }}/{{$pitch->pitch->img}}" alt="..." width="165" height="124">
+                                            <img src="{{ url('/storage') }}/{{$pitch->pitch->img}}" alt="..." style="max-width:100%" height="124">
                                         </a>
                                     </div>
                                     <div class="content">
@@ -286,10 +286,8 @@
 
                                             <span class="price price-old"> {{$pitch->pitch->first_price_viet_nam }}₫</span>
                                             <span class="price price-new"> {{$pitch->pitch->price_viet_nam}}₫/Giờ</span>
-                                            <p class="price"></p>
-                                            <button class="btn btn-danger btn-simple pull-right" rel="tooltip" title="" data-placement="left" data-original-title="Remove from wishlist">
-                                                <i class="fa fa-heart"></i>
-                                            </button>
+
+
                                         </div>
                                     </div>
                                 </div>

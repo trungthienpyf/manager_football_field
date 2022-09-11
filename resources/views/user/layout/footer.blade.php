@@ -96,20 +96,20 @@
             </div>
 
             <div class="col-md-3">
-                <h5 class="title">Latest News</h5>
+                <h5 class="title">Other..</h5>
                 <nav>
                     <ul>
                         <li>
                             <a href="#">
-                                <i class="fa fa-twitter"></i> <b>Get Shit Done</b>
-                                The best kit in the market is here, just give it a try and let us...
+                                <i class="fa fa-twitter"></i> <b>{{config('app.name')}}</b>
+                                The best where in the market is here, just give it a try and let us...
                                 <hr class="hr-small">
                             </a>
                         </li>
                         <li>
                             <a href="#">
                                 <i class="fa fa-twitter"></i>
-                                We've just been featured on <b> Awwwards Website</b>! Thank you everybody for...
+                                We've just been featured on <b>Facebook</b>! Thank you everybody for...
                             </a>
                         </li>
 

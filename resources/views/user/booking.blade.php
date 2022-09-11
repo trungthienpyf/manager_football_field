@@ -6,7 +6,7 @@
             <div class="col-md-4">
                 <div class="tab-content">
                     <div class="tab-pane active" id="product-page1" style="    text-align: center;">
-                        <img src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 240px ">
+                        <img style="max-width:100%" src="{{ url('/storage') }}/{{$pitch->img}}" alt="..." height=" 240px ">
                     </div>
 
                 </div>

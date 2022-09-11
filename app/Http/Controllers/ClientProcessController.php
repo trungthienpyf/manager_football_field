@@ -17,6 +17,7 @@ use App\Models\Time;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -128,7 +129,7 @@ class ClientProcessController extends Controller
 
 
         return view('user.welcome', [
-            'pitches' => $pitches,
+            'pitches' =>$pitches,
             'status' => $status,
             'area' => $area,
             'area_id' => $area_id,
@@ -216,7 +217,7 @@ class ClientProcessController extends Controller
             ->where('time_id', '=', $request->selector)
             ->first();
         if ($checkHasBill) {
-            $msg = "Có lỗi đã xảy ra!!";
+            $msg = "Sân nhỏ của sân này đã được người khác đặt giờ này!!";
             return redirect()->back()->with('msg', $msg);
         }
         $checkPitchBig = Pitch::where('pitch_id', '=', $pitch->id)->first();
@@ -239,20 +240,22 @@ class ClientProcessController extends Controller
                 ->where('pitch_id', '=', $pitch->id)
                 ->get()->toArray();
 
-            foreach ($getChildren as $key => $each) {
+            foreach ($getChildren as  $each) {
                 $array[] = $each;
 
             }
             $checkExist = Bill::query()->where(function ($q) use ($array) {
-                foreach ($array as $key => $child_id) {
+                foreach ($array as $child_id) {
 
                     $q->orWhere('pitch_id', '=', $child_id['id']);
                 }
-            })->where('status', '=', BillStatusEnum::DA_DUYET)
+            })
+                ->where('status', '=', BillStatusEnum::DA_DUYET)
                 ->where('date_receive', '=', $request->date)
                 ->where('time_id', '=', $request->selector)
                 ->get()->count();
-            if ($checkExist) {
+
+            if ($checkExist >= 1) {
                 $msg = "Sân nhỏ của sân này đã được người khác đặt giờ này!!";
                 return redirect()->back()->with('msg', $msg);
 
