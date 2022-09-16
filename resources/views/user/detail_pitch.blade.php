@@ -269,14 +269,15 @@
 
 
                             <div class="col-md-4">
+
                                 <div class="card card-product card-plain">
                                     <div class="image">
-                                        <a href="#">
+                                        <a href="{{route('detail',$pitch->pitch->id)}}">
                                             <img src="{{ url('/storage') }}/{{$pitch->pitch->img}}" alt="..." style="max-width:100%" height="124">
                                         </a>
                                     </div>
                                     <div class="content">
-                                        <a href="#">
+                                        <a href="{{route('detail',$pitch->pitch->id)}}">
                                             <h4 class="title">{{$pitch->pitch->name}}</h4>
                                         </a>
                                         <p class="description">
@@ -291,6 +292,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                     </div>
@@ -304,7 +306,7 @@
                                 <div class="col-md-4">
                                     <div class="card card-product card-plain">
                                         <div class="image">
-                                            <a href="#">
+                                            <a href="{{route('detail',$getChild->id)}}">
                                                 <img src="{{ url('/storage') }}/{{$getChild->img}}" alt="..." width="165" height="124">
                                             </a>
                                         </div>
